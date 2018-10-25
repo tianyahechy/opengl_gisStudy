@@ -53,7 +53,7 @@ namespace CELL
                                     , nullptr
                                     , nullptr
                                     , hInst
-                                    , nullptr);
+                                    , this);
             if (_hWnd == 0 )
             {
                 return  false;
@@ -75,17 +75,37 @@ namespace CELL
         {
             MSG msg =   {0};
             // 主消息循环: 
+#if 0
             while (GetMessage(&msg, nullptr, 0, 0))
             {
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
+#else
+			while (msg.message != WM_QUIT)
+			{			
+				if(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+				{
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
+				this->render();
+			}
+
+#endif
 			_context.shutdown();
         }
-    protected:
-        static  LRESULT CALLBACK  wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-        {
-            switch (message)
+
+		//绘制函数
+		void render()
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(1, 0, 0, 1);
+			_context.swapBuffer();
+		}
+		LRESULT eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+		{           
+			switch (message)
             {
             case WM_COMMAND:
                 break;
@@ -103,6 +123,31 @@ namespace CELL
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
+			return S_OK;
+		}
+    protected:
+        static  LRESULT CALLBACK  wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+        {
+			if (WM_CREATE == message )
+			{
+				CREATESTRUCT * pSTRUCT = (CREATESTRUCT*)lParam;
+				CELLWinApp * pApp = (CELLWinApp *)pSTRUCT->lpCreateParams;
+				SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG_PTR)pApp);
+				return pApp->eventProc(hWnd, WM_CREATE, wParam, lParam);
+			}
+			else
+			{
+				CELLWinApp * pApp = (CELLWinApp*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+				if (pApp)
+				{
+					return pApp->eventProc(hWnd, message, wParam, lParam);
+				}
+				else
+				{
+					return DefWindowProc(hWnd, message, wParam, lParam);
+				}
+			}
+
             return 0;
         }
     };
