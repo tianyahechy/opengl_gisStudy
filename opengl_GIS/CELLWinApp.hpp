@@ -107,6 +107,14 @@ namespace CELL
 		{           
 			switch (message)
             {
+			case WM_LBUTTONDOWN:
+				break;
+			case WM_LBUTTONUP:
+				break;
+			case WM_MOUSEMOVE:
+				break;
+			case WM_MOUSEWHEEL:
+				break;
             case WM_COMMAND:
                 break;
             case WM_PAINT:
@@ -132,6 +140,9 @@ namespace CELL
 			{
 				CREATESTRUCT * pSTRUCT = (CREATESTRUCT*)lParam;
 				CELLWinApp * pApp = (CELLWinApp *)pSTRUCT->lpCreateParams;
+#ifndef GWL_USERDATA
+#define GWL_USERDATA -21
+#endif
 				SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG_PTR)pApp);
 				return pApp->eventProc(hWnd, WM_CREATE, wParam, lParam);
 			}

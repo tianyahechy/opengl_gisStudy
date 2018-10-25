@@ -75,7 +75,7 @@ namespace CELL
 			{
 				return false;
 			}
-			//glewInit();
+			glewInit();
 			return true;
 		}
 
