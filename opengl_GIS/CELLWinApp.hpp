@@ -3,7 +3,7 @@
 #include    "CELLApp.hpp"
 #include    <windows.h>
 #include    <tchar.h>
-
+#include "CELLGLContext.h"
 
 namespace CELL
 {
@@ -11,6 +11,7 @@ namespace CELL
     {
     public:
         HWND    _hWnd;
+		CELLGLContext _context;
     public:
         CELLWinApp()
         {
@@ -61,6 +62,13 @@ namespace CELL
             ShowWindow(_hWnd,SW_SHOW);
             UpdateWindow(_hWnd);
 
+			HDC hDC = GetDC(_hWnd);
+			if (!_context.Init(_hWnd, hDC))
+			{
+				DestroyWindow(_hWnd);
+				return false;
+			}
+			return true;
         }
         ///  Èë¿Úº¯Êý
         virtual void    main(int argc, char** argv)
@@ -72,6 +80,7 @@ namespace CELL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
+			_context.shutdown();
         }
     protected:
         static  LRESULT CALLBACK  wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

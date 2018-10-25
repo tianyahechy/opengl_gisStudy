@@ -1,8 +1,8 @@
 #pragma once
-
+#include "CELLPlatform.hpp"
 namespace CELL
 {
-    class   CELLApp
+    class CELLApp
     {
     public:
 
