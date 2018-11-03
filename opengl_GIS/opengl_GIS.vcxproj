@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\opengl_gis\trunk\opengl_GIS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Lifei\opengl_gis\study\trunk\opengl_GIS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,9 +147,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CELLApp.hpp" />
+    <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLGLContext.h" />
+    <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLPlatform.hpp" />
+    <ClInclude Include="CELLShader.hpp" />
+    <ClInclude Include="CELLShpReader.h" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
@@ -157,6 +161,7 @@
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="opengl_GIS.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="shp\shapefil.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -164,6 +169,10 @@
     <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="opengl_GIS.cpp" />
+    <ClCompile Include="shp\dbfopen.c" />
+    <ClCompile Include="shp\safileio.c" />
+    <ClCompile Include="shp\shpopen.c" />
+    <ClCompile Include="shp\shptree.c" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

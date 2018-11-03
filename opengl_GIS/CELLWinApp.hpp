@@ -5,21 +5,46 @@
 #include    <tchar.h>
 #include "CELLGLContext.h"
 #include "CELLOpenGL.h"
+#include "CELLShader.hpp"
+#include "CELLShpReader.h"
 
 namespace CELL
 {
     class CELLWinApp :public CELLApp
     {
     public:
+		//窗口句柄
         HWND    _hWnd;
+		//窗口宽度
+		int		_width;
+		//窗口高度
+		int		_height;
 		CELLGLContext _context;
 		CELLOpenGL _device;
+		PROGRAM_P2_AC4 _shader;
+		PROGRAM_P2_C4 _shaderShp;
+		CELLShpReader _shpReader;
+
+		struct vertex
+		{
+			CELL::float2 pos;
+			CELL::Rgba4Byte color;
+		};
     public:
         CELLWinApp()
         {
             _hWnd   =   0;
         }
     public:
+		//初始化数据
+		void InitData()
+		{
+			_shader.initialize();
+			_shaderShp.initialize();
+			std::string strShpName = "data/china_province.shp";
+			_shpReader.read(strShpName.c_str());
+		}
+
         /// 创建窗口函数
         virtual bool    createWindow(int width, int height,HINSTANCE hInst)
         {
@@ -40,13 +65,13 @@ namespace CELL
             wcex.hCursor        =   LoadCursor(nullptr, IDC_ARROW);
             wcex.hbrBackground  =   (HBRUSH)(COLOR_WINDOW + 1);
             wcex.lpszMenuName   =   0;
-            wcex.lpszClassName  =   _T("CELL.BigMap");
+            wcex.lpszClassName  =   _T("gis_bim");
             wcex.hIconSm        =   0;
             RegisterClassExW(&wcex);
             /// 创建窗口
             _hWnd   =   CreateWindow(
-                                      _T("CELL.BigMap")
-                                    , _T("BigMap")
+                                      _T("gis_bim")
+                                    , _T("gis_bim")
                                     , WS_OVERLAPPEDWINDOW
                                     , CW_USEDEFAULT
                                     , 0
@@ -63,13 +88,14 @@ namespace CELL
 
             ShowWindow(_hWnd,SW_SHOW);
             UpdateWindow(_hWnd);
-
 			HDC hDC = GetDC(_hWnd);
 			if (!_context.Init(_hWnd, hDC))
 			{
 				DestroyWindow(_hWnd);
 				return false;
 			}
+			//初始化数据
+			this->InitData();
 			return true;
         }
         ///  入口函数
@@ -102,7 +128,15 @@ namespace CELL
 		void render()
 		{
 			_device.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			_device.clearColor(1, 0, 0, 1);
+			_device.clearColor(0, 0, 0, 1);
+			//视口
+			_device.setViewPort(0, 0, _width, _height);
+			
+			CELL::matrix4 longLatPrj = CELL::ortho<float>(_shpReader._xMin, _shpReader._xMax, _shpReader._yMin, _shpReader._yMax,-100.0,100.0);
+			_shaderShp.begin();
+			glUniformMatrix4fv(_shaderShp._MVP, 1, false, longLatPrj.data());
+			_shpReader.render(_shaderShp);
+			_shaderShp.end();
 			_context.swapBuffer();
 		}
 		LRESULT eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -116,6 +150,18 @@ namespace CELL
 			case WM_MOUSEMOVE:
 				break;
 			case WM_MOUSEWHEEL:
+				break;
+			case WM_SIZE:
+			{
+				if (::IsWindow(hWnd))
+				{
+					RECT rc;
+					GetClientRect(hWnd, &rc);
+					_width = rc.right - rc.left;
+					_height = rc.bottom - rc.top;
+				}
+				
+			}
 				break;
             case WM_COMMAND:
                 break;

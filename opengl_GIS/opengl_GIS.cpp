@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "opengl_GIS.h"
 #include "CELLWinApp.hpp"
+#include "CELLShpReader.h"
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -20,6 +21,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	}
 	app->main(0, 0);
 	delete app;
+
 	return 0;
 
 }
