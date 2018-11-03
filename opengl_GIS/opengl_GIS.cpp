@@ -12,12 +12,14 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-	CELL::CELLWinApp app;
-	if (!app.createWindow(800, 600, hInstance))
+	CELL::CELLWinApp * app = new CELL::CELLWinApp;
+	if (!app->createWindow(800, 600, hInstance))
 	{
+		delete app;
 		return 0;
 	}
-	app.main(0, 0);
+	app->main(0, 0);
+	delete app;
 	return 0;
 
 }
