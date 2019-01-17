@@ -1,8 +1,9 @@
 #pragma once
 #include "CELLContext.h"
+#include "CELLInput.hpp"
 namespace CELL
 {
-	class CELLFrame
+	class CELLFrame : public CELLInput
 	{
 	public:
 		CELLContext& _context;
@@ -19,6 +20,7 @@ namespace CELL
 		//结束绘制
 		virtual void onFrameEnd(CELLContext& context) = 0;
 		//更新数据
-		virtual void update(CELLContext& context) = 0;
+		virtual void update(CELLContext& context) = 0;		
+
 	};
 }

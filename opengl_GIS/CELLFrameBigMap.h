@@ -14,6 +14,13 @@ namespace CELL
 		virtual void onFrameEnd(CELLContext& context);
 		//更新数据
 		virtual void update(CELLContext& context);
+		//鼠标左键按下
+		virtual void onLButtonDown(int x, int y);	
+		//鼠标左键提起
+		virtual void onLButtonUp(int x, int y);
+		//鼠标移动
+		virtual void onMouseMove(int x, int y);
+
 	};
 }
 

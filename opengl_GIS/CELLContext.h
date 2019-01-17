@@ -6,7 +6,10 @@ namespace CELL
 	{
 	public:
 		CELLOpenGL * _device;
-	private:
+		//鼠标当前位置
+		int _mouseX;
+		int _mouseY;
+
 
 	};
 

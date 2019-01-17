@@ -29,5 +29,21 @@ namespace CELL
 	{
 
 	}
+	//鼠标左键按下
+	void CELLFrameBigMap::onLButtonDown(int x, int y)
+	{
+
+	}
+	//鼠标左键提起
+	void CELLFrameBigMap::onLButtonUp(int x, int y)
+	{
+
+	}
+
+	//鼠标移动
+	void CELLFrameBigMap::onMouseMove(int x, int y)
+	{
+
+	}
 }
 

@@ -104,14 +104,13 @@ namespace CELL
 		//创建框架
 		virtual CELLFrame * createFrame()
 		{
-			return new CELLFrameBigMap(_context);
-			
+			return  new CELLFrameBigMap(_context);			
 		}
         ///  入口函数
         virtual void    main(int argc, char** argv)
         {
-			CELLFrame * pFrame = createFrame();
-			if (pFrame == 0)
+			_frame = createFrame();
+			if (_frame == 0)
 			{
 				_contextGL.shutdown();
 				return;
@@ -149,27 +148,26 @@ namespace CELL
 			_frame->onFrameStart(_context);
 			_frame->update(_context);
 			_frame->onFrameEnd(_context);
-			_device.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			_device.clearColor(0, 0, 0, 1);
-			//视口
-			_device.setViewPort(0, 0, _width, _height);
-			
-			CELL::matrix4 longLatPrj = CELL::ortho<float>(_shpReader._xMin, _shpReader._xMax, _shpReader._yMin, _shpReader._yMax,-100.0,100.0);
-			_shaderShp.begin();
-			glUniformMatrix4fv(_shaderShp._MVP, 1, false, longLatPrj.data());
-			_shpReader.render(_shaderShp);
-			_shaderShp.end();
-			_contextGL.swapBuffer();
+	
 		}
 		LRESULT eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{           
 			switch (message)
             {
 			case WM_LBUTTONDOWN:
+				_frame->onLButtonDown(LOWORD(lParam), HIWORD(lParam));
 				break;
 			case WM_LBUTTONUP:
+				_frame->onLButtonUp(LOWORD(lParam), HIWORD(lParam));
 				break;
 			case WM_MOUSEMOVE:
+				{
+					int x = LOWORD(lParam);
+					int y = HIWORD(lParam);
+					_context._mouseX = x;
+					_context._mouseY = y;
+					_frame->onMouseMove(x, y);
+				}
 				break;
 			case WM_MOUSEWHEEL:
 				break;

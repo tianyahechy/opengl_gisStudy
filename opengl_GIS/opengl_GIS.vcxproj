@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\Lifei\opengl_gis\study\trunk\opengl_GIS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Lifei\学习\opengl_gis\trunk\opengl_GIS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +151,7 @@
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.h" />
     <ClInclude Include="CELLGLContext.h" />
+    <ClInclude Include="CELLInput.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLObject.h" />
     <ClInclude Include="CELLOpenGL.h" />
