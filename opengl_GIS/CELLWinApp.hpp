@@ -1,12 +1,13 @@
 #pragma once
 
-#include    "CELLApp.hpp"
-#include    <windows.h>
-#include    <tchar.h>
+#include "CELLApp.hpp"
+#include <windows.h>
+#include <tchar.h>
 #include "CELLGLContext.h"
 #include "CELLOpenGL.h"
 #include "CELLShader.hpp"
 #include "CELLShpReader.h"
+#include "CELLFrameBigMap.h"
 
 namespace CELL
 {
@@ -19,12 +20,13 @@ namespace CELL
 		int		_width;
 		//窗口高度
 		int		_height;
-		CELLGLContext _context;
+		CELLGLContext _contextGL;
+		CELLContext _context;
 		CELLOpenGL _device;
 		PROGRAM_P2_AC4 _shader;
 		PROGRAM_P2_C4 _shaderShp;
 		CELLShpReader _shpReader;
-
+		CELLFrame* _frame;
 		struct vertex
 		{
 			CELL::float2 pos;
@@ -34,6 +36,7 @@ namespace CELL
         CELLWinApp()
         {
             _hWnd   =   0;
+			_frame = 0;
         }
     public:
 		//初始化数据
@@ -89,7 +92,7 @@ namespace CELL
             ShowWindow(_hWnd,SW_SHOW);
             UpdateWindow(_hWnd);
 			HDC hDC = GetDC(_hWnd);
-			if (!_context.Init(_hWnd, hDC))
+			if (!_contextGL.Init(_hWnd, hDC))
 			{
 				DestroyWindow(_hWnd);
 				return false;
@@ -98,9 +101,21 @@ namespace CELL
 			this->InitData();
 			return true;
         }
+		//创建框架
+		virtual CELLFrame * createFrame()
+		{
+			return new CELLFrameBigMap(_context);
+			
+		}
         ///  入口函数
         virtual void    main(int argc, char** argv)
         {
+			CELLFrame * pFrame = createFrame();
+			if (pFrame == 0)
+			{
+				_contextGL.shutdown();
+				return;
+			}
             MSG msg =   {0};
             // 主消息循环: 
 #if 0
@@ -121,12 +136,19 @@ namespace CELL
 			}
 
 #endif
-			_context.shutdown();
+			_contextGL.shutdown();
         }
 
 		//绘制函数
 		void render()
 		{
+			if (_frame == NULL)
+			{
+				return;
+			}
+			_frame->onFrameStart(_context);
+			_frame->update(_context);
+			_frame->onFrameEnd(_context);
 			_device.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			_device.clearColor(0, 0, 0, 1);
 			//视口
@@ -137,7 +159,7 @@ namespace CELL
 			glUniformMatrix4fv(_shaderShp._MVP, 1, false, longLatPrj.data());
 			_shpReader.render(_shaderShp);
 			_shaderShp.end();
-			_context.swapBuffer();
+			_contextGL.swapBuffer();
 		}
 		LRESULT eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{           
