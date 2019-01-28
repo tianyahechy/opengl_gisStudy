@@ -158,6 +158,7 @@
     <ClInclude Include="CELLPlatform.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLShpReader.h" />
+    <ClInclude Include="CELLThread.hpp" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="gl\eglew.h" />

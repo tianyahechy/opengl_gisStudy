@@ -8,10 +8,12 @@
 #include "CELLShader.hpp"
 #include "CELLShpReader.h"
 #include "CELLFrameBigMap.h"
+#include "CELLContext.h"
+#include "CELLThread.hpp"
 
 namespace CELL
 {
-    class CELLWinApp :public CELLApp
+    class CELLWinApp :public CELLApp, public CELLThread
     {
     public:
 		//窗口句柄
@@ -27,6 +29,7 @@ namespace CELL
 		PROGRAM_P2_C4 _shaderShp;
 		CELLShpReader _shpReader;
 		CELLFrame* _frame;
+		bool _threadRun;
 		struct vertex
 		{
 			CELL::float2 pos;
@@ -37,6 +40,7 @@ namespace CELL
         {
             _hWnd   =   0;
 			_frame = 0;
+			_threadRun = true;
         }
     public:
 		//初始化数据
@@ -115,6 +119,7 @@ namespace CELL
 				_contextGL.shutdown();
 				return;
 			}
+
             MSG msg =   {0};
             // 主消息循环: 
 #if 0
@@ -133,13 +138,13 @@ namespace CELL
 				}
 				this->render();
 			}
-
+		_contextGL.shutdown();
 #endif
-			_contextGL.shutdown();
+			
         }
 
 		//绘制函数
-		void render()
+		virtual void render()
 		{
 			if (_frame == NULL)
 			{
@@ -150,6 +155,66 @@ namespace CELL
 			_frame->onFrameEnd(_context);
 	
 		}
+	
+		DWORD threadId() const
+		{
+			return _threadId;
+		}
+		bool isRun() const
+		{
+			return _thread != 0;
+		}
+		//创建完成通知函数
+		virtual bool onCreate()
+		{
+			bool bInit = _contextGL.Init(_hWnd, GetDC(_hWnd));
+			if (bInit)
+			{
+				return true;
+			}
+			return false;
+		}
+		//线程执行函数
+		virtual bool onRun()
+		{
+			while (_threadRun)
+			{
+				render();
+			}
+			return false;
+		}
+		//结束函数
+		virtual bool onDestroy()
+		{
+			_contextGL.shutdown();
+			return false;
+		}
+		//启动线程函数
+		virtual bool start()
+		{
+			if (_thread != 0)
+			{
+				return false;
+			}
+		}
+		//等待退出函数
+		virtual void join()
+		{
+			if (_thread)
+			{
+				WaitForSingleObject(_thread, 0xFFFFFFFF);
+				CloseHandle(_thread);
+				_thread = 0;
+			}
+		}
+		//关闭
+		virtual void close()
+		{
+			CloseHandle(_thread);
+			_thread = 0;
+		}
+		
+		
 		LRESULT eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{           
 			switch (message)
