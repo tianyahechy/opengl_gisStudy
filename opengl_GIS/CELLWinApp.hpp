@@ -10,7 +10,7 @@
 #include "CELLFrameBigMap.h"
 #include "CELLContext.h"
 #include "CELLThread.hpp"
-
+#include "CELLEvent.hpp"
 namespace CELL
 {
     class CELLWinApp :public CELLApp, public CELLThread
@@ -30,6 +30,9 @@ namespace CELL
 		CELLShpReader _shpReader;
 		CELLFrame* _frame;
 		bool _threadRun;
+		bool _makeResult;
+		CELLEvent _event;
+
 		struct vertex
 		{
 			CELL::float2 pos;
@@ -41,6 +44,7 @@ namespace CELL
             _hWnd   =   0;
 			_frame = 0;
 			_threadRun = true;
+			_makeResult = false;
         }
     public:
 		//初始化数据
@@ -95,7 +99,8 @@ namespace CELL
 
             ShowWindow(_hWnd,SW_SHOW);
             UpdateWindow(_hWnd);
-			HDC hDC = GetDC(_hWnd);
+			
+			HDISPLAY hDC = GetDC(_hWnd);
 			if (!_contextGL.Init(_hWnd, hDC))
 			{
 				DestroyWindow(_hWnd);
@@ -103,6 +108,8 @@ namespace CELL
 			}
 			//初始化数据
 			this->InitData();
+			_contextGL.makeCurrentNone();
+			
 			return true;
         }
 		//创建框架
@@ -111,7 +118,7 @@ namespace CELL
 			return  new CELLFrameBigMap(_context);			
 		}
         ///  入口函数
-        virtual void    main(int argc, char** argv)
+        virtual void main(int argc, char** argv)
         {
 			_frame = createFrame();
 			if (_frame == 0)
@@ -120,9 +127,18 @@ namespace CELL
 				return;
 			}
 
-            MSG msg =   {0};
+			CELLThread::start();
+			_event.wait();
+			if (!_makeResult)
+			{
+				CELLThread::join();
+				delete _frame;			
+				_contextGL.shutdown();
+				return;
+			}
+            MSG msg = {0};
             // 主消息循环: 
-#if 0
+#if 1
             while (GetMessage(&msg, nullptr, 0, 0))
             {
                 TranslateMessage(&msg);
@@ -153,6 +169,7 @@ namespace CELL
 			_frame->onFrameStart(_context);
 			_frame->update(_context);
 			_frame->onFrameEnd(_context);
+			_contextGL.swapBuffer();
 	
 		}
 	
@@ -167,12 +184,10 @@ namespace CELL
 		//创建完成通知函数
 		virtual bool onCreate()
 		{
-			bool bInit = _contextGL.Init(_hWnd, GetDC(_hWnd));
-			if (bInit)
-			{
-				return true;
-			}
-			return false;
+			_makeResult = _contextGL.makeCurrent();
+			assert(_makeResult);
+			_event.set();
+			return _makeResult;
 		}
 		//线程执行函数
 		virtual bool onRun()
@@ -259,6 +274,8 @@ namespace CELL
                 }
                 break;
             case WM_DESTROY:
+				_threadRun = false;
+				CELLThread::join();
                 PostQuitMessage(0);
                 break;
             default:

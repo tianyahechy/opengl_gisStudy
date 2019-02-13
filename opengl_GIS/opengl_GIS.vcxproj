@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="CELLApp.hpp" />
     <ClInclude Include="CELLContext.h" />
+    <ClInclude Include="CELLEvent.hpp" />
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.h" />
     <ClInclude Include="CELLGLContext.h" />

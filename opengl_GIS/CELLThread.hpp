@@ -49,6 +49,11 @@ namespace CELL
 			{
 				return false;
 			}
+			else
+			{
+				_thread = CreateThread(0, 0, &CELLThread::threadEnter, this, HIGH_PRIORITY_CLASS, &_threadId);
+				return true;
+			}
 		}
 		//µÈ´ýÍË³öº¯Êý
 		virtual void join()
@@ -77,6 +82,7 @@ namespace CELL
 				pThis->onRun();
 				pThis->onDestroy();
 			}
+			return 0;
 		}
 
 	private:
