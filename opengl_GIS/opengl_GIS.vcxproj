@@ -157,6 +157,7 @@
     <ClInclude Include="CELLObject.h" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLPlatform.hpp" />
+    <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLShpReader.h" />
     <ClInclude Include="CELLThread.hpp" />

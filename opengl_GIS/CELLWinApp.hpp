@@ -115,6 +115,18 @@ namespace CELL
 		//创建框架
 		virtual CELLFrame * createFrame()
 		{
+			if (IsWindow(_hWnd))
+			{
+				RECT rc;
+				GetClientRect(_hWnd, &rc);
+				_context._width = rc.right - rc.left;
+				_context._height = rc.bottom - rc.top;
+			}
+			else
+			{
+				_context._width = 64;
+				_context._height = 64;
+			}
 			return  new CELLFrameBigMap(_context);			
 		}
         ///  入口函数
@@ -253,16 +265,16 @@ namespace CELL
 				break;
 			case WM_SIZE:
 			{
-				if (::IsWindow(hWnd))
+				if (::IsWindow(_hWnd))
 				{
 					RECT rc;
-					GetClientRect(hWnd, &rc);
-					_width = rc.right - rc.left;
-					_height = rc.bottom - rc.top;
+					GetClientRect(_hWnd, &rc);
+					_context._width = rc.right - rc.left;
+					_context._height = rc.bottom - rc.top;
 				}
 				
 			}
-				break;
+			break;
             case WM_COMMAND:
                 break;
             case WM_PAINT:
@@ -273,6 +285,7 @@ namespace CELL
                     EndPaint(hWnd, &ps);
                 }
                 break;
+
             case WM_DESTROY:
 				_threadRun = false;
 				CELLThread::join();
