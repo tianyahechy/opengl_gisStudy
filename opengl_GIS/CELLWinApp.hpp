@@ -11,6 +11,8 @@
 #include "CELLContext.h"
 #include "CELLThread.hpp"
 #include "CELLEvent.hpp"
+#include "CELLResourceMgr.hpp"
+#include "CELLProgramLibrary.hpp"
 namespace CELL
 {
     class CELLWinApp :public CELLApp, public CELLThread
@@ -25,6 +27,7 @@ namespace CELL
 		CELLGLContext _contextGL;
 		CELLContext _context;
 		CELLOpenGL _device;
+		CELLResourceMgr _res;
 		PROGRAM_P2_AC4 _shader;
 		PROGRAM_P2_C4 _shaderShp;
 		CELLShpReader _shpReader;
@@ -45,6 +48,8 @@ namespace CELL
 			_frame = 0;
 			_threadRun = true;
 			_makeResult = false;
+			_context._device = &_device;
+			_context._resMgr = &_res;
         }
     public:
 		//初始化数据
@@ -107,7 +112,8 @@ namespace CELL
 				return false;
 			}
 			//初始化数据
-			this->InitData();
+			_device.initialize();
+			_context._resMgr->initialize(_context._device);
 			_contextGL.makeCurrentNone();
 			
 			return true;
@@ -178,8 +184,8 @@ namespace CELL
 			{
 				return;
 			}
-			_frame->onFrameStart(_context);
 			_frame->update(_context);
+			_frame->onFrameStart(_context);
 			_frame->onFrameEnd(_context);
 			_contextGL.swapBuffer();
 	

@@ -1,15 +1,16 @@
 #pragma once
 #include "CELLMath.hpp"
+#include "CELLResourceMgr.hpp"
 namespace CELL
 {
-	class CELLResouceMgr;
+	class CELLResourceMgr;
 	class CELLOpenGL;
 	class CELLContext
 	{
 	public:
 		CELLOpenGL * _device;
 		//资源管理者指针
-		CELLResouceMgr* _resMgr;
+		CELLResourceMgr* _resMgr;
 		//鼠标当前位置
 		int _mouseX;
 		int _mouseY;
