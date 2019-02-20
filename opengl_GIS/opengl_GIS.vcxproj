@@ -111,7 +111,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -128,7 +128,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -152,11 +152,14 @@
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.h" />
     <ClInclude Include="CELLGLContext.h" />
+    <ClInclude Include="CELLImage.hpp" />
+    <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLInput.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLObject.h" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLPlatform.hpp" />
+    <ClInclude Include="CELLProgramLibrary.hpp" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLShpReader.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="opengl_GIS.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shp\shapefil.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -182,6 +186,7 @@
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />
     <ClCompile Include="shp\shptree.c" />
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -845,7 +845,43 @@ namespace   CELL
     {
         glCullFace(face);
     }
+	Texture1dId CELLOpenGL::createTexture1d(
+		int level,
+		int fmt,
+		int width,
+		int border,
+		int format,
+		int type,
+		const void* data
+		)
+	{
+		Texture1dId textureID;
+		textureID._width = width;
+		glGenTextures(1, &textureID._texture);
+		glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		if (format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT)
+		{
+			glCompressedTexImage1D(GL_TEXTURE_1D, level, GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, width, 0, width / 4, data);
+		}
+		else
+		if (format == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT)
+		{
+			glCompressedTexImage1D(GL_TEXTURE_1D, level, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, width, 0, width , data);
+		}
+		else
+		if (format == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+		{
+			glCompressedTexImage1D(GL_TEXTURE_1D, level, GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, width, 0, width, data);
+		}
+		else
+		{
+			glTexImage1D(GL_TEXTURE_1D, level, fmt, width, 0, format, GL_UNSIGNED_BYTE, data);
+		}
+		return textureID;
 
+	}
     Texture2dId CELLOpenGL::createTexure2D(
         int level,
         int intFmt,

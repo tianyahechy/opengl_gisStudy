@@ -1,84 +1,86 @@
 #pragma once
+#include "CELLPlatform.hpp"
+namespace CELL
+{
+	class CELLOpenGL;
+	class Texture
+	{
+	public:
+		enum 
+		{
+			TEXTURE_NONE,
+			TEXTURE_1D,
+			TEXTURE_2D,
+			TEXTURE_3D
 
-#include    "CELLPlatform.hpp"
+		};
+	public:
+		unsigned _texture;
+		unsigned _texType;
+	public:
+		Texture(unsigned type = TEXTURE_NONE)
+			: _texture(0xFFFFFFFF),
+			_texType(type)
+		{
 
-namespace   CELL
-{ 
-    class   CELLOpenGL;
+		}
+		virtual ~Texture()
+		{
 
-    
-    class   Texture
-    {
-    public:
-        enum
-        {
-            TEXTURE_NONE,
-            TEXTURE_1D,
-            TEXTURE_2D,
-            TEXTURE_3D,
-        };
-    public:
-        unsigned        _texture;
-        unsigned        _texType;
-    public:
-        Texture(unsigned type = TEXTURE_NONE )
-            :_texture(0xFFFFFFFF)
-            ,_texType(type)
-        {}
-        virtual ~Texture()
-        {}
+		}
+	};
 
-    };
-    class   Texture1d :public Texture
-    {
-    public:
-        unsigned        _width;
-    public:
-        Texture1d()
-            :Texture(TEXTURE_1D)
-        {
-            _width  =   0;
-        }
-        virtual~Texture1d()
-        {}
-    };
-    
-    class   Texture2dId :public Texture
-    {
-    public:
-        unsigned        _width;
-        unsigned        _height;
-    public:
-        Texture2dId()
-            :Texture(TEXTURE_2D)
-        {
-            _width      =   0;
-            _height     =   0;
-        }
-        virtual ~Texture2dId()
-        {}
-    };
+	class Texture1dId : public Texture
+	{
+	public:
+		unsigned _width;
+	public:
+		Texture1dId()
+			:Texture(TEXTURE_1D)
+		{
+			_width = 0;
+		}
+		virtual ~Texture1dId()
+		{
 
-    class   Texture3dId :public Texture
-    {
-    public:
-        unsigned        _width;
-        unsigned        _height;
-        unsigned        _depth;
-    public:
-        Texture3dId()
-            :Texture(TEXTURE_3D)
-        {
-            _width      =   0;
-            _height     =   0;
-            _depth      =   1;
-        }
-        virtual~Texture3dId()
-        {}
-        
-    };
+		}
+	};
+	class Texture2dId : public Texture
+	{
+	public:
+		unsigned _width;
+		unsigned _height;
+	public:
+		Texture2dId()
+			:Texture(TEXTURE_2D)
+		{
+			_width = 0;
+			_height = 0;
+		}
+		virtual ~Texture2dId()
+		{
 
+		}
+	};
+	class Texture3dId : public Texture
+	{
+	public:
+		unsigned _width;
+		unsigned _height;
+		unsigned _depth;
+	public:
+		Texture3dId()
+			:Texture(TEXTURE_3D)
+		{
+			_width = 0;
+			_height = 0;
+			_depth = 1;
+		}
+		virtual ~Texture3dId()
+		{
 
+		}
+	};
     class   CELLProgram
     {
     public:
@@ -227,6 +229,15 @@ namespace   CELL
         /**
         *   创建纹理函数
         */
+		static Texture1dId createTexture1d(
+			int level,
+			int intFmt,
+			int width,
+			int border,
+			int srcFmt,
+			int type,
+			const void* data
+			);
         /**
         *   创建2D纹理
         */
