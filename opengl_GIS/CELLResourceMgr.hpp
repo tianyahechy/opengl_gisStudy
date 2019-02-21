@@ -14,6 +14,7 @@ namespace CELL
 		CELLOpenGL * _device;
 		//针对绘制屏幕二维数据
 		Program_p2_uc _program_p2_UC;
+		Program_p3_uc _program_p3_UC;
 		mapTexture _mapTexture;
 	public:
 		CELLResourceMgr()
@@ -30,10 +31,12 @@ namespace CELL
 		{
 			_device = device;
 			_program_p2_UC.initialize(device);
+			_program_p3_UC.initialize(device);
 		}
 		void destroy()
 		{
 			_program_p2_UC.destroy();
+			_program_p3_UC.destroy();
 		}
 		//获取纹理资源
 		Texture * getTexture(const char* filePathName)

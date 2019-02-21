@@ -1,6 +1,6 @@
 #pragma once
 #include "CELLPlatform.hpp"
-#include "CELLObject.h"
+#include "CELLObject.hpp"
 
 #if CELL_PLATFORM == CELL_PLATFORM_WIN32
 namespace CELL

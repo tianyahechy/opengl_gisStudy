@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CELLApp.hpp" />
+    <ClInclude Include="CELLCamera.hpp" />
     <ClInclude Include="CELLContext.h" />
     <ClInclude Include="CELLEvent.hpp" />
     <ClInclude Include="CELLFeature.h" />
@@ -156,7 +157,7 @@
     <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLInput.hpp" />
     <ClInclude Include="CELLMath.hpp" />
-    <ClInclude Include="CELLObject.h" />
+    <ClInclude Include="CELLObject.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLPlatform.hpp" />
     <ClInclude Include="CELLProgramLibrary.hpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLShpReader.h" />
     <ClInclude Include="CELLThread.hpp" />
+    <ClInclude Include="CELLTimestamp.hpp" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="gl\eglew.h" />

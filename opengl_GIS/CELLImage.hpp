@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "CELLMath.hpp"
-#include "CELLObject.h"
+#include "CELLObject.hpp"
 
 namespace CELL
 {

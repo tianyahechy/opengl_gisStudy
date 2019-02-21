@@ -267,6 +267,12 @@ namespace CELL
 					_frame->onMouseMove(x, y);
 				}
 				break;
+			case WM_KEYDOWN:
+				_frame->onKeyDown(wParam);
+				break;
+			case WM_KEYUP:
+				_frame->onKeyUp(wParam);
+				break;
 			case WM_MOUSEWHEEL:
 				break;
 			case WM_SIZE:

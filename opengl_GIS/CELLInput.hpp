@@ -10,6 +10,10 @@ namespace CELL
 		virtual void onLButtonUp(int x, int y) = 0;
 		//鼠标移动
 		virtual void onMouseMove(int x, int y) = 0;
+		//键盘事件
+		virtual void onKeyDown(int key) = 0;
+		//键盘事件
+		virtual void onKeyUp(int key) = 0;
 
 	};
 }
