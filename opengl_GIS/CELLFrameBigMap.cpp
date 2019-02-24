@@ -110,7 +110,19 @@ namespace CELL
 	{
 
 	}
-
+	void CELLFrameBigMap::onMouseWheel(int delta)
+	{
+		double percent = 1;
+		if (delta > 0)
+		{
+			percent = 0.9;
+		}
+		else
+		{
+			percent = 1.1;
+		}
+		_context._camera.scaleCameraByPos(real3(0, 0, 0), percent);
+	}
 	//¼üÅÌÊÂ¼ş
 	void CELLFrameBigMap::onKeyDown(int key)
 	{

@@ -274,6 +274,7 @@ namespace CELL
 				_frame->onKeyUp(wParam);
 				break;
 			case WM_MOUSEWHEEL:
+				_frame->onMouseWheel( GET_WHEEL_DELTA_WPARAM(wParam));
 				break;
 			case WM_SIZE:
 			{
