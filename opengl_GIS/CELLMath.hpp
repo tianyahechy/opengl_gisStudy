@@ -53,6 +53,16 @@ namespace CELL
         return  intdata.int64Data;
     }
 
+	template <typename T>
+	struct tvec2_lf
+	{
+		typedef T			value_type;
+		typedef std::size_t	size_type;
+		typedef tvec2_lf<T>	type;
+		
+		value_type			x;
+
+	};
 
     template <typename T>
     struct tvec2
@@ -5816,43 +5826,42 @@ namespace CELL
     };
 
 
-    typedef float             real;
-    typedef tvec2<int>        int2;
+	typedef float			  real_lf;
+	typedef tvec2<int>		  int2_lf;
     typedef tvec2<float>      float2;
     typedef tvec2<double>     double2;
 
-    typedef tvec2<real>       real2;
-
+	typedef tvec2<real_lf>	  real2_lf;
 
     typedef tvec3<int>        int3;
     typedef tvec3<unsigned>   uint3;
     typedef tvec3<float>      float3;
     typedef tvec3<double>     double3;
 
-    typedef tvec3<real>       real3;
+	typedef tvec3<real_lf>    real3_lf;
 
 
     typedef tvec4<int>        int4;
     typedef tvec4<float>      float4;
     typedef tvec4<double>     double4;
-    typedef tvec4<real>       real4;
-    typedef trect<real>       rect4;
+	typedef tvec4<real_lf>       real4_lf;
+	typedef trect<real_lf>       rect4;
 
     typedef AxisAlignedBox<float>   aabb3d;
-    typedef AxisAlignedBox<real>    aabbr;
+	typedef AxisAlignedBox<real_lf>    aabbr;
 
     typedef AxisAlignedBox2D<float>   AABB2D;
-    typedef AxisAlignedBox2D<real>    aabb2dr;
+	typedef AxisAlignedBox2D<real_lf>    aabb2dr;
 
     
 
     typedef tmat2x2<float>      matrix2;
     typedef tmat3x3<float>      matrix3;
     typedef tmat4x4<float>      matrix4;
-    typedef tmat4x4<real>       matrix4r;
+	typedef tmat4x4<real_lf>       matrix4r;
 
     typedef tquat<float>        quaternion;
-    typedef tquat<real>         quatr;
+	typedef tquat<real_lf>         quatr;
     typedef tray<float>         Ray;
     typedef tfrustum<float>     Frustum;    
 

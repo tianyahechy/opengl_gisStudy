@@ -4,8 +4,16 @@
 #include "CELLMath.hpp"
 namespace CELL
 {
+	struct Vertex
+	{
+		float3 _pos;
+		Rgba4Byte _color;
+		float3 _nor;
+	};
 	class CELLFrameBigMap : public CELLFrame
 	{
+	public:
+		float _rot;
 	public:
 		float3 _min;
 		double3 _max;
@@ -35,8 +43,10 @@ namespace CELL
 		virtual void onKeyUp(int key);
 		//计算包围盒数据
 		template< class T>
-		AxisAlignedBox<T> calcAabb(const tvec3<T>* pPos, uint nCount)
+		AxisAlignedBox<T> calcAabb(const tvec3<T>* pPos, uint nCount, uint stride )
 		{
+			char * pData = (char*)pPos;
+			tvec3<T>* pCur = (tvec3<T>*)pPos;
 			AxisAlignedBox<T> aabb;
 			aabb._minimum.x = FLT_MAX;
 			aabb._minimum.y = FLT_MAX;
@@ -46,14 +56,16 @@ namespace CELL
 			aabb._maximum.z = -FLT_MAX;
 			aabb._extent = AxisAlignedBox<T>::EXTENT_FINITE;
 
-			for (int i = 1; i < nCount; i++)
+			for (uint i = 0; i < nCount; i++)
 			{
-				aabb._minimum.x = MIN(aabb._minimum.x, pPos[i].x);
-				aabb._minimum.y = MIN(aabb._minimum.y, pPos[i].y);
-				aabb._minimum.z = MIN(aabb._minimum.z, pPos[i].z);
-				aabb._maximum.x = MAX(aabb._maximum.x, pPos[i].x);
-				aabb._maximum.y = MAX(aabb._maximum.x, pPos[i].y);
-				aabb._maximum.z = MAX(aabb._maximum.x, pPos[i].z);
+				pData += stride;
+				pCur = (tvec3<T>*) pCur;
+				aabb._minimum.x = MIN(aabb._minimum.x, pCur[i].x);
+				aabb._minimum.y = MIN(aabb._minimum.y, pCur[i].y);
+				aabb._minimum.z = MIN(aabb._minimum.z, pCur[i].z);
+				aabb._maximum.x = MAX(aabb._maximum.x, pCur[i].x);
+				aabb._maximum.y = MAX(aabb._maximum.x, pCur[i].y);
+				aabb._maximum.z = MAX(aabb._maximum.x, pCur[i].z);
 			}
 			return aabb;
 		}
