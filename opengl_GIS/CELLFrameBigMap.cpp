@@ -5,6 +5,7 @@
 #include "CELLProgramLibrary.hpp"
 #include "CELLResourceMgr.hpp"
 #include "CELLContext.h"
+#include <string>
 
 namespace CELL
 {
@@ -33,7 +34,7 @@ namespace CELL
 		context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		context._device->clearColor(0, 0, 0, 1);
 		context._device->disableRenderState(GL_CULL_FACE);
-		//顶点数据
+		//顶点数据disableRenderState
 		matrix4 matRot;
 		matRot.rotateZ(_rot);
 		_rot += 0.1f;
@@ -114,6 +115,14 @@ namespace CELL
 		{
 			_context._camera.moveRight(_context._timePerFrame);
 		}
+
+		int2_lf screen = _context._camera.WorldToScreenInt_lf(real3_lf(-0.5, 0.5, 3.0));
+		real3_lf world = _context._camera.screenToWorld(screen.x, screen.y);
+		std::string strWorldX = std::to_string(world.x);
+		std::string strWorldY = std::to_string(world.y);
+		std::string strWorldZ = std::to_string(world.z);
+		std::string strWorld = strWorldX + "," + strWorldY + "," + strWorldZ + "\n";
+		OutputDebugStringA(strWorld.c_str());
 		
 	}
 	//鼠标左键按下
@@ -143,7 +152,7 @@ namespace CELL
 		{
 			percent = 1.1;
 		}
-		_context._camera.scaleCameraByPos(real3_lf(0, 0, 0), percent);
+		//_context._camera.scaleCameraByPos(real3_lf(0, 0, 0), percent);
 	}
 	//键盘事件
 	void CELLFrameBigMap::onKeyDown(int key)

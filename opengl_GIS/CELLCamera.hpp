@@ -190,6 +190,16 @@ namespace   CELL
 			screen.y /= screen.w;
 			screen.z /= screen.w;
 
+			//map to range 0-1
+			screen.x = screen.x * 0.5f + 0.5f;
+			screen.y = screen.y * 0.5f + 0.5f;
+			screen.z = screen.z * 0.5f + 0.5f;
+
+			//map to viewport
+			screen.x = screen.x * _viewSize.x;
+			screen.y = _viewSize.y - (screen.y * _viewSize.y);
+			return true;
+
 		}
 
         /**
