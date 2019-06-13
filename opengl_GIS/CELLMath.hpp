@@ -5586,7 +5586,70 @@ namespace CELL
         }
     };
 
+	template <typename T>
+	class tray_lf
+	{
+		typedef T value_type;
+		typedef tray_lf<T> type;
+	protected:
+		tvec3<T> _origin;
+		tvec3<T> _direction;
+	public:
+		tray_lf():
+			_origin(value_type(0), value_type(0), value_type(0)),
+			_direction(value_type(0), value_type(0), value_type(1))
+		{
+		}
+		tray_lf(const tvec3<T>& origin, const tvec3<T>& direction)
+		{
+			_origin = origin;
+			_direction = direction;
+		}
+		//返回时间t的射线位置
+		tvec3<T> getPoint(T time) const
+		{
+			return tvec3<T>(_origin + (_direction * time));
+		}
+		//设置射线的起点
+		void setOrigin(const tvec3<T>& origin)
+		{
+			_origin = origin;
+		}
+		//返回射线的起点
+		const tvec3<T>& getOrigin() const
+		{
+			return _origin;
+		}
 
+		//设置射线的方向
+		void setDirection(const tvec3<T>& dir)
+		{
+			_direction = dir;
+		}
+		//返回射线的方向
+		const tvec3<T>& getDirection() const
+		{
+			return _direction;
+		}
+
+		tvec3<T> getPosition(T time) const
+		{
+			return tvec3<T>(_origin + (_direction * time));
+		}
+
+		//测试射线box相交，如果相交，返回值中的first == true,否则false
+		//second为射线到点的距离
+		//调用getPoint的方法，则返回交点
+		std::pair<bool, T> intersects(const AxisAlignedBox<T>& box) const
+		{
+			T lowt = 0.0;
+			T t;
+			bool hit = false;
+			tvec3<T> hitPoint;
+			tvec3<T> min = box.getMinimum();
+			tvec3<T> max = box.getMaximum();
+		}
+	};
     template<class T>
     class  Plane
     {
@@ -5861,8 +5924,9 @@ namespace CELL
 	typedef tmat4x4<real_lf>       matrix4r;
 
     typedef tquat<float>        quaternion;
-	typedef tquat<real_lf>         quatr;
-    typedef tray<float>         Ray;
+	typedef tquat<real_lf>      quatr;
+	typedef tray_lf<real_lf>	Ray_lf;
+    typedef tray<float>         RayF;
     typedef tfrustum<float>     Frustum;    
 
     typedef tellipsoidModel<float>  ellipsoid;

@@ -273,8 +273,21 @@ namespace   CELL
             world   =   v / v.w;
             return true;
         }
-
-        Ray createRayFromScreen(int x,int y)
+		Ray_lf createRayFromScreen_lf(int x, int y)
+		{
+			real4_lf minWorld;
+			real4_lf maxWorld;
+			real4_lf screen(real_lf(x), real_lf(y), 0, 1);
+			real4_lf screen1(real_lf(x), real_lf(y), 1, 1);
+			unProject(screen, minWorld);
+			unProject(screen1, maxWorld);
+			Ray_lf ray;
+			ray.setOrigin(real3_lf(minWorld.x, minWorld.y, minWorld.z));
+			real3_lf dir(maxWorld.x - minWorld.x, maxWorld.y - minWorld.y, maxWorld.z - minWorld.z);
+			ray.setDirection(normalize(dir));
+			return ray;
+		}
+        Ray_lf createRayFromScreen(int x,int y)
         {
 			real4_lf  minWorld;
 			real4_lf  maxWorld;
@@ -284,7 +297,7 @@ namespace   CELL
 
             unProject(screen,minWorld);
             unProject(screen1,maxWorld);
-            Ray     ray;
+            Ray_lf     ray;
 			ray.setOrigin(real3_lf(minWorld.x, minWorld.y, minWorld.z));
 
 			real3_lf  dir(maxWorld.x - minWorld.x, maxWorld.y - minWorld.y, maxWorld.z - minWorld.z);

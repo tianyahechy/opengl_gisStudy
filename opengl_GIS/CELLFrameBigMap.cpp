@@ -34,28 +34,16 @@ namespace CELL
 		context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		context._device->clearColor(0, 0, 0, 1);
 		context._device->disableRenderState(GL_CULL_FACE);
-		//顶点数据disableRenderState
-		matrix4 matRot;
-		matRot.rotateZ(_rot);
-		_rot += 0.1f;
-		aabb3d	aabb;
-		aabb.setExtents(-100, -100, -100, 100, 100, 100);
-		float3 points[8];
-		float3 pointsSrc[8];
-		aabb.getAllCorners(pointsSrc);
-		float3 vCenter = aabb.getCenter();
-		float fRadius = CELL::length(aabb.getSize()) * 0.5;
-		for (int i = 0; i < 8; i++)
+	
+		//顶点数据
+		float3 vPlane[6] =
 		{
-			pointsSrc[i] = pointsSrc[i] * matRot;
-		}
-		aabb.transform(matRot);
-		aabb.getAllCorners(points);
-		byte index[] =
-		{
-			1, 2, 2, 4, 4, 5, 5, 1,
-			0, 3, 3, 7, 7, 6, 6, 0,
-			1, 0, 2, 3, 5, 6, 4, 7
+			float3(-0.5f, 0.5f, 3.0f),
+			float3(0.5f, 0.5f, 3.0f),
+			float3(0.5f, -0.5f, 3.0f),
+			float3(-0.5f, 0.5f, 3.0f),
+			float3(0.5f, -0.5f, 3.0f),
+			float3(-0.5f, -0.5f, 3.0f),
 		};
 		Rgba4Byte color(255, 0, 0, 255);
 		//获取shader
@@ -63,11 +51,7 @@ namespace CELL
 		prg.begin();
 		{
 			context._device->setUniformMatrix4fv(prg._MVP, 1, false, _context._screenPrj.data());
-			context._device->setUniform4f(
-				prg._color, 0,1,0,1
-				);
-			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(float3), pointsSrc);
-			context._device->drawElements(GL_LINES, 24, GL_UNSIGNED_BYTE, index);
+	
 			context._device->setUniform4f(
 				prg._color,
 				color._r / 255.0,
@@ -75,8 +59,8 @@ namespace CELL
 				color._b / 255.0,
 				color._a / 255.0
 				);
-			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(float3), points);
-			context._device->drawElements(GL_LINES, 24, GL_UNSIGNED_BYTE, index);
+			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(float3), vPlane);
+			context._device->drawArrays(GL_TRIANGLES, 0, 6);
 		}
 		prg.end();
 		
@@ -122,13 +106,43 @@ namespace CELL
 		std::string strWorldY = std::to_string(world.y);
 		std::string strWorldZ = std::to_string(world.z);
 		std::string strWorld = strWorldX + "," + strWorldY + "," + strWorldZ + "\n";
-		OutputDebugStringA(strWorld.c_str());
+		//OutputDebugStringA(strWorld.c_str());
 		
 	}
 	//鼠标左键按下
 	void CELLFrameBigMap::onLButtonDown(int x, int y)
 	{
+		CELL::Ray_lf ray = _context._camera.createRayFromScreen_lf(x, y);
+		//顶点数据
+		float3 vPlane[6] =
+		{
+			float3(-0.5f, 0.5f, 3.0f),
+			float3(0.5f, 0.5f, 3.0f),
+			float3(0.5f, -0.5f, 3.0f),
+			float3(-0.5f, 0.5f, 3.0f),
+			float3(0.5f, -0.5f, 3.0f),
+			float3(-0.5f, -0.5f, 3.0f),
+		};
 
+		real_lf t = 0;
+		real_lf u = 0;
+		real_lf v = 0;
+		bool bFlag = CELL::intersectTriangle<real_lf>(
+			ray.getOrigin(),
+			ray.getDirection(),
+			real3_lf(-0.5, 0.5, 3.0f),
+			real3_lf(-0.5f, 0.5f, 3.0f),
+			real3_lf(-0.5f, 0.5f, 3.0f),
+			&t,
+			&u,
+			&v);
+		if (bFlag)
+		{
+			real3_lf point = ray.getDirection();
+			char szBuf[128];
+			sprintf(szBuf, "%lf, %lf, %lf\n", point.x, point.y, point.z);
+			OutputDebugStringA(szBuf);
+		}
 	}
 	//鼠标左键提起
 	void CELLFrameBigMap::onLButtonUp(int x, int y)
