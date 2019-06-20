@@ -1,16 +1,14 @@
 #pragma once
+
 namespace CELL
 {
-	class CELLObject
-	{
-	public:
-		CELLObject()
-		{
+    class   CELLObject
+    {
+    public:
+        CELLObject()
+        {}
+        virtual ~CELLObject()
+        {}
+    };
 
-		}
-		virtual ~CELLObject()
-		{
-
-		}
-	};
 }

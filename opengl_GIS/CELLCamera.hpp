@@ -22,22 +22,22 @@ namespace   CELL
     public:
         /// 保存操作摄像机的一些状态信息
         unsigned    _flag;
-		real3_lf       _eye;
-		real3_lf       _target;
-		real3_lf       _up;
-		real3_lf       _right;
-		real3_lf       _dir;
+        real3       _eye;
+        real3       _target;
+        real3       _up;
+        real3       _right;
+        real3       _dir;
         matrix4r    _matView;
         matrix4r    _matProj;
         matrix4r    _matWorld;
-        real2_lf       _viewSize;
-		real3_lf       _oldLength;
-		real_lf        _speed;
-		real_lf        _fovy;
+        real2       _viewSize;
+        real3       _oldLength;
+        real        _speed;
+        real        _fovy;
     public:
-		CELLCamera(const real3_lf& target = real3_lf(0, 0, 0), const real3_lf& eye = real3_lf(0, 100, 100), const real3_lf& right = real3_lf(1, 0, 0))
+        CELLCamera(const real3& target = real3(0,0,0),const real3& eye = real3(0,100,100),const real3& right = real3(1,0,0))
         {
-            _viewSize   =   real2_lf(256,256);
+            _viewSize   =   real2(256,256);
             _matView    =   CELL::matrix4r(1);
             _matProj    =   CELL::matrix4r(1);
             _matWorld   =   CELL::matrix4r(1);
@@ -67,60 +67,60 @@ namespace   CELL
         {
             _flag &= ~state;
         }
-		real3_lf getEye() const
+        real3 getEye() const 
         { 
             return _eye;
         }
         /**
         *   设置眼睛的位置
         */
-		void    setEye(CELL::real3_lf val)
+        void    setEye(CELL::real3 val)
         { 
             _eye    =   val; 
         }
         
-		real3_lf getTarget() const
+        real3 getTarget() const 
         { 
             return _target;
         }
 
-		void    setTarget(CELL::real3_lf val)
+        void    setTarget(CELL::real3 val) 
         { 
             _target = val;
         }
-		void    setRight(CELL::real3_lf val)
+        void    setRight(CELL::real3 val)
         {
             _right  =   val;
         }
         
-		real3_lf getUp() const
+        real3 getUp() const 
         { 
             return _up;
         }
-		void    setUp(CELL::real3_lf val)
+        void    setUp(CELL::real3 val)
         {
             _up = val;
         }
-		real3_lf  getDir() const
+        real3  getDir() const
         {
             return  _dir;
         }
 
 
-		real3_lf  getRight() const
+        real3  getRight() const
         {
             return  _right;
         }
-        void    setViewSize(const real2_lf& viewSize)
+        void    setViewSize(const real2& viewSize)
         {
             _viewSize   =   viewSize;
         }
-		void    setViewSize(real_lf x, real_lf y)
+        void    setViewSize(real x,real y)
         {
-			_viewSize = real2_lf(x, y);
+            _viewSize   =   real2(x,y);
         }
 
-		real2_lf  getViewSize()
+        real2  getViewSize()
         {
             return  _viewSize;
         }
@@ -141,23 +141,23 @@ namespace   CELL
         /**
         *   正交投影
         */
-		void    ortho(real_lf left, real_lf right, real_lf bottom, real_lf top, real_lf zNear, real_lf zFar)
+        void    ortho( real left, real right, real bottom, real top, real zNear, real zFar )
         {
             _matProj    =   CELL::ortho(left,right,bottom,top,zNear,zFar);
         }
         /**
         *   透视投影
         */
-		void    perspective(real_lf fovy, real_lf aspect, real_lf zNear, real_lf zFar)
+        void    perspective(real fovy, real aspect, real zNear, real zFar)
         {
             _fovy       =   fovy;
-			_matProj = CELL::perspective<real_lf>(fovy, aspect, zNear, zFar);
+            _matProj    =   CELL::perspective<real>(fovy,aspect,zNear,zFar);
         }
 
          /**
         *   世界坐标转化为窗口坐标
         */
-		bool    project(const real4_lf& world, real4_lf& screen)
+        bool    project( const real4& world, real4& screen )
         {
             screen  =   (_matProj * _matView * _matWorld) * world;
             if (screen.w == 0.0f)
@@ -179,75 +179,53 @@ namespace   CELL
             return  true;
         }
 
-		bool project_lf(const real4_lf& world, real4_lf& screen)
-		{
-			screen = (_matProj * _matView * _matWorld) * world;
-			if (screen.w == 0.0f)
-			{
-				return false;
-			}
-			screen.x /= screen.w;
-			screen.y /= screen.w;
-			screen.z /= screen.w;
-
-			//map to range 0-1
-			screen.x = screen.x * 0.5f + 0.5f;
-			screen.y = screen.y * 0.5f + 0.5f;
-			screen.z = screen.z * 0.5f + 0.5f;
-
-			//map to viewport
-			screen.x = screen.x * _viewSize.x;
-			screen.y = _viewSize.y - (screen.y * _viewSize.y);
-			return true;
-
-		}
 
         /**
         *   世界坐标转化为窗口坐标
         */
-
-		real2_lf WorldToScreen_lf(const real3_lf& world)
-		{
-			real4_lf worlds(world.x, world.y, world.z, 1);
-			real4_lf screens;
-			project(worlds, screens);
-			return real2_lf(screens.x, screens.y);
-		}
-
-		int2_lf WorldToScreenInt_lf(const real3_lf& world)
-		{
-			real4_lf worlds(world.x, world.y, world.z, 1);
-			real4_lf screens;
-			project(worlds, screens);
-			return int2_lf((int)screens.x, (int)screens.y);
-		}
- 
+        real2  worldToScreen( const real3& world)
+        {
+            real4  worlds(world.x,world.y,world.z,1);
+            real4  screens;
+            project(worlds,screens);
+            return  real2(screens.x,screens.y);
+        }
+        /**
+        *   世界坐标转化为窗口坐标
+        */
+        int2  worldToScreenInt( const real3& world)
+        {
+            real4  worlds(world.x,world.y,world.z,1);
+            real4  screens;
+            project(worlds,screens);
+            return  int2((int)screens.x,(int)screens.y);
+        }
         /**
         *   窗口坐标转化为世界坐标
         */
-		real3_lf  screenToWorld(const real2_lf& screen)
+        real3  screenToWorld(const real2& screen)
         {
-			real4_lf  screens(screen.x, screen.y, 0, 1);
-			real4_lf  world;
+            real4  screens(screen.x,screen.y,0,1);
+            real4  world;
             unProject(screens,world);
-			return  real3_lf(world.x, world.y, world.z);
+            return  real3(world.x,world.y,world.z);
         }
 
-		real3_lf  screenToWorld(real_lf x, real_lf y)
+        real3  screenToWorld(real x,real y)
         {
-			real4_lf  screens(x, y, 0, 1);
-			real4_lf  world;
+            real4  screens(x,y,0,1);
+            real4  world;
             unProject(screens,world);
-			return  real3_lf(world.x, world.y, world.z);
+            return  real3(world.x,world.y,world.z);
         }
 
 
         /**
         *   窗口坐标转化为世界坐标
         */
-		bool    unProject(const real4_lf& screen, real4_lf& world)
+        bool    unProject( const real4& screen, real4& world )
         {
-			real4_lf v;
+            real4 v;
             v.x =   screen.x;
             v.y =   screen.y;
             v.z =   screen.z;
@@ -273,34 +251,21 @@ namespace   CELL
             world   =   v / v.w;
             return true;
         }
-		Ray_lf createRayFromScreen_lf(int x, int y)
-		{
-			real4_lf minWorld;
-			real4_lf maxWorld;
-			real4_lf screen(real_lf(x), real_lf(y), 0, 1);
-			real4_lf screen1(real_lf(x), real_lf(y), 1, 1);
-			unProject(screen, minWorld);
-			unProject(screen1, maxWorld);
-			Ray_lf ray;
-			ray.setOrigin(real3_lf(minWorld.x, minWorld.y, minWorld.z));
-			real3_lf dir(maxWorld.x - minWorld.x, maxWorld.y - minWorld.y, maxWorld.z - minWorld.z);
-			ray.setDirection(normalize(dir));
-			return ray;
-		}
-        Ray_lf createRayFromScreen(int x,int y)
-        {
-			real4_lf  minWorld;
-			real4_lf  maxWorld;
 
-			real4_lf  screen(real_lf(x), real_lf(y), 0, 1);
-			real4_lf  screen1(real_lf(x), real_lf(y), 1, 1);
+        Ray createRayFromScreen(int x,int y)
+        {
+            real4  minWorld;
+            real4  maxWorld;
+
+            real4  screen(real(x),real(y),0,1);
+            real4  screen1(real(x),real(y),1,1);
 
             unProject(screen,minWorld);
             unProject(screen1,maxWorld);
-            Ray_lf     ray;
-			ray.setOrigin(real3_lf(minWorld.x, minWorld.y, minWorld.z));
+            Ray     ray;
+            ray.setOrigin(real3(minWorld.x,minWorld.y,minWorld.z));
 
-			real3_lf  dir(maxWorld.x - minWorld.x, maxWorld.y - minWorld.y, maxWorld.z - minWorld.z);
+            real3  dir(maxWorld.x - minWorld.x,maxWorld.y - minWorld.y, maxWorld.z - minWorld.z);
             ray.setDirection(normalize(dir));
             return  ray;
         }
@@ -309,15 +274,15 @@ namespace   CELL
         *  下面的函数的功能是将摄像机的观察方向绕某个方向轴旋转一定的角度
         *  改变目标的位置，观察者的位置不变化
         */
-		virtual void    rotateEyeZ(real_lf angle)
+        virtual void    rotateEyeZ(real angle)
         {
             if (!(_flag & FLAG_ROT_Z))
             {
                 return;
             }
-			real_lf        len(0);
+            real        len(0);
             matrix4r    mat(1);
-			mat.rotate(angle, real3_lf(0, 0, 1));
+            mat.rotate(angle, real3(0, 0, 1));
             _dir    =   _dir * mat;
             _up     =   _up * mat;
             _right  =   CELL::normalize(cross(_dir, _up));
@@ -330,15 +295,15 @@ namespace   CELL
         *   下面的函数的功能是将摄像机的观察方向绕某个方向轴旋转一定的角度 
         *   改变观察者的位置，目标的位置不变化
         */
-		virtual void    rotateViewY(real_lf angle)
+        virtual void    rotateViewY(real angle) 
         { 
             if (!(_flag & FLAG_ROT_Y))
             {
                 return;
             }
-			real_lf        len(0);
+            real        len(0);
             matrix4r    mat(1);
-			mat.rotate(angle, real3_lf(0, 1, 0));
+            mat.rotate(angle, real3(0, 1, 0));
             _dir        =   _dir * mat;
             _up         =   _up * mat;
             _right      =   CELL::normalize(cross(_dir, _up));
@@ -346,13 +311,13 @@ namespace   CELL
             _eye        =   _target - _dir * len;
             update();
         }
-		virtual void    rotateViewX(real_lf angle)
+        virtual void    rotateViewX(real angle) 
         { 
             if (!(_flag & FLAG_ROT_X))
             {
                 return;
             }
-			real_lf        len(0);
+            real        len(0);
             matrix4r    mat(1);
             mat.rotate(angle,_right);
             _dir        =   _dir * mat;
@@ -363,16 +328,16 @@ namespace   CELL
             update();
         }
 
-		virtual void    rotateViewXByCenter(real_lf angle, real3_lf  pos)
+        virtual void    rotateViewXByCenter(real angle,real3  pos)
         {
             if (!(_flag & FLAG_ROT_X))
             {
                 return;
             }
             //! 计算眼睛到鼠标点的方向
-			real3_lf   vDir = pos - _eye;
-			real_lf    len1 = length(vDir);
-			real_lf    len = 0;
+            real3   vDir    =   pos - _eye;
+            real    len1    =   length(vDir);
+            real    len     =   0;
             vDir    =   normalize(vDir);
             matrix4r mat(1);
             mat.rotate(angle, _right);
@@ -396,18 +361,18 @@ namespace   CELL
 
         }
 
-		virtual void    rotateViewYByCenter(real_lf angle, real3_lf  pos)
+        virtual void    rotateViewYByCenter(real angle,real3  pos)
         {
             if (!(_flag & FLAG_ROT_Y))
             {
                 return;
             }
-			real_lf        len(0);
-			real_lf        len1(0);
+            real        len(0);
+            real        len1(0);
             matrix4r    mat(1);
-			mat.rotate(angle, real3_lf(0, 1, 0));
+            mat.rotate(angle, real3(0, 1, 0));
 
-			real3_lf   vDir = pos - _eye;
+            real3   vDir = pos - _eye;
 
             len1    =   CELL::length(vDir);
             vDir    =   CELL::normalize(vDir);
@@ -428,19 +393,18 @@ namespace   CELL
             update();
         }
 
-
-		virtual void    rotateViewZByCenter(real_lf angle, real3_lf  pos)
+        virtual void    rotateViewZByCenter(real angle,real3  pos)
         {
             if (!(_flag & FLAG_ROT_Z))
             {
                 return;
             }
-			real_lf        len(0);
-			real_lf        len1(0);
+            real        len(0);
+            real        len1(0);
             matrix4r    mat(1);
-			mat.rotate(angle, real3_lf(0, 0, 1));
+            mat.rotate(angle, real3(0, 0, 1));
 
-			real3_lf   vDir = pos - _eye;
+            real3   vDir = pos - _eye;
 
             len1    =   CELL::length(vDir);
             vDir    =   CELL::normalize(vDir);
@@ -461,14 +425,14 @@ namespace   CELL
             update();
         }
 
-		virtual void rotateViewByAxis(real_lf angle, const real3_lf& axis)
+        virtual void    rotateViewByAxis(real angle, const real3& axis)
         {
-			real_lf        len(0);
-			real_lf        len1(0);
+            real        len(0);
+            real        len1(0);
             matrix4r    mat(1);
             mat.rotate(angle, axis);
 
-			real3_lf   vDir = _target - _eye;
+            real3   vDir = _target - _eye;
 
             len1 = CELL::length(vDir);
             vDir = CELL::normalize(vDir);
@@ -492,16 +456,16 @@ namespace   CELL
         /**
          *	指定点推进摄像机
          */
-		virtual void    scaleCameraByPos(const real3_lf& pos, real_lf persent)
+        virtual void    scaleCameraByPos(const real3& pos,real persent)
         {
 
-			real3_lf   dir = CELL::normalize(pos - _eye);
+            real3   dir     =   CELL::normalize(pos - _eye);
 
-			real_lf    dis = CELL::length(pos - _eye) * persent;
+            real    dis     =   CELL::length(pos - _eye) * persent;
 
-			real_lf    disCam = CELL::length(_target - _eye) * persent;
+            real    disCam  =   CELL::length(_target - _eye) * persent;
 
-			real3_lf   dirCam = CELL::normalize(_target - _eye);
+            real3   dirCam  =   CELL::normalize(_target - _eye);
 
             _eye    =   pos - dir * dis;
             _target =   _eye + dirCam * disCam;
@@ -514,30 +478,30 @@ namespace   CELL
 #if 0
             _matView    =   CELL::lookAt(_eye,_target,_up);
 #else
-            _matView    =   CELL::lookAt(_eye,_target,_up);
+            _matView    =   CELL::lookAtL(_eye,_target,_up);
 #endif
         }
 
-		virtual void    moveLeft(real_lf fElapsed)
+        virtual void    moveLeft(real fElapsed)
         {
             _eye     -=  normalize(_right) * _speed * fElapsed;
             _target  -=  normalize(_right) * _speed * fElapsed;
         }
 
-		virtual void    moveRight(real_lf fElapsed)
+        virtual void    moveRight(real fElapsed)
         {
             _eye     +=  normalize(_right) * _speed * fElapsed;
             _target  +=  normalize(_right) * _speed * fElapsed;
         }
 
 
-		virtual void    moveFront(real_lf fElapsed)
+        virtual void    moveFront(real fElapsed)
         {
             _eye    +=  _dir * _speed * fElapsed;
             _target +=  _dir * _speed * fElapsed;
         }
 
-		virtual void    moveBack(real_lf fElapsed)
+        virtual void    moveBack(real fElapsed)
         {
             _eye    -=  _dir * _speed * fElapsed;
             _target -=  _dir * _speed * fElapsed;
@@ -545,7 +509,7 @@ namespace   CELL
         /**
          *	往上看，则向下移动摄像机
          */
-		virtual void   moveUp(real_lf fElapsed)
+         virtual void   moveUp(real fElapsed)
          {
              _eye       +=  _up * _speed * fElapsed;
              _target    +=  _up * _speed * fElapsed;
@@ -553,7 +517,7 @@ namespace   CELL
          /**
           *	向下看，则摄像机向上移动
           */
-		 virtual void   moveDown(real_lf fElapsed)
+         virtual void   moveDown(real fElapsed)
          {
              _eye       -=  _up * _speed * fElapsed;
              _target    -=  _up * _speed * fElapsed;
@@ -561,7 +525,7 @@ namespace   CELL
          /**
           *	根据给定的方向移动摄像机
           */
-		 virtual   void    moveDir(real3_lf dir, real_lf fElapsed)
+          virtual   void    moveDir(real3 dir,real fElapsed)
           {
             _eye    += dir * _speed * fElapsed;
             _target += dir * _speed * fElapsed;

@@ -149,10 +149,13 @@
     <ClInclude Include="CELLApp.hpp" />
     <ClInclude Include="CELLCamera.hpp" />
     <ClInclude Include="CELLContext.h" />
+    <ClInclude Include="CELLContext.hpp" />
     <ClInclude Include="CELLEvent.hpp" />
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.h" />
+    <ClInclude Include="CELLFrame.hpp" />
     <ClInclude Include="CELLGLContext.h" />
+    <ClInclude Include="CELLGLContext.hpp" />
     <ClInclude Include="CELLImage.hpp" />
     <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLInput.hpp" />
@@ -160,6 +163,7 @@
     <ClInclude Include="CELLObject.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLPlatform.hpp" />
+    <ClInclude Include="CELLProgramLibary.hpp" />
     <ClInclude Include="CELLProgramLibrary.hpp" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
@@ -172,7 +176,7 @@
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
-    <ClInclude Include="opengl_GIS.h" />
+    <ClInclude Include="OPENGL_GIS.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shp\shapefil.h" />
     <ClInclude Include="stb_image.h" />
@@ -180,10 +184,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CELLImageLoader.cpp" />
     <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="glew.c" />
-    <ClCompile Include="opengl_GIS.cpp" />
+    <ClCompile Include="OPENGL_GIS.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />

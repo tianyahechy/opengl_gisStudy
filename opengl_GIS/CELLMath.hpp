@@ -7,31 +7,77 @@
 #include <vector>
 #include <map>
 #include <limits>
+#include <xutility>
 
 
 namespace CELL
 {
 
-
-    #define PI                      3.14159265358979323
-    #define TWO_PI                  6.28318530717958647
-    #define HALF_PI                 1.57079632679489661
-    #define DEG2RAD(theta)          (0.01745329251994329 * theta)
-    #define RAD2DEG                 57.2957795130823208
-    #define LOG2                    0.69314718055994529
-    #define WGS_84_RADIUS_EQUATOR   6378137.0
-    #define WGS_84_RADIUS_POLAR     6356752.3142
-    #define MIN(a,b)                ((a) < (b) ? (a) : (b))
-    #define MAX(a,b)                ((a) > (b) ? (a) : (b))
-
-    #define MAKE_INT(a, b)          ((int)(((short)(((int)(a)) & 0xffff)) | ((int)((short)(((int)(b)) & 0xffff))) << 16))
-
     typedef unsigned char           byte;
     typedef long long               int64;
+    typedef unsigned long long      uint64;
     typedef unsigned short          ushort;
     typedef unsigned int            uint;
     typedef unsigned long           ulong;
 
+    
+    #define PI                      3.14159265358979323846264338327
+    #define TWO_PI                  (PI * 2)
+    #define HALF_PI                 (3.14159265358979323846264338327 * 0.5)
+    
+    #define DEG2RAD(theta)          (0.01745329251994329 * theta)
+    #define RAD2DEG                 57.2957795130823208
+    #define LOG2                    0.69314718055994529
+    #define WGS_84_RADIUS_EQUATOR_  6378137.0
+    #define WGS_84_RADIUS_POLAR_    6356752.3142
+    #define MIN(a,b)                ((a) < (b) ? (a) : (b))
+    #define MAX(a,b)                ((a) > (b) ? (a) : (b))
+    #define MAX_USHORT              65536
+    #define MIN_USHORT              0
+
+    #define MAKE_INT(a, b)          ((int)(((short)(((int)(a)) & 0xffff)) | ((int)((short)(((int)(b)) & 0xffff))) << 16))
+    #define MAKE_UINT(a, b)         ((uint)(((ushort)(((uint)(a)) & 0xffff)) | ((uint)((ushort)(((uint)(b)) & 0xffff))) << 16))
+    #define GET_LWORD(l)            ((ushort)(((uint)(l)) & 0xffff))
+    #define GET_HIWORD(l)           ((ushort)((((uint)(l)) >> 16) & 0xffff))
+    
+
+    inline  ushort  rgb_24_2_565(int r, int g, int b)  
+    {  
+        return (ushort)(((unsigned(r) << 8) & 0xF800) |   
+                        ((unsigned(g) << 3) & 0x7E0)  |  
+                        ((unsigned(b) >> 3)));  
+    }
+
+    inline  void rgb565_2_rgb24(byte *rgb24, ushort rgb565)  
+    {   
+        #define RGB565_MASK_RED         0xF800   
+        #define RGB565_MASK_GREEN       0x07E0   
+        #define RGB565_MASK_BLUE        0x001F 
+
+        //extract RGB   
+        rgb24[2] = (byte)((rgb565 & RGB565_MASK_RED)   >> 11);     
+        rgb24[1] = (byte)((rgb565 & RGB565_MASK_GREEN) >> 5);  
+        rgb24[0] = (byte)((rgb565 & RGB565_MASK_BLUE));  
+
+        //amplify the image   
+        rgb24[2] <<= 3;  
+        rgb24[1] <<= 2;  
+        rgb24[0] <<= 3;  
+    }   
+    template<class T>   inline T    tmin(T a,T b)
+    {
+        return  a < b ? a:b;
+    }
+
+    template<class T>   inline  T    tmax(T a,T b)
+    {
+        return  a > b ? a:b;
+    }
+
+    inline  float   randRange(float fMin,float fMax)
+    {
+        return  float(rand())/float(RAND_MAX) * (fMax - fMin) + fMin;
+    }
     
     union LargeInt 
     {   
@@ -53,16 +99,42 @@ namespace CELL
         return  intdata.int64Data;
     }
 
-	template <typename T>
-	struct tvec2_lf
-	{
-		typedef T			value_type;
-		typedef std::size_t	size_type;
-		typedef tvec2_lf<T>	type;
-		
-		value_type			x;
+    inline  uint    makeUint(short a,short b)
+    {
+        return  ((uint)(((ushort)(((uint)(a)) & 0xffff)) | ((uint)((ushort)(((uint)(b)) & 0xffff))) << 16));
+        
+    }
+    inline  ushort   loWord( uint data)
+    {
+        return  ((ushort)(((uint)(data)) & 0xffff));
+    }
 
-	};
+    inline  ushort   hiWord( uint data)
+    {
+        return  ((ushort)((((uint)(data)) >> 16) & 0xffff));
+    }
+
+    union   TileId
+    {
+        struct
+        {
+            int64  _row : 28;
+            int64  _col : 28;
+            int64  _lev : 8;
+        };
+        int64  _index;
+    };
+
+    inline  bool isNan(float dat)
+    {
+        int & ref = *(int *)&dat;
+        return (ref & 0x7F800000) == 0x7F800000 && (ref & 0x7FFFFF) != 0;
+    }
+    inline bool isNan(double dat)
+    {
+        __int64 & ref = *(__int64 *)&dat;
+        return (ref & 0x7FF0000000000000) == 0x7FF0000000000000 && (ref & 0xfffffffffffff) != 0;
+    }
 
     template <typename T>
     struct tvec2
@@ -644,19 +716,39 @@ namespace CELL
     *   @ = acos(@)
     */
     template <typename T> 
-    T angleBetweenVector(tvec3<T> const & a, tvec3<T> const & b)
+    T   angleBetweenVector(const tvec3<T>& a, const tvec3<T>& b)
     {
         #define Mag(V) (sqrtf(V.x*V.x + V.y*V.y + V.z*V.z))
-        T dotProduct		=	dot(a, b);				
-        T vectorsMagnitude  =	Mag(a) * Mag(b) ;
-        T angle = acos( dotProduct / vectorsMagnitude );
-        if(_isnan(angle))
+        T   dotProduct          =   dot(a, b);				
+        T   vectorsMagnitude    =   Mag(a) * Mag(b) ;
+        T   angle   =   acos( dotProduct / vectorsMagnitude );
+        T   result  =   angle * T(RAD2DEG);
+        if(_isnan(result))
         {
             return	T(0);
         }
         else
         {
-            return	angle;
+            return	result;
+        }	
+    }
+
+    template <typename T> 
+    T   angleBetweenVector(const tvec2<T>& a, const tvec2<T>& b)
+    {
+        #define Mag2D(V)    (sqrtf(V.x*V.x + V.y*V.y))
+
+        T   dotProduct          =   dot(a, b);				
+        T   vectorsMagnitude    =   Mag2D(a) * Mag2D(b) ;
+        T   angle   =   acos( dotProduct / vectorsMagnitude );
+        T   result  =   angle * T(RAD2DEG);
+        if(_isnan(result))
+        {
+            return	T(0);
+        }
+        else
+        {
+            return	result;
         }	
     }
 
@@ -793,9 +885,9 @@ namespace CELL
     bool intersectTriangle( 
                             const tvec3<T>& orig, 
                             const tvec3<T>& dir,
-                            tvec3<T>& v0, 
-                            tvec3<T>& v1, 
-                            tvec3<T>& v2,
+                            const tvec3<T>& v0, 
+                            const tvec3<T>& v1, 
+                            const tvec3<T>& v2,
                             T* t, 
                             T* u,
                             T* v 
@@ -822,7 +914,7 @@ namespace CELL
             tvec    =   v0 - orig;
             det     =   -det;
         }
-        if( det < 0.0001f )
+        if( det < 0.0000000001)
             return false;
         // Calculate U parameter and test bounds
         *u  =   dot( tvec, pvec );
@@ -1547,6 +1639,10 @@ namespace CELL
             this->value[1] = col_type(v2);
         }
 
+        T*  dataPtr()
+        {
+            return  (T*)value;
+        }
         template <typename U> 
         tmat2x2(tmat2x2<U> const & m)
         {
@@ -1762,7 +1858,10 @@ namespace CELL
         {
             return 3;
         }
-
+        T*      dataPtr()
+        {
+            return  (T*)value;
+        }
         tmat3x3()
         {
             value_type const Zero(0);
@@ -1862,7 +1961,10 @@ namespace CELL
             this->value[2] = col_type(m[2]);
         }
 
-
+        T const *   data() const
+        {
+            return  &this->value[0][0];
+        }
 
         tmat3x3<T> _inverse() const
         {
@@ -2291,6 +2393,10 @@ namespace CELL
         {
             return 4;
         }
+        T*  dataPtr()
+        {
+            return  (T*)value;
+        }
         void identify()
         {
             this->value[0] = col_type(1, 0, 0, 0);
@@ -2417,10 +2523,78 @@ namespace CELL
             this->value[3] = col_type(v4);
         }
 
+        tmat4x4<T>  _inverse() const
+        {
+#define VERTTYPEMUL(a,b)			( (T)((a)*(b)) )
+#define VERTTYPEDIV(a,b)			( (T)((a)/(b)) )
+#define VERTTYPEABS(a)				( (T)(fabs(a)) )
+
+#define f2vt(x)						(x)
+#define vt2f(x)						(x)
+
+            tmat4x4<T>  res;
+            T   outf[16]  =   {0};
+            T	det_1;
+            T	pos, neg, temp;
+            T*  f   =   (T*)data();
+
+            pos = neg = f2vt(0.0);
+            temp =  VERTTYPEMUL(VERTTYPEMUL(f[ 0], f[ 5]), f[10]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            temp =  VERTTYPEMUL(VERTTYPEMUL(f[ 4], f[ 9]), f[ 2]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            temp =  VERTTYPEMUL(VERTTYPEMUL(f[ 8], f[ 1]), f[ 6]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            temp =  VERTTYPEMUL(VERTTYPEMUL(-f[ 8], f[ 5]), f[ 2]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            temp =  VERTTYPEMUL(VERTTYPEMUL(-f[ 4], f[ 1]), f[10]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            temp =  VERTTYPEMUL(VERTTYPEMUL(-f[ 0], f[ 9]), f[ 6]);
+            if (temp >= 0) pos += temp; else neg += temp;
+            det_1 = pos + neg;
+
+            /* Is the submatrix A singular? */
+            if (det_1 == f2vt(0.0)) //|| (VERTTYPEABS(det_1 / (pos - neg)) < 1.0e-15)
+            {
+                /* Matrix M has no inverse */
+                _RPT0(_CRT_WARN, "Matrix has no inverse : singular matrix\n");
+            }
+            else
+            {
+                /* Calculate inverse(A) = adj(A) / det(A) */
+                //det_1 = 1.0 / det_1;
+                det_1 = VERTTYPEDIV(f2vt(1.0f), det_1);
+                outf[ 0] =   VERTTYPEMUL(( VERTTYPEMUL(f[ 5], f[10]) - VERTTYPEMUL(f[ 9], f[ 6]) ), det_1);
+                outf[ 1] = - VERTTYPEMUL(( VERTTYPEMUL(f[ 1], f[10]) - VERTTYPEMUL(f[ 9], f[ 2]) ), det_1);
+                outf[ 2] =   VERTTYPEMUL(( VERTTYPEMUL(f[ 1], f[ 6]) - VERTTYPEMUL(f[ 5], f[ 2]) ), det_1);
+                outf[ 4] = - VERTTYPEMUL(( VERTTYPEMUL(f[ 4], f[10]) - VERTTYPEMUL(f[ 8], f[ 6]) ), det_1);
+                outf[ 5] =   VERTTYPEMUL(( VERTTYPEMUL(f[ 0], f[10]) - VERTTYPEMUL(f[ 8], f[ 2]) ), det_1);
+                outf[ 6] = - VERTTYPEMUL(( VERTTYPEMUL(f[ 0], f[ 6]) - VERTTYPEMUL(f[ 4], f[ 2]) ), det_1);
+                outf[ 8] =   VERTTYPEMUL(( VERTTYPEMUL(f[ 4], f[ 9]) - VERTTYPEMUL(f[ 8], f[ 5]) ), det_1);
+                outf[ 9] = - VERTTYPEMUL(( VERTTYPEMUL(f[ 0], f[ 9]) - VERTTYPEMUL(f[ 8], f[ 1]) ), det_1);
+                outf[10] =   VERTTYPEMUL(( VERTTYPEMUL(f[ 0], f[ 5]) - VERTTYPEMUL(f[ 4], f[ 1]) ), det_1);
+
+                /* Calculate -C * inverse(A) */
+                outf[12] = - ( VERTTYPEMUL(f[12], outf[ 0]) + VERTTYPEMUL(f[13], outf[ 4]) + VERTTYPEMUL(f[14], outf[ 8]) );
+                outf[13] = - ( VERTTYPEMUL(f[12], outf[ 1]) + VERTTYPEMUL(f[13], outf[ 5]) + VERTTYPEMUL(f[14], outf[ 9]) );
+                outf[14] = - ( VERTTYPEMUL(f[12], outf[ 2]) + VERTTYPEMUL(f[13], outf[ 6]) + VERTTYPEMUL(f[14], outf[10]) );
+
+                /* Fill in last row */
+                outf[ 3] = f2vt(0.0f);
+                outf[ 7] = f2vt(0.0f);
+                outf[11] = f2vt(0.0f);
+                outf[15] = f2vt(1.0f);
+            }
+            memcpy((void*)res.data(),outf,sizeof(outf));
+
+            return res;
+        }
+
         T const *   data() const
         {
             return  &this->value[0][0];
         }
+
         tmat4x4<T>& operator= (tmat4x4<T> const & m)
         {
             this->value[0] = m[0];
@@ -2564,9 +2738,9 @@ namespace CELL
             return  *this;
         }
 
-        tmat4x4<T>& rotate(value_type angle,tvec3<T> const & v )
+        tmat4x4<T>& rotate(T angle,tvec3<T> const & v )
         {
-        	T a = DEG2RAD(angle);
+        	T a = (T)DEG2RAD(angle);
             T c = cos(a);
             T s = sin(a);
 
@@ -2713,12 +2887,12 @@ namespace CELL
 
         tmat4x4<T> rotateYXZ( T yaw, T pitch, T roll)
         {
-            T tmp_ch = cos(DEG2RAD(yaw));
-            T tmp_sh = sin(DEG2RAD(yaw));
-            T tmp_cp = cos(DEG2RAD(pitch));
-            T tmp_sp = sin(DEG2RAD(pitch));
-            T tmp_cb = cos(DEG2RAD(roll));
-            T tmp_sb = sin(DEG2RAD(roll));
+            T tmp_ch = (T)cos(DEG2RAD(yaw));
+            T tmp_sh = (T)sin(DEG2RAD(yaw));
+            T tmp_cp = (T)cos(DEG2RAD(pitch));
+            T tmp_sp = (T)sin(DEG2RAD(pitch));
+            T tmp_cb = (T)cos(DEG2RAD(roll));
+            T tmp_sb = (T)sin(DEG2RAD(roll));
 
             tmat4x4<T> Result;
             this->value[0][0] = tmp_ch * tmp_cb + tmp_sh * tmp_sp * tmp_sb;
@@ -2829,6 +3003,29 @@ namespace CELL
                                 this->value[2][0], this->value[2][1], this->value[2][2], 0.0,
                                 0.0,       0.0,       0.0,       1.0
                                 );
+        }
+        /**
+         *	制作整数矩阵
+         */
+        void    makeInt()
+        {
+            T*  pData   =   (T*)data();
+            for (int i = 0 ;i < 16 ; ++ i)
+            {
+                pData[i]    =   floor(pData[i]);
+            }
+        }
+        /**
+         *	制作整数矩阵
+         */
+        void    makeDec(T scales)
+        {
+            T*  pData   =   (T*)data();
+            for (int i = 0 ;i < 16 ; ++ i)
+            {
+                pData[i]    =   pData[i] - floor(pData[i]);
+                pData[i]    *=  scales;
+            }
         }
     };
 
@@ -3003,7 +3200,7 @@ namespace CELL
                 axis.z = (T)0.0;
                 return;
             }
-            angle = T(3.1415926535897932384626433832795);
+            angle = T(PI);
             T xx = (mat[0][0] + (T)1.0) / (T)2.0;
             T yy = (mat[1][1] + (T)1.0) / (T)2.0;
             T zz = (mat[2][2] + (T)1.0) / (T)2.0;
@@ -3468,7 +3665,7 @@ namespace CELL
             w(w)
         {}
 
-        explicit tquat(tvec3<T> const & eulerAngle)
+        explicit tquat(const T& eulerAngle)
         {
             tvec3<T> c = cos(eulerAngle * value_type(0.5));
             tvec3<T> s = sin(eulerAngle * value_type(0.5));
@@ -3787,6 +3984,16 @@ namespace CELL
                 2 * q.x * q.z + 2 * q.w * q.y,          2 * q.y * q.z - 2 * q.w * q.x,          1 - 2 * q.x * q.x - 2 * q.y * q.y
                 );
     }
+    template <typename T> 
+    tmat3x3<T>  mat3_cast(const tmat4x4<T>& m4)  
+    {
+
+        return  tmat3x3<T>(
+            m4[0][0],m4[0][1],m4[0][2],
+            m4[1][0],m4[1][1],m4[1][2],
+            m4[2][0],m4[2][1],m4[2][2]
+        );
+    }
 
     template <typename T> 
     tmat4x4<T>  mat4_cast(tquat<T> const & q)
@@ -4052,21 +4259,42 @@ namespace CELL
         return res;
     }
 
-    template <typename valType> 
-    tmat4x4<valType> perspective(valType fovy, valType aspect, valType zNear, valType zFar)
+    template <typename valType>
+    void frustum(valType *matrix, valType left, valType right, valType bottom, valType top, valType znear, valType zfar)
     {
-        valType range   =   tan(fovy * valType(DEG2RAD(0.5))) * zNear;	
-        valType left    =   -range * aspect;
-        valType right   =   range * aspect;
-        valType bottom  =   -range;
-        valType top     =   range;
+        valType temp, temp2, temp3, temp4;
+        temp = valType(2.0) * znear;
+        temp2 = right - left;
+        temp3 = top - bottom;
+        temp4 = zfar - znear;
+        matrix[0] = temp / temp2;
+        matrix[1] = valType(0.0);
+        matrix[2] = valType(0.0);
+        matrix[3] = valType(0.0);
+        matrix[4] = valType(0.0);
+        matrix[5] = temp / temp3;
+        matrix[6] = valType(0.0);
+        matrix[7] = valType(0.0);
+        matrix[8] = (right + left) / temp2;
+        matrix[9] = (top + bottom) / temp3;
+        matrix[10] = (-zfar - znear) / temp4;
+        matrix[11] = valType(-1.0);
+        matrix[12] = valType(0.0);
+        matrix[13] = valType(0.0);
+        matrix[14] = (-temp * zfar) / temp4;
+        matrix[15] = valType(0.0);
+    }
 
-        tmat4x4<valType> res(valType(0));
-        res[0][0]   =   (valType(2) * zNear) / (right - left);
-        res[1][1]   =   (valType(2) * zNear) / (top - bottom);
-        res[2][2]   =   - (zFar + zNear) / (zFar - zNear);
-        res[2][3]   =   - valType(1);
-        res[3][2]   =   - (valType(2) * zFar * zNear) / (zFar - zNear);
+    template <typename valType> 
+    tmat4x4<valType> perspective(valType fovy, valType aspect, valType znear, valType zfar)
+    {
+        tmat4x4<valType> res(0);
+        valType ymax, xmax;
+        ymax = znear * (valType)tan((valType)(fovy * PI / 360.0));
+        xmax = ymax * aspect;
+
+        frustum<valType>((valType*)res.data(), -xmax, xmax, -ymax, ymax, znear, zfar);
+
         return  res;
     }
 
@@ -4147,24 +4375,54 @@ namespace CELL
                     tvec3<T> const & up
                     )
     {
-        tvec3<T> f    =   normalize(center - eye);
-        tvec3<T> u    =   normalize(up);
-        tvec3<T> s    =   normalize(cross(f, u));
-        u = cross(s, f);
+        tvec3<T> zAxis  =   normalize(center - eye);
+        tvec3<T> yAxis  =   normalize(up);
+        tvec3<T> xAxis  =   normalize(cross(zAxis, yAxis));
+        yAxis = normalize(cross(xAxis, zAxis));
 
         tmat4x4<T>    res(1);
-        res[0][0]   =   s.x;
-        res[1][0]   =   s.y;
-        res[2][0]   =   s.z;
-        res[0][1]   =   u.x;
-        res[1][1]   =   u.y;
-        res[2][1]   =   u.z;
-        res[0][2]   =   -f.x;
-        res[1][2]   =   -f.y;
-        res[2][2]   =   -f.z;
-        res[3][0]   =   -dot(s, eye);
-        res[3][1]   =   -dot(u, eye);
-        res[3][2]   =   dot(f, eye);
+        res[0][0]   =   xAxis.x;
+        res[1][0]   =   xAxis.y;
+        res[2][0]   =   xAxis.z;
+        res[0][1]   =   yAxis.x;
+        res[1][1]   =   yAxis.y;
+        res[2][1]   =   yAxis.z;
+        res[0][2]   =   -zAxis.x;
+        res[1][2]   =   -zAxis.y;
+        res[2][2]   =   -zAxis.z;
+        res[3][0]   =   -dot(xAxis, eye);
+        res[3][1]   =   -dot(yAxis, eye);
+        res[3][2]   =   dot(zAxis, eye);
+        return res;
+    }
+
+
+    template <typename T> 
+    tmat4x4<T>    lookAtL
+        (
+        tvec3<T> const & eye,
+        tvec3<T> const & center,
+        tvec3<T> const & up
+        )
+    {
+        tvec3<T> zAxis  =   normalize(center - eye);
+        tvec3<T> yAxis  =   normalize(up);
+        tvec3<T> xAxis  =   normalize(cross(yAxis,zAxis));
+        yAxis = normalize(cross(zAxis,xAxis));
+
+        tmat4x4<T>    res(1);
+        res[0][0]   =   xAxis.x;
+        res[1][0]   =   xAxis.y;
+        res[2][0]   =   xAxis.z;
+        res[0][1]   =   yAxis.x;
+        res[1][1]   =   yAxis.y;
+        res[2][1]   =   yAxis.z;
+        res[0][2]   =   -zAxis.x;
+        res[1][2]   =   -zAxis.y;
+        res[2][2]   =   -zAxis.z;
+        res[3][0]   =   -dot(xAxis, eye);
+        res[3][1]   =   -dot(yAxis, eye);
+        res[3][2]   =   dot(zAxis, eye);
         return res;
     }
 
@@ -4172,49 +4430,17 @@ namespace CELL
     class   AxisAlignedBox2D
     {
     public:
-        enum Extent
-        {
-            EXTENT_NULL,
-            EXTENT_FINITE,
-            EXTENT_INFINITE
-        };
-    public:
 	    tvec2<T>    _minimum;
 	    tvec2<T>    _maximum;
-        Extent      _extent;
     public:
-	    /*
-	    1-----2
-	    /|    /|
-	    / |   / |
-	    5-----4  |
-	    |  0--|--3
-	    | /   | /
-	    |/    |/
-	    6-----7
-	    */
-	    typedef enum 
-        {
-		    FAR_LEFT_BOTTOM     =   0,
-		    FAR_LEFT_TOP        =   1,
-		    FAR_RIGHT_TOP       =   2,
-		    FAR_RIGHT_BOTTOM    =   3,
-		    NEAR_RIGHT_BOTTOM   =   7,
-		    NEAR_LEFT_BOTTOM    =   6,
-		    NEAR_LEFT_TOP       =   5,
-		    NEAR_RIGHT_TOP      =   4
-	    } CornerEnum;
-
 	    AxisAlignedBox2D()
 	    {
 		    _minimum    =   tvec2<T>( T(-0.5), T(-0.5));
 		    _maximum    =   tvec2<T>( T(0.5), T(0.5));
-            _extent     =   EXTENT_NULL;
 	    }
 	    AxisAlignedBox2D(const AxisAlignedBox2D & rkBox)
 	    {
             setExtents( rkBox._minimum, rkBox._maximum );
-            _extent =   rkBox._extent;
 	    }
 
 	    AxisAlignedBox2D( const tvec2<T>& min, const tvec2<T>& max )
@@ -4264,6 +4490,20 @@ namespace CELL
         {
             _minimum = tvec2<T>(x,y);
         }
+
+        void    offset(T x,T y)
+        {
+            _minimum.x  +=  x;
+            _minimum.y  +=  y;
+            
+            _maximum.x  +=  x;
+            _maximum.y  +=  y;
+        }
+        void    offset(const tvec2<T>& of)
+        {
+            _minimum    +=  of;
+            _maximum    +=  of;
+        }
 	    /** 
         *   Gets the maximum corner of the box.
 	    */
@@ -4302,7 +4542,6 @@ namespace CELL
 	    {
 		    _minimum    =   min;
 		    _maximum    =   max;
-            _extent     =   EXTENT_FINITE;
 	    }
 
 	    void setExtents(
@@ -4315,7 +4554,6 @@ namespace CELL
 
 		    _maximum.x  =   Mx;
 		    _maximum.y  =   My;
-            _extent     =   EXTENT_FINITE;
 	    }
 	    inline  bool intersects(const AxisAlignedBox2D& b2) const
 	    {
@@ -4347,32 +4585,8 @@ namespace CELL
                 return AxisAlignedBox2D<T>(intMin, intMax);
             }
 
-            return AxisAlignedBox2D<T>();
+            return AxisAlignedBox2D<T>(0,0,0,0);
 	    }
-        inline  void    setNull()
-        {
-	        _extent = EXTENT_NULL;
-        }
-
-        inline  bool    isNull(void) const
-        {
-	        return (_extent == EXTENT_NULL);
-        }
-
-        bool    isFinite(void) const
-        {
-	        return (_extent == EXTENT_FINITE);
-        }
-
-        inline  void    setInfinite()
-        {
-	        _extent = EXTENT_INFINITE;
-        }
-        inline  bool    isInfinite(void) const
-        {
-	        return (_extent == EXTENT_INFINITE);
-        }
-
 	    
 	    inline  bool    intersects(const tvec2<T>& v) const
 	    {
@@ -4395,6 +4609,10 @@ namespace CELL
 	    {
 		    return _maximum - _minimum;
 	    }
+        inline  bool    isNull()
+        {
+            return  _maximum.x == _minimum.x && _maximum.y == _minimum.y;
+        }
         
 	    inline  tvec2<T> getHalfSize(void) const
 	    {
@@ -4422,6 +4640,20 @@ namespace CELL
         inline  bool operator!= (const AxisAlignedBox2D& right) const
         {
             return !(*this == right);
+        }
+
+        inline  void    inflate(const tvec2<T>& sz)
+        {
+            _minimum    -=  sz;
+            _maximum    +=  sz;
+        }
+        inline  void    inflate(T x,T y)
+        {
+            _minimum.x  -=  x;
+            _minimum.y  -=  y;
+
+            _maximum.x  +=  x;
+            _maximum.y  +=  y;
         }
 
         inline  void    merge(tvec2<T> point)
@@ -4648,18 +4880,19 @@ namespace CELL
 	    </pre>
 	    @remarks as this implementation uses a static member, make sure to use your own copy !
 	    */
-	    void    getAllCorners(tvec3<T> mpCorners[8] ) const
-	    {
-		    mpCorners[0]    = _minimum;
-		    mpCorners[1].x  = _minimum.x; mpCorners[1].y = _maximum.y; mpCorners[1].z = _minimum.z;
-		    mpCorners[2].x  = _maximum.x; mpCorners[2].y = _maximum.y; mpCorners[2].z = _minimum.z;
-		    mpCorners[3].x  = _maximum.x; mpCorners[3].y = _minimum.y; mpCorners[3].z = _minimum.z;            
+        template<typename U>
+        void    getAllCorners(tvec3<U> outCorners[8] ) const
+        {
+            outCorners[0].x     =   (U)_minimum.x; outCorners[0].y     =   (U)_minimum.y; outCorners[0].z =   (U)_minimum.z;
+            outCorners[1].x     =   (U)_minimum.x; outCorners[1].y     =   (U)_maximum.y; outCorners[1].z =   (U)_minimum.z;
+            outCorners[2].x     =   (U)_maximum.x; outCorners[2].y     =   (U)_maximum.y; outCorners[2].z =   (U)_minimum.z;
+            outCorners[3].x     =   (U)_maximum.x; outCorners[3].y     =   (U)_minimum.y; outCorners[3].z =   (U)_minimum.z;            
 
-		    mpCorners[4]    = _maximum;
-		    mpCorners[5].x  = _minimum.x; mpCorners[5].y = _maximum.y; mpCorners[5].z = _maximum.z;
-		    mpCorners[6].x  = _minimum.x; mpCorners[6].y = _minimum.y; mpCorners[6].z = _maximum.z;
-		    mpCorners[7].x  = _maximum.x; mpCorners[7].y = _minimum.y; mpCorners[7].z = _maximum.z;
-	    }
+            outCorners[4].x     =   (U)_maximum.x; outCorners[4].y     =   (U)_maximum.y; outCorners[4].z =   (U)_maximum.z;
+            outCorners[5].x     =   (U)_minimum.x; outCorners[5].y     =   (U)_maximum.y; outCorners[5].z =   (U)_maximum.z;
+            outCorners[6].x     =   (U)_minimum.x; outCorners[6].y     =   (U)_minimum.y; outCorners[6].z =   (U)_maximum.z;
+            outCorners[7].x     =   (U)_maximum.x; outCorners[7].y     =   (U)_minimum.y; outCorners[7].z =   (U)_maximum.z;
+        }
 
 	    /** 
         *   gets the position of one of the corners
@@ -4987,6 +5220,12 @@ namespace CELL
 
             return mPoints[index];
         }
+        tvec3<T>& getPoint(size_t index) 
+        {
+            assert (index < mPoints.size() && "Point index is out of bounds!!");
+
+            return mPoints[index];
+        }
 
         /**
         *   获取点的数量
@@ -5063,7 +5302,7 @@ namespace CELL
             const tvec3<T>& point2  =   mPoints[fromIndex+1];
             const tvec3<T>& tan1    =   mTangents[fromIndex];
             const tvec3<T>& tan2    =   mTangents[fromIndex+1];
-            matrix4 pt;
+            tmat4x4<T> pt;
 
             pt[0][0]    =   point1.x;
             pt[0][1]    =   point1.y;
@@ -5297,6 +5536,8 @@ namespace CELL
         unsigned char   _a;
     };
 
+    typedef Rgba4Byte   Rgba;
+
     inline  Rgba4Byte   colorLerp(const Rgba4Byte& c1, const Rgba4Byte& c2, float s)
     {
         Rgba4Byte   color;
@@ -5464,7 +5705,7 @@ namespace CELL
             */
             if ( _origin > min && _origin < max )
             {
-                return std::pair<bool, T>(true, 0);
+                return std::pair<bool, T>(true, 0.0f);
             }
 
             // Check each face in turn, only check closest 3
@@ -5584,72 +5825,50 @@ namespace CELL
             }
             return std::pair<bool, T>(hit, lowt);
         }
+
+
+
+        std::pair<bool, T> intersectSphere(const tvec3<T>& center,T radius)  const
+        {
+            tvec3<T> raydir = _direction;
+            // Adjust ray origin relative to sphere center
+            tvec3<T> rayorig = _origin - center;
+           
+            T       len =   CELL::length(rayorig) *  CELL::length(rayorig);
+            // Check origin inside first
+            if (len <= radius * radius )
+            {
+                return std::pair<bool, T>(true, 0);
+            }
+
+            // Mmm, quadratics
+            // Build coeffs which can be used with std quadratic solver
+            // ie t = (-b +/- sqrt(b*b + 4ac)) / 2a
+            T a     =   CELL::dot(raydir,raydir);
+            T b     =   2 * CELL::dot(rayorig,raydir);
+            T c     =   CELL::dot(rayorig,rayorig)- radius * radius;
+
+            T d     = (b*b) - (4 * a * c);
+            if (d < 0)
+            {
+                // No intersection
+                return std::pair<bool, T>(false, (T)0);
+            }
+            else
+            {
+                // BTW, if d=0 there is one intersection, if d > 0 there are 2
+                // But we only want the closest one, so that's ok, just use the 
+                // '-' version of the solver
+                T t = (-b - sqrt(d)) / (2 * a);
+                if (t < 0)
+                    t = (-b + sqrt(d)) / (2 * a);
+                return std::pair<bool, T>(true, (T)t);
+            }
+        }
+
     };
 
-	template <typename T>
-	class tray_lf
-	{
-		typedef T value_type;
-		typedef tray_lf<T> type;
-	protected:
-		tvec3<T> _origin;
-		tvec3<T> _direction;
-	public:
-		tray_lf():
-			_origin(value_type(0), value_type(0), value_type(0)),
-			_direction(value_type(0), value_type(0), value_type(1))
-		{
-		}
-		tray_lf(const tvec3<T>& origin, const tvec3<T>& direction)
-		{
-			_origin = origin;
-			_direction = direction;
-		}
-		//返回时间t的射线位置
-		tvec3<T> getPoint(T time) const
-		{
-			return tvec3<T>(_origin + (_direction * time));
-		}
-		//设置射线的起点
-		void setOrigin(const tvec3<T>& origin)
-		{
-			_origin = origin;
-		}
-		//返回射线的起点
-		const tvec3<T>& getOrigin() const
-		{
-			return _origin;
-		}
 
-		//设置射线的方向
-		void setDirection(const tvec3<T>& dir)
-		{
-			_direction = dir;
-		}
-		//返回射线的方向
-		const tvec3<T>& getDirection() const
-		{
-			return _direction;
-		}
-
-		tvec3<T> getPosition(T time) const
-		{
-			return tvec3<T>(_origin + (_direction * time));
-		}
-
-		//测试射线box相交，如果相交，返回值中的first == true,否则false
-		//second为射线到点的距离
-		//调用getPoint的方法，则返回交点
-		std::pair<bool, T> intersects(const AxisAlignedBox<T>& box) const
-		{
-			T lowt = 0.0;
-			T t;
-			bool hit = false;
-			tvec3<T> hitPoint;
-			tvec3<T> min = box.getMinimum();
-			tvec3<T> max = box.getMaximum();
-		}
-	};
     template<class T>
     class  Plane
     {
@@ -5692,7 +5911,7 @@ namespace CELL
         /**
         *   到点的距离
         */
-        float distance(const tvec3<T> &pos) const
+        T   distance(const tvec3<T> &pos) const
         {
             return  dot(_normal,pos) + _distance;
         }
@@ -5884,51 +6103,241 @@ namespace CELL
         { 
             return _planes[plane];
         }
-    protected:
+    public:
         Plane<T>    _planes[6];
     };
+    inline uint getClosestPowerOfTwo(const uint x) 
+    {
+        uint i = 1;
+        while (i < x) i += i;
+
+        if (4 * x < 3 * i) i >>= 1;
+        return i;
+    }
+
+    inline uint getUpperPowerOfTwo(const uint x) 
+    {
+        uint i = 1;
+        while (i < x) i += i;
+
+        return i;
+    }
+
+    inline uint getLowerPowerOfTwo(const uint x)
+    {
+        unsigned int i = 1;
+        while (i <= x) i += i;
+
+        return i >> 1;
+    }
+
+    inline int roundToInt(float x) 
+    {
+        if (x > 0) 
+        {
+            return int(x + 0.5f);
+        }
+        else 
+        {
+            return int(x - 0.5f);
+        }
+    }
+    inline  uint    compressFloat3To101010Rev( float x, float y, float z )
+    {
+        return  ( ( ( (uint)(x *511.0f) ) & 0x000003ff ) << 0L ) |
+                ( ( ( (uint)(y *511.0f) ) & 0x000003ff ) << 10L ) |
+                ( ( ( (uint)(z *511.0f) ) & 0x000003ff ) << 20L);
+    }
+    inline  Rgba4Byte   quantiseNormal( const tvec3<float>& input)
+    {
+        // -1.0 - 1.f -> 0.f - 255.f
+        return  Rgba(   (unsigned char) ( (input.x * 127.f) ),
+                        (unsigned char) ( (input.y * 127.f) ),
+                        (unsigned char) ( (input.z * 127.f) ),
+                        255
+                        );
+    }
+
+    /// 根据字符串生成hashcode
+    inline  int     stringHashCode(const char* pStr)
+    {
+        int h = 0;
+        for (int i = 0; pStr[i]; i++)
+        {
+            h = 31 * h + pStr[i];
+        }
+        return h;
+    }
+
+    /// <summary>
+    /// 获取文件扩展名
+    /// </summary>
+    /// <param name="fileName">文件名称</param>
+    static  inline  char*   getFileExt(char* fileName)
+    {
+        size_t  len     =   strlen(fileName);
+        char*   pEnd    =   fileName +  len;
+        while(pEnd > fileName)
+        {
+            if (*pEnd == '.')
+                return  pEnd;
+            else
+                --pEnd;
+        }
+        if (pEnd == fileName)
+            return  0;
+        else
+            return  pEnd;
+    }
+
+    /// <summary>
+    /// 获取文件路径
+    /// </summary>
+    /// <param name="fileName">文件名称,全路径名称</param>
+    /// <param name="path">径名</param>
+    static  inline  bool    getFilePath(const char* fileName,char path[256])
+    {
+        size_t  len = strlen(fileName);
+        for (size_t i = len - 1; fileName[i]; --i)
+        {
+            if (fileName[i] == '/' || fileName[i] == '\\')
+            {
+                strncpy(path,fileName,i);
+                return  true;
+            }
+        }
+        return  false;
+    }
+
+    /// <summary>
+    /// 获取文件名称
+    /// </summary>
+    /// <param name="fileName">文件全路径名称</param>
+    static  inline  char*    getFileName(char* fileName)
+    {
+        size_t  len = strlen(fileName);
+        for (size_t i = len - 1; fileName[i]; --i)
+        {
+            if (fileName[i] == '/' || fileName[i] == '\\')
+            {
+                return  fileName + i;
+            }
+        }
+        return  0;
+    }
+
+    /// <summary>
+    /// 计算包围盒数据
+    /// </summary>
+    template<class T>
+    AxisAlignedBox<T> calcAabb(const tvec3<T>* pPos,uint nCount,uint stride)
+    {
+        char*       pData   =   (char* )pPos;
+        tvec3<T>*   pCur    =   (tvec3<T>*)pPos;
+
+        AxisAlignedBox<T> aabb;
+        aabb._minimum.x =   FLT_MAX;
+        aabb._minimum.y =   FLT_MAX;
+        aabb._minimum.z =   FLT_MAX;
+
+        aabb._maximum.x =   -FLT_MAX;
+        aabb._maximum.y =   -FLT_MAX;
+        aabb._maximum.z =   -FLT_MAX;
+        aabb._extent    =   AxisAlignedBox<T>::EXTENT_FINITE;
+
+        for (uint i = 0 ;i < nCount ; ++ i)
+        {
+            pData   +=  stride;
+            pCur    =   (tvec3<T>*)pCur;
+            aabb._minimum.x =   CELL::tmin<T>(pCur[i].x, aabb._minimum.x);
+            aabb._minimum.y =   CELL::tmin<T>(pCur[i].y, aabb._minimum.y);
+            aabb._minimum.z =   CELL::tmin<T>(pCur[i].z, aabb._minimum.z);
+
+            aabb._maximum.x =   CELL::tmax<T>(pCur[i].x, aabb._maximum.x);
+            aabb._maximum.y =   CELL::tmax<T>(pCur[i].y, aabb._maximum.y);
+            aabb._maximum.z =   CELL::tmax<T>(pCur[i].z, aabb._maximum.z);
+        }
+        return  aabb;
+    }
+    /// <summary>
+   /// 计算包围球数据
+   /// </summary>
+    template<class T>
+    tvec4<T>        calcSphere(const tvec3<T>* pPos, uint nCount, uint stride)
+    {
+        AxisAlignedBox<T>   aabb    =   calcAabb<T>(pPos,nCount,stride);
+        tvec3<T>            center  =   aabb.getCenter();
+        T                   radius  =   CELL::length(aabb.getHalfSize());
+        return  tvec4<T>(center.x,center.y,center.z,radius);
+    }
+
+    typedef char                    PATH[256];
+    typedef double                  real;
+    typedef tvec2<short>            short2;
+    typedef tvec2<unsigned short>   ushort2;
+    typedef tvec2<unsigned int>     uint2;
+    typedef tvec2<int>              int2;
+    typedef tvec2<float>            float2;
+    typedef tvec2<double>           double2;
+
+    typedef tvec2<real>             real2;
 
 
-	typedef float			  real_lf;
-	typedef tvec2<int>		  int2_lf;
-    typedef tvec2<float>      float2;
-    typedef tvec2<double>     double2;
+    typedef tvec3<unsigned char>    uchar3;
+    typedef tvec3<byte>             byte3;
+    typedef tvec3<unsigned short>   ushort3;
+    
+    typedef tvec3<unsigned int>     uint3;
+    typedef tvec3<int>              int3;
+    typedef tvec3<int>              int3;
+    typedef tvec3<unsigned>         uint3;
+    typedef tvec3<float>            float3;
+    typedef tvec3<double>           double3;
 
-	typedef tvec2<real_lf>	  real2_lf;
-
-    typedef tvec3<int>        int3;
-    typedef tvec3<unsigned>   uint3;
-    typedef tvec3<float>      float3;
-    typedef tvec3<double>     double3;
-
-	typedef tvec3<real_lf>    real3_lf;
+    typedef tvec3<real>             real3;
 
 
-    typedef tvec4<int>        int4;
-    typedef tvec4<float>      float4;
-    typedef tvec4<double>     double4;
-	typedef tvec4<real_lf>       real4_lf;
-	typedef trect<real_lf>       rect4;
+    typedef tvec4<unsigned short>   ushort4;
 
-    typedef AxisAlignedBox<float>   aabb3d;
-	typedef AxisAlignedBox<real_lf>    aabbr;
+    typedef tvec2<unsigned short>   half2;
+    typedef tvec3<unsigned short>   half3;
+    typedef tvec4<unsigned short>   half4;
 
-    typedef AxisAlignedBox2D<float>   AABB2D;
-	typedef AxisAlignedBox2D<real_lf>    aabb2dr;
+    typedef tvec4<int>              int4;
+    typedef tvec4<float>            float4;
+    typedef tvec4<double>           double4;
+    typedef tvec4<real>             real4;
+    typedef trect<real>             rect4;
+    typedef trect<int>              rect4i;
+
+    typedef AxisAlignedBox<float>   aabb3df;
+    typedef AxisAlignedBox<real>    aabb3dr;
+
+    typedef AxisAlignedBox2D<float> AABB2D;
+    typedef AxisAlignedBox2D<real>  aabb2dr;
+
 
     
 
     typedef tmat2x2<float>      matrix2;
     typedef tmat3x3<float>      matrix3;
     typedef tmat4x4<float>      matrix4;
-	typedef tmat4x4<real_lf>       matrix4r;
 
+    typedef tmat2x2<double>     matrix2d;
+    typedef tmat3x3<double>     matrix3d;
+    typedef tmat4x4<double>     matrix4d;
+
+    typedef tmat2x2<real>       matrix2r;
+    typedef tmat3x3<real>       matrix3r;
+    typedef tmat4x4<real>       matrix4r;
+    
     typedef tquat<float>        quaternion;
-	typedef tquat<real_lf>      quatr;
-	typedef tray_lf<real_lf>	Ray_lf;
+    typedef tquat<float>        quatf;
+    typedef tquat<real>         quatr;
+    typedef tray<real>          Ray;
     typedef tray<float>         RayF;
-    typedef tfrustum<float>     Frustum;    
+    typedef tfrustum<real>      Frustum;    
 
-    typedef tellipsoidModel<float>  ellipsoid;
+    typedef tellipsoidModel<real>  ellipsoid;
 
 }

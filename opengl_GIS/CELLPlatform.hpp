@@ -1,4 +1,3 @@
-//δ�
 #pragma once
 
 #define CELL_PLATFORM_WIN32     1
@@ -20,7 +19,7 @@
 #   include <windows.h>
 
 
-#   include "gl/glew.h"
+#   include <gl/glew.h>
 #   include <gl/GL.h>
 #   include <gl/GLu.h>
 
