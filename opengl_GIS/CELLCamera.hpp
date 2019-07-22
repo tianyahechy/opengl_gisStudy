@@ -1,13 +1,13 @@
 #pragma once
 
-#include    "CELLObject.hpp"
+#include    "lifeiObject.h"
 #include    "CELLMath.hpp"
 
 namespace   CELL
 {
     /// ×óÊÖ×ø±êÏµ
     #define COORD_LH    
-    class CELLCamera :public CELLObject
+    class CELLCamera :public lifeiObject
     {
     public:
         enum 

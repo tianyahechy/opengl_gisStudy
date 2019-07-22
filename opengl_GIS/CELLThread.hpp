@@ -1,13 +1,13 @@
 #pragma once
 
 #include    "CELLPlatform.hpp"
-#include    "CELLObject.hpp"
+#include    "lifeiObject.h"
 
 #if CELL_PLATFORM == CELL_PLATFORM_WIN32
 
 namespace   CELL
 {
-    class   CELLThread :public CELLObject
+    class   CELLThread :public lifeiObject
     {
     public:
         DWORD               _threadId;

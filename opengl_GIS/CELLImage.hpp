@@ -5,11 +5,11 @@
 #include <assert.h>
 
 #include "CELLMath.hpp"
-#include "CELLObject.hpp"
+#include "lifeiObject.h"
 
 namespace CELL
 {
-    class   CELLImage :public CELLObject
+    class   CELLImage :public lifeiObject
     {
     public:
         enum    Format
