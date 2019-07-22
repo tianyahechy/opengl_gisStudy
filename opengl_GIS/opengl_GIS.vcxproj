@@ -175,6 +175,7 @@
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="lifeiObject.h" />
+    <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="OPENGL_GIS.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shp\shapefil.h" />

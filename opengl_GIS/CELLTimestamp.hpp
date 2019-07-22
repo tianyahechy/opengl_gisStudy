@@ -1,8 +1,8 @@
 #pragma once
 
-#include "CELLPlatform.hpp"
+#include "lifeiPlatform.h"
 
-#if CELL_PLATFORM == CELL_PLATFORM_WIN32
+#if LIFEI_PLATFORM == CELL_PLATFORM_WIN32
 
 namespace   CELL
 {

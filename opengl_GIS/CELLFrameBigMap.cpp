@@ -1,6 +1,6 @@
 #include    "stdafx.h"
 
-#include    "CELLPlatform.hpp"
+#include    "lifeiPlatform.h"
 #include    "CELLFrameBigMap.h"
 #include    "CELLOpenGL.h"
 #include    "CELLContext.hpp"
