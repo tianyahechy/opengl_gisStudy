@@ -1,6 +1,6 @@
 #pragma once
 
-#include    "CELLProgramLibary.hpp"
+#include    "CELLProgramLibrary.hpp"
 #include    "CELLImage.hpp"
 #include    "CELLImageLoader.hpp"
 #include    <map>

@@ -5,7 +5,7 @@
 #include    "CELLOpenGL.h"
 #include    "CELLContext.hpp"
 #include    "CELLResourceMgr.hpp"
-#include    "CELLProgramLibary.hpp"
+#include    "CELLProgramLibrary.hpp"
 
 
 namespace CELL

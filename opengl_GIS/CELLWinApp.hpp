@@ -9,7 +9,7 @@
 #include    "CELLContext.hpp"
 #include    "CELLThread.hpp"
 #include    "CELLEvent.hpp"
-#include    "CELLProgramLibary.hpp"
+#include    "CELLProgramLibrary.hpp"
 #include    "CELLResourceMgr.hpp"
 #include    <assert.h>
 
