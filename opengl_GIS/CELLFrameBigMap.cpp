@@ -13,6 +13,7 @@ namespace CELL
 
     CELLFrameBigMap::CELLFrameBigMap(CELLContext& context)
         :CELLFrame(context)
+        ,_bLbuttonDown(false)
     {
         context._camera.setEye(real3(0,0,-10));
         context._camera.setTarget(real3(0,0,0));
@@ -70,14 +71,17 @@ namespace CELL
         /// 顶点数据
         float3  vPlane[6]   =   
         {
-            float3(-0.5f,+0.5f,3.0f),
-            float3(+0.5f,+0.5f,3.0f),
-            float3(+0.5f,-0.5f,3.0f),
+            float3(-10.0f,+10.0f,3.0f),
+            float3(+10.0f,+10.0f,3.0f),
+            float3(+10.0f,-10.0f,3.0f),
 
-            float3(-0.5f,+0.5f,3.0f),
-            float3(+0.5f,-0.5f,3.0f),
-            float3(-0.5f,-0.5f,3.0f),
+            float3(-10.0f,+10.0f,3.0f),
+            float3(+10.0f,-10.0f,3.0f),
+            float3(-10.0f,-10.0f,3.0f),
         };
+
+        _aabb.setExtents(real3(-10,-10,2.9),real3(10,10,3.0));
+
         Rgba    color(255,0,0,255);
 
         /// 获取shader
@@ -106,47 +110,27 @@ namespace CELL
 
     void CELLFrameBigMap::onLButtonDown(int x, int y)
     {
-        CELL::Ray   ray =   _context._camera.createRayFromScreen(x,y);
-
-        /// 顶点数据
-        float3  vPlane[6] =
-        {
-            float3(-0.5f,+0.5f,3.0f),
-            float3(+0.5f,+0.5f,3.0f),
-            float3(+0.5f,-0.5f,3.0f),
-
-            float3(-0.5f,+0.5f,3.0f),
-            float3(+0.5f,-0.5f,3.0f),
-            float3(-0.5f,-0.5f,3.0f),
-        };
-
-        real    t   =   0;
-        real    u   =   0;
-        real    v   =   0;
-        bool    bFlag   =   CELL::intersectTriangle<real>(
-             ray.getOrigin()
-            ,ray.getDirection()
-            ,real3(-0.5f,+0.5f,3.0f)
-            ,real3(+0.5f,+0.5f,3.0f)
-            ,real3(+0.5f,-0.5f,3.0f)
-            ,&t
-            ,&u
-            ,&v);
-        if (bFlag)
-        {
-            real3   point   =   ray.getPoint(t);
-            char szBuf[128];
-            sprintf(szBuf,"%lf,%lf,%lf\n",point.x,point.y,point.z);
-            OutputDebugStringA(szBuf);
-        }
+        getPointsFromScreen(x,y,_basePoint);
+        _bLbuttonDown   =   true;
+        _lbuttonDown    =   int2(x,y);
     }
 
     void CELLFrameBigMap::onLButtonUp(int x, int y)
     {
+        _bLbuttonDown   =   false;
     }
 
     void CELLFrameBigMap::onMouseMove(int x, int y)
     {
+        if (!_bLbuttonDown)
+        {
+            return;
+        }
+        int2    curPoint(x,y);
+        int2    offset  =   curPoint - _lbuttonDown;
+        _lbuttonDown    =   curPoint;
+        _context._camera.roteteViewYByCenter(offset.x,_basePoint);
+		_context._camera.roteteViewXByCenter(offset.y, _basePoint);
     }
 
     void CELLFrameBigMap::onMouseWheel(int delta)
@@ -160,7 +144,7 @@ namespace CELL
         {
             persent =   1.1;
         }
-        _context._camera.scaleCameraByPos(real3(0,0,0),persent);
+        _context._camera.scaleCameraByPos(_basePoint,persent);
     }
 
     void CELLFrameBigMap::onKeyDown(int key)
@@ -171,6 +155,21 @@ namespace CELL
     void CELLFrameBigMap::onKeyUp(int key)
     {
         _context._keyState[key] =   0;
+    }
+
+    bool CELLFrameBigMap::getPointsFromScreen(int x, int y, real3& point)
+    {
+        CELL::Ray   ray     =   _context._camera.createRayFromScreen(x, y);
+        real3       vC      =   _aabb.getCenter();
+        real        rRadius =   CELL::length(_aabb.getSize()) * 0.5;
+        std::pair<bool, real>  res = ray.intersectSphere(vC, rRadius);
+
+        if (res.first)
+        {
+            point = ray.getPoint(res.second);
+            return  true;
+        }
+        return  false;
     }
 
 }

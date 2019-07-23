@@ -7,6 +7,10 @@ namespace CELL
     {
     public:
         CELLTimestamp   _timeStamp;
+        aabb3dr         _aabb;
+        real3           _basePoint;
+        bool            _bLbuttonDown;
+        int2            _lbuttonDown;
     public:
         CELLFrameBigMap(CELLContext& context);
 
@@ -51,6 +55,11 @@ namespace CELL
         /// 键盘事件
         /// </summary>
         virtual void    onKeyUp(int key);
+    protected:
+        /// <summary>
+        /// 返回鼠标点击出射线与场景的交点
+        /// </summary>
+        bool   getPointsFromScreen(int x,int y,real3& point);
 
     };
 
