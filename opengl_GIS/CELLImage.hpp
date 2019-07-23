@@ -21,8 +21,8 @@ namespace CELL
             FORMAT_DXT5,
         };
     public:
-        uint    _width;
-        uint    _height;
+		uint    _width;
+		uint    _height;
         Format  _format;
 		byte_lf*   _buffer;
     public:
@@ -64,7 +64,7 @@ namespace CELL
         /// <summary>
         /// 创建一个图像
         /// </summary>
-        virtual void    create(uint w,uint h,Format fmt)
+		virtual void    create(uint w, uint h, Format fmt)
         {
             if (_width != w || _height != h || _format != fmt)
             {
@@ -78,7 +78,7 @@ namespace CELL
         /// <summary>
         /// 创建一个图像
         /// </summary>
-        virtual void    create(uint w,uint h,Format fmt,const void* data)
+		virtual void    create(uint w, uint h, Format fmt, const void* data)
         {
             size_t  length  =   calcSize(w,h,fmt);
             if (_width != w || _height != h || _format != fmt)

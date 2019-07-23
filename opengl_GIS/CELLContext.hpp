@@ -1,7 +1,7 @@
 #pragma once
 
 #include    "CELLMath.hpp"
-#include    "CELLCamera.hpp"
+#include    "lifeiCamera.h"
 namespace   CELL
 {
     class   CELLResourceMgr;
@@ -29,7 +29,7 @@ namespace   CELL
         /// 2d ÆÁÄ»Í¶Ó°¾ØÕó
         matrix4r    _screenPrj;
         /// ¹Û²ì¾ØÕó
-        CELLCamera  _camera;
+        lifeiCamera  _camera;
         /// mvp;
         matrix4r    _mvp;
         matrix4r    _vp;
