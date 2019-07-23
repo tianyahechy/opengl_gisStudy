@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <cstdio>
@@ -9,11 +8,9 @@
 #include <limits>
 #include <xutility>
 
-
 namespace CELL
 {
-
-    typedef unsigned char           byte;
+	typedef unsigned char			byte_lf;
     typedef long long               int64;
     typedef unsigned long long      uint64;
     typedef unsigned short          ushort;
@@ -48,16 +45,16 @@ namespace CELL
                         ((unsigned(b) >> 3)));  
     }
 
-    inline  void rgb565_2_rgb24(byte *rgb24, ushort rgb565)  
+	inline  void rgb565_2_rgb24(byte_lf *rgb24, ushort rgb565)
     {   
         #define RGB565_MASK_RED         0xF800   
         #define RGB565_MASK_GREEN       0x07E0   
         #define RGB565_MASK_BLUE        0x001F 
 
         //extract RGB   
-        rgb24[2] = (byte)((rgb565 & RGB565_MASK_RED)   >> 11);     
-        rgb24[1] = (byte)((rgb565 & RGB565_MASK_GREEN) >> 5);  
-        rgb24[0] = (byte)((rgb565 & RGB565_MASK_BLUE));  
+		rgb24[2] = (byte_lf)((rgb565 & RGB565_MASK_RED) >> 11);
+		rgb24[1] = (byte_lf)((rgb565 & RGB565_MASK_GREEN) >> 5);
+		rgb24[0] = (byte_lf)((rgb565 & RGB565_MASK_BLUE));
 
         //amplify the image   
         rgb24[2] <<= 3;  
@@ -6284,7 +6281,7 @@ namespace CELL
 
 
     typedef tvec3<unsigned char>    uchar3;
-    typedef tvec3<byte>             byte3;
+    typedef tvec3<byte_lf>             byte3;
     typedef tvec3<unsigned short>   ushort3;
     
     typedef tvec3<unsigned int>     uint3;

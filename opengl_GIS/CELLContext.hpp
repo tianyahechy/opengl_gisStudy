@@ -34,7 +34,7 @@ namespace   CELL
         matrix4r    _mvp;
         matrix4r    _vp;
 
-        byte        _keyState[256];
+		byte_lf        _keyState[256];
 
     };
 }

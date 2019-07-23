@@ -24,7 +24,7 @@ namespace CELL
         uint    _width;
         uint    _height;
         Format  _format;
-        byte*   _buffer;
+		byte_lf*   _buffer;
     public:
         CELLImage()
         {
@@ -72,7 +72,7 @@ namespace CELL
                 _width  =   w;
                 _height =   h;
                 _format =   fmt;
-                _buffer =   new byte[calcSize(w,h,fmt)];
+				_buffer = new byte_lf[calcSize(w, h, fmt)];
             }
         }
         /// <summary>
@@ -90,7 +90,7 @@ namespace CELL
             }
             if (_buffer == 0)
             {
-                _buffer =   new byte[length];
+				_buffer = new byte_lf[length];
             }
             if (data)
             {
