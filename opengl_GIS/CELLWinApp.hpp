@@ -1,6 +1,6 @@
 #pragma once
 
-#include    "CELLApp.hpp"
+#include    "lifeiApp.h"
 #include    <windows.h>
 #include    <tchar.h>
 #include    "CELLGLContext.hpp"
@@ -17,7 +17,7 @@
 namespace CELL
 {
     class CELLWinApp 
-        :public CELLApp
+        :public LifeiApp
         ,public CELLThread
     {
     public:
