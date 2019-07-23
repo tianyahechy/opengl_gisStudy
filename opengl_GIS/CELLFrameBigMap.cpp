@@ -71,13 +71,13 @@ namespace CELL
         /// ¶¥µãÊý¾Ý
         float3  vPlane[6]   =   
         {
-            float3(-10.0f,+10.0f,3.0f),
-            float3(+10.0f,+10.0f,3.0f),
-            float3(+10.0f,-10.0f,3.0f),
+			float3(-10.0f, 3.0f, + 10.0f),
+			float3(+10.0f, 3.0f, + 10.0f),
+			float3(+10.0f, 3.0f, - 10.0f),
 
-            float3(-10.0f,+10.0f,3.0f),
-            float3(+10.0f,-10.0f,3.0f),
-            float3(-10.0f,-10.0f,3.0f),
+			float3(-10.0f, 3.0f, + 10.0f),
+			float3(+10.0f, 3.0f, - 10.0f),
+			float3(-10.0f, 3.0f, - 10.0f),
         };
 
         _aabb.setExtents(real3(-10,-10,2.9),real3(10,10,3.0));

@@ -150,14 +150,12 @@
     <ClInclude Include="CELLEvent.hpp" />
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.hpp" />
-    <ClInclude Include="CELLGLContext.h" />
     <ClInclude Include="CELLGLContext.hpp" />
     <ClInclude Include="CELLImage.hpp" />
     <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLInput.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
-    <ClInclude Include="CELLProgramLibary.hpp" />
     <ClInclude Include="CELLProgramLibrary.hpp" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
