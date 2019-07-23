@@ -3,7 +3,7 @@
 #include    "lifeiPlatform.h"
 #include    "CELLFrameBigMap.h"
 #include    "CELLOpenGL.h"
-#include    "CELLContext.hpp"
+#include    "lifeiContext.h"
 #include    "CELLResourceMgr.hpp"
 #include    "CELLProgramLibrary.hpp"
 
@@ -11,7 +11,7 @@
 namespace CELL
 {
 
-    CELLFrameBigMap::CELLFrameBigMap(CELLContext& context)
+	CELLFrameBigMap::CELLFrameBigMap(lifeiContext& context)
         :CELLFrame(context)
         ,_bLbuttonDown(false)
     {
@@ -28,7 +28,7 @@ namespace CELL
     {
     }
 
-    void CELLFrameBigMap::update(CELLContext& )
+	void CELLFrameBigMap::update(lifeiContext&)
     {
         _context._device->setViewPort(0,0,_context._width,_context._height);
         _context._screenPrj =   CELL::ortho<real>(0.0f,(real)_context._width,(real)_context._height,0,-1000.0f,1000.0f);
@@ -62,7 +62,7 @@ namespace CELL
         }
     }
 
-    void CELLFrameBigMap::onFrameStart(CELLContext& context)
+	void CELLFrameBigMap::onFrameStart(lifeiContext& context)
     {
         context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         context._device->clearColor(0, 0, 0, 1);
@@ -104,7 +104,7 @@ namespace CELL
 
     }
 
-    void CELLFrameBigMap::onFrameEnd(CELLContext& context)
+	void CELLFrameBigMap::onFrameEnd(lifeiContext& context)
     {
     }
 

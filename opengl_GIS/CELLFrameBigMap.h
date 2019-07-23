@@ -12,23 +12,23 @@ namespace CELL
         bool            _bLbuttonDown;
         int2            _lbuttonDown;
     public:
-        CELLFrameBigMap(CELLContext& context);
+		CELLFrameBigMap(lifeiContext& context);
 
         virtual ~CELLFrameBigMap();
 
         /// <summary>
         /// 更新数据
         /// </summary>
-        virtual void    update(CELLContext& context);
+		virtual void    update(lifeiContext& context);
         /// <summary>
         /// 开始绘制
         /// </summary>
-        virtual void    onFrameStart(CELLContext& context);
+		virtual void    onFrameStart(lifeiContext& context);
 
         /// <summary>
         /// 结束绘制
         /// </summary>
-        virtual void    onFrameEnd(CELLContext& context);
+		virtual void    onFrameEnd(lifeiContext& context);
 
         /// <summary>
         /// 鼠标左键按下

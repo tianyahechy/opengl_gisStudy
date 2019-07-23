@@ -140,7 +140,7 @@ namespace   CELL
         virtual GLuint  getAttribute(const char* name);
     };
 
-    class   CELLContext;
+	class   lifeiContext;
 
     class   VertexBufferId
     {

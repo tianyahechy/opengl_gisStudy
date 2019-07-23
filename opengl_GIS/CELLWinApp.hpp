@@ -6,7 +6,7 @@
 #include    "CELLGLContext.hpp"
 #include    "CELLOpenGL.h"
 #include    "CELLFrameBigMap.h"
-#include    "CELLContext.hpp"
+#include    "lifeiContext.h"
 #include    "CELLThread.hpp"
 #include    "CELLEvent.hpp"
 #include    "CELLProgramLibrary.hpp"
@@ -23,7 +23,7 @@ namespace CELL
     public:
         HWND            _hWnd;
         CELLGLContext   _contextGL;
-        CELLContext     _context;
+		lifeiContext     _context;
         CELLResourceMgr _resMgr;
         CELLOpenGL      _device;
         CELLFrame*      _frame;

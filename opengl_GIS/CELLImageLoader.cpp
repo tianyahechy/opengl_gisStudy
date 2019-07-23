@@ -171,7 +171,7 @@ namespace   CELL
         else if (chanel == 4)
         {
             image.create(width, height, CELLImage::FORMAT_RGB8, 0);
-			byte_lf*   data = (byte_lf*)image.data();
+			byte*   data = (byte*)image.data();
             for (int i = 0 ;i < width * height; ++ i)
             {
                 data[i*3 + 0]   =   pixels[i * 4 + 0];
@@ -204,7 +204,7 @@ namespace   CELL
         if (chanel == 3)
         {
             image.create(width, height, CELLImage::FORMAT_RGBA8, pixels);
-			byte_lf*   data = (byte_lf*)image.data();
+			byte*   data = (byte*)image.data();
             for (int i = 0; i < width * height; ++i)
             {
                 data[i * 3 + 0] =   pixels[i * 3 + 0];
