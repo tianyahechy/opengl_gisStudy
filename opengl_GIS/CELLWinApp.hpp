@@ -8,7 +8,7 @@
 #include    "CELLFrameBigMap.h"
 #include    "lifeiContext.h"
 #include    "CELLThread.hpp"
-#include    "CELLEvent.hpp"
+#include    "lifeiEvent.h"
 #include    "CELLProgramLibrary.hpp"
 #include    "CELLResourceMgr.hpp"
 #include    <assert.h>
@@ -29,7 +29,7 @@ namespace CELL
         CELLFrame*      _frame;
         bool            _threadRun;
         bool            _makeReuslt;
-        CELLEvent       _event;
+        lifeiEvent       _event;
     public:
         CELLWinApp()
         {

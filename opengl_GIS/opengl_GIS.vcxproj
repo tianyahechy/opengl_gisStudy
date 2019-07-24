@@ -146,7 +146,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CELLEvent.hpp" />
     <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLFrame.hpp" />
     <ClInclude Include="CELLGLContext.hpp" />
@@ -169,6 +168,7 @@
     <ClInclude Include="lifeiApp.h" />
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
+    <ClInclude Include="lifeiEvent.h" />
     <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
