@@ -120,6 +120,21 @@ namespace CELL
         _bLbuttonDown   =   false;
     }
 
+	void CELLFrameBigMap::onRButtonDown(int x, int y)
+	{
+	}
+
+	void CELLFrameBigMap::onRButtonUp(int x, int y)
+	{
+	}
+
+	void CELLFrameBigMap::onMButtonDown(int x, int y)
+	{
+	}
+
+	void CELLFrameBigMap::onMButtonUp(int x, int y)
+	{
+	}
     void CELLFrameBigMap::onMouseMove(int x, int y)
     {
         if (!_bLbuttonDown)

@@ -152,7 +152,6 @@
     <ClInclude Include="CELLGLContext.hpp" />
     <ClInclude Include="CELLImage.hpp" />
     <ClInclude Include="CELLImageLoader.hpp" />
-    <ClInclude Include="CELLInput.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLProgramLibrary.hpp" />
@@ -161,8 +160,8 @@
     <ClInclude Include="CELLShpReader.h" />
     <ClInclude Include="CELLThread.hpp" />
     <ClInclude Include="CELLTimestamp.hpp" />
-    <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="CELLFrameBigMap.h" />
+    <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
@@ -170,6 +169,7 @@
     <ClInclude Include="lifeiApp.h" />
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
+    <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="OPENGL_GIS.h" />
