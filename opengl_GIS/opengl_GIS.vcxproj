@@ -156,7 +156,6 @@
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLShpReader.h" />
-    <ClInclude Include="CELLThread.hpp" />
     <ClInclude Include="CELLTimestamp.hpp" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="CELLWinApp.hpp" />
@@ -172,6 +171,7 @@
     <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
+    <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="OPENGL_GIS.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shp\shapefil.h" />

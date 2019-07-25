@@ -5,12 +5,12 @@
 #include    <tchar.h>
 #include    "CELLGLContext.hpp"
 #include    "CELLOpenGL.h"
-#include    "CELLFrameBigMap.h"
+#include    "lifeiThread.h"
 #include    "lifeiContext.h"
-#include    "CELLThread.hpp"
 #include    "lifeiEvent.h"
 #include    "CELLProgramLibrary.hpp"
 #include    "CELLResourceMgr.hpp"
+#include	"CELLFrameBigMap.h"
 #include    <assert.h>
 
 
@@ -18,7 +18,7 @@ namespace CELL
 {
     class CELLWinApp 
         :public LifeiApp
-        ,public CELLThread
+        ,public lifeiThread
     {
     public:
         HWND            _hWnd;
@@ -125,12 +125,12 @@ namespace CELL
 
             if (_frame != 0)
             {
-                CELLThread::start();
+                lifeiThread::start();
 
                 _event.wait();
                 if (!_makeReuslt)
                 {
-                    CELLThread::join();
+                    lifeiThread::join();
                     delete  _frame;
                     _contextGL.shutdown();
                     return;
@@ -253,7 +253,7 @@ namespace CELL
                 break;
             case WM_DESTROY:
                 _threadRun  =   false;
-                CELLThread::join();
+                lifeiThread::join();
                 PostQuitMessage(0);
                 break;
             default:
