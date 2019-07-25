@@ -26,7 +26,7 @@ namespace CELL
         lifeiContext     _context;
         CELLResourceMgr _resMgr;
         CELLOpenGL      _device;
-        CELLFrame*      _frame;
+        lifeiFrame*      _frame;
         bool            _threadRun;
         bool            _makeReuslt;
         lifeiEvent       _event;
@@ -101,7 +101,7 @@ namespace CELL
         /// <summary>
         /// ´´½¨¿ò¼Ü
         /// </summary>
-        virtual CELLFrame*  createFrame()
+        virtual lifeiFrame*  createFrame()
         {
             if (IsWindow(_hWnd))
             {

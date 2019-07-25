@@ -1,9 +1,9 @@
 #pragma once
-#include "CELLFrame.hpp"
+#include "lifeiFrame.h"
 #include "CELLTimestamp.hpp"
 namespace CELL
 {
-    class CELLFrameBigMap :public CELLFrame
+    class CELLFrameBigMap :public lifeiFrame
     {
     public:
         CELLTimestamp   _timeStamp;

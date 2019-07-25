@@ -12,7 +12,7 @@ namespace CELL
 {
 
 	CELLFrameBigMap::CELLFrameBigMap(lifeiContext& context)
-        :CELLFrame(context)
+        :lifeiFrame(context)
         ,_bLbuttonDown(false)
     {
         context._camera.setEye(real3(0,0,-10));
@@ -69,18 +69,18 @@ namespace CELL
         context._device->disableRenderState(GL_CULL_FACE);
 
         /// ¶¥µãÊý¾Ý
-        float3  vPlane[6]   =   
+		real3  vPlane[6] =
         {
-			float3(-10.0f, 3.0f, + 10.0f),
-			float3(+10.0f, 3.0f, + 10.0f),
-			float3(+10.0f, 3.0f, - 10.0f),
+			real3(-10.0f, -3.0f, + 10.0f),
+			real3(+10.0f, -3.0f, +10.0f),
+			real3(+10.0f, -3.0f, -10.0f),
 
-			float3(-10.0f, 3.0f, + 10.0f),
-			float3(+10.0f, 3.0f, - 10.0f),
-			float3(-10.0f, 3.0f, - 10.0f),
+			real3(-10.0f, -3.0f, +10.0f),
+			real3(+10.0f, -3.0f, -10.0f),
+			real3(-10.0f, -3.0f, -10.0f),
         };
 
-        _aabb.setExtents(real3(-10,-10,2.9),real3(10,10,3.0));
+        _aabb.setExtents(real3(-10,-3.0,-10),real3(10,-3.0,10));
 
         Rgba    color(255,0,0,255);
 
@@ -96,7 +96,7 @@ namespace CELL
                 ,color._b/255.0f
                 ,color._a/255.0f
                 );
-            context._device->attributePointer(prg._position,3,GL_FLOAT,GL_FALSE,sizeof(float3),vPlane);
+			context._device->attributePointer(prg._position, 3, GL_DOUBLE, GL_FALSE, sizeof(real3), vPlane);
 
             context._device->drawArrays(GL_TRIANGLES,0,6);
         }
@@ -175,16 +175,36 @@ namespace CELL
     bool CELLFrameBigMap::getPointsFromScreen(int x, int y, real3& point)
     {
         CELL::Ray   ray     =   _context._camera.createRayFromScreen(x, y);
-        real3       vC      =   _aabb.getCenter();
-        real        rRadius =   CELL::length(_aabb.getSize()) * 0.5;
-        std::pair<bool, real>  res = ray.intersectSphere(vC, rRadius);
 
-        if (res.first)
-        {
-            point = ray.getPoint(res.second);
-            return  true;
-        }
-        return  false;
+		real t, u, v;
+		bool res = CELL::intersectTriangle<real>(
+					ray.getOrigin(),
+					ray.getDirection(),
+					real3(-10.0f, -3.0f, +10.0f),
+					real3(+10.0f, -3.0f, +10.0f),
+					real3(+10.0f, -3.0f, -10.0f),
+					&t,
+					&u,
+					&v
+					);
+		if (! res)
+		{
+			res = CELL::intersectTriangle<real>(
+				ray.getOrigin(),
+				ray.getDirection(),
+				real3(-10.0f, -3.0f, +10.0f),
+				real3(+10.0f, -3.0f, -10.0f),
+				real3(-10.0f, -3.0f, -10.0f),
+				&t,
+				&u,
+				&v
+				);
+		}
+		if (res)
+		{
+			point = ray.getPoint(t);
+		}
+        return  res;
     }
 
 }

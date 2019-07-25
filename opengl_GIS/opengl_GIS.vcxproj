@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CELLFeature.h" />
-    <ClInclude Include="CELLFrame.hpp" />
     <ClInclude Include="CELLGLContext.hpp" />
     <ClInclude Include="CELLImage.hpp" />
     <ClInclude Include="CELLImageLoader.hpp" />
@@ -169,6 +168,7 @@
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
     <ClInclude Include="lifeiEvent.h" />
+    <ClInclude Include="lifeiFrame.h" />
     <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
