@@ -3,7 +3,7 @@
 #include    "lifeiApp.h"
 #include    <windows.h>
 #include    <tchar.h>
-#include    "CELLGLContext.hpp"
+#include    "lifeiGLContext.h"
 #include    "CELLOpenGL.h"
 #include    "lifeiThread.h"
 #include    "lifeiContext.h"
@@ -22,7 +22,7 @@ namespace CELL
     {
     public:
         HWND            _hWnd;
-        CELLGLContext   _contextGL;
+        LifeiGLContext   _contextGL;
         lifeiContext     _context;
         CELLResourceMgr _resMgr;
         CELLOpenGL      _device;
@@ -132,7 +132,7 @@ namespace CELL
                 {
                     lifeiThread::join();
                     delete  _frame;
-                    _contextGL.shutdown();
+                    _contextGL.shutdownGL();
                     return;
                 }
                 MSG msg = { 0 };
@@ -196,14 +196,14 @@ namespace CELL
             {
                 render();
             }
-            return  false;
+            return false;
         }
         /// <summary>
         /// ½áÊøº¯Êý
         /// </summary>
         virtual bool    onDestroy()
         {
-            _contextGL.shutdown();
+            _contextGL.shutdownGL();
             return  false;
         }
 
