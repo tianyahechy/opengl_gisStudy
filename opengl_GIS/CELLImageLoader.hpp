@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CELLImage.hpp"
+#include "lifeiImage.h"
 
 
 namespace CELL
@@ -11,8 +11,8 @@ namespace CELL
         /// <summary>
         /// 根据文件加载图形信息
         /// </summary>
-        static  CELLImage*  load(const char* fileName);
-        static  bool        loadImage( const char* fileName,CELL::CELLImage& image );
+        static  lifeiImage*  load(const char* fileName);
+        static  bool        loadImage( const char* fileName,CELL::lifeiImage& image );
         /// <summary>
         /// 加载png/jpg格式数据并转化成Rgb
         /// </summary>
@@ -25,11 +25,11 @@ namespace CELL
         /// <summary>
         /// 加载png/jpg格式数据并转化成Rgb
         /// </summary>
-        static  bool        loadImageToRgb( const char* fileName,CELLImage& image );
+		static  bool        loadImageToRgb(const char* fileName, lifeiImage& image);
         // <summary>
         /// 加载png/jpg格式数据并转化成Rgba
         /// </summary>
-        static  bool        loadImageToRgba( const char* fileName,CELLImage& image );
+		static  bool        loadImageToRgba(const char* fileName, lifeiImage& image);
        
 
     };

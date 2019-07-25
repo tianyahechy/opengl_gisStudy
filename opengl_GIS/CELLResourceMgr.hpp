@@ -1,7 +1,7 @@
 #pragma once
 
 #include    "CELLProgramLibrary.hpp"
-#include    "CELLImage.hpp"
+#include    "lifeiImage.h"
 #include    "CELLImageLoader.hpp"
 #include    <map>
 namespace   CELL
@@ -104,16 +104,16 @@ namespace   CELL
         Texture1d   createTexture1dFromImage(const char* pathName)
         {
             Texture1d   tex;
-            CELLImage   image;
+			lifeiImage   image;
 
             if(CELLImageLoader::loadImage(pathName,image))
             {
                 switch (image._format)
                 {
-                case CELLImage::FORMAT_RGB8:
+				case lifeiImage::FORMAT_RGB8:
                     tex =   _device->createTexture1d(0,GL_RGBA,image._width,0,GL_RGB,GL_UNSIGNED_BYTE,image.data());
                     break;
-                case CELLImage::FORMAT_RGBA8:
+				case lifeiImage::FORMAT_RGBA8:
                     tex =   _device->createTexture1d(0,GL_RGBA,image._width,0,GL_RGBA,GL_UNSIGNED_BYTE,image.data());
                     break;
                 default:
@@ -125,16 +125,16 @@ namespace   CELL
         Texture2dId createTexture2dFromImage(const char* pathName)
         {
             Texture2dId tex;
-            CELLImage   image;
+			lifeiImage   image;
 
             if (CELLImageLoader::loadImage(pathName, image))
             {
                 switch (image._format)
                 {
-                case CELLImage::FORMAT_RGB8:
+				case lifeiImage::FORMAT_RGB8:
                     tex = _device->createTexure2D(0, GL_RGBA, image._width,image._height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data());
                     break;
-                case CELLImage::FORMAT_RGBA8:
+				case lifeiImage::FORMAT_RGBA8:
                     tex = _device->createTexure2D(0, GL_RGBA, image._width, image._height,0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
                     break;
                 default:
