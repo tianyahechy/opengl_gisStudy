@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <!--
+  <imageSource 
+    url="e:/111/L%02d/%06d-%06d.jpg" 
+    
+    arg0="lev(1)"
+    arg1="row()"
+    arg2="col()"
+    
+    ext=".png" 
+    loader="plugin.tileSource.Default.dll" 
+    pos="" 
+    sss=""
+    />
+    
+    <imageSource
+    url="e:/globalImg/%d/%d/%d.png"
+    
+    arg0="lev()"
+    arg1="col()"
+    arg2="rrow()"
+    
+    ext=".png"
+    loader="plugin.tileSource.Default.dll"
+    pos=""
+    sss=""
+    />
+-->
+
+  <imageSource
+    url="http://mt2.google.cn/vt?n=404&lyrs=s&hl=zh-CN&gl=cn&v=191&x=%d&y=%d&z=%d"
+    arg0=" col ( 222 ) "
+    arg1="row ( ) "
+    arg2="lev (  11 )"
+    
+    ext=".png"
+    loader="plugin.tileSource.ShpV805.dll"
+    dataSource="D:/education/3dmap/bin/data/shp/world.shp"
+    sss=""
+    />
+  
+</root>

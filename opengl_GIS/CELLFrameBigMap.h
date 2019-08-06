@@ -1,6 +1,7 @@
 #pragma once
 #include "lifeiFrame.h"
 #include "CELLTimestamp.hpp"
+#include "CELLOpenGL.h"
 namespace CELL
 {
     class CELLFrameBigMap :public lifeiFrame
@@ -11,6 +12,7 @@ namespace CELL
         real3           _basePoint;
         bool            _bLbuttonDown;
         int2            _lbuttonDown;
+		Texture2dId		_textureId;
     public:
 		CELLFrameBigMap(lifeiContext& context);
 

@@ -60,6 +60,15 @@ namespace CELL
         {
             _context._camera.moveRight(_context._timePerFrame);
         }
+		if (_textureId._texture == -1)
+		{
+			Texture2dId* pTex = _context._resMgr->createTextue2d("./data/image/1.jpg");
+			if (pTex)
+			{
+				_textureId = *pTex;
+			}
+
+		}
     }
 
 	void CELLFrameBigMap::onFrameStart(lifeiContext& context)
@@ -68,37 +77,47 @@ namespace CELL
         context._device->clearColor(0, 0, 0, 1);
         context._device->disableRenderState(GL_CULL_FACE);
 
+		struct P3U2
+		{
+			float _x, _y, _z;
+			float _u, _v;
+			P3U2(float x, float y, float z, float u, float v)
+			{
+				_x = x;
+				_y = y;
+				_z = z;
+				_u = u;
+				_v = v;
+			}
+		};
         /// 顶点数据
-		real3  vPlane[6] =
-        {
-			real3(-10.0f, -3.0f, + 10.0f),
-			real3(+10.0f, -3.0f, +10.0f),
-			real3(+10.0f, -3.0f, -10.0f),
+		P3U2  vPlane[6] =
+		{
+			P3U2(-10.0f, -3.0f, +10.0f, 0, 1),
+			P3U2(+10.0f, -3.0f, +10.0f,1,1),
+			P3U2(+10.0f, -3.0f, -10.0f,1,0),
 
-			real3(-10.0f, -3.0f, +10.0f),
-			real3(+10.0f, -3.0f, -10.0f),
-			real3(-10.0f, -3.0f, -10.0f),
+			P3U2(-10.0f, -3.0f, +10.0f, 0, 1),
+			P3U2(+10.0f, -3.0f, -10.0f, 1, 0),
+			P3U2(-10.0f, -3.0f, -10.0f, 0, 0),
         };
 
         _aabb.setExtents(real3(-10,-3.0,-10),real3(10,-3.0,10));
 
         Rgba    color(255,0,0,255);
-
+		_context._device->bindTexture2D(&_textureId, 0);
         /// 获取shader
-        PROGRAM_P3_UC&  prg =   context._resMgr->_PROGRAM_P3_UC;
+        PROGRAM_P3_U2&  prg =   context._resMgr->_PROGRAM_P3_U2;
         prg.begin();
         {
             context._device->setUniformMatrix4fv(prg._mvp,1,false,context._vp.dataPtr());
-            context._device->setUniform4f(
-                prg._color
-                ,color._r/255.0f
-                ,color._g/255.0f
-                ,color._b/255.0f
-                ,color._a/255.0f
-                );
-			context._device->attributePointer(prg._position, 3, GL_DOUBLE, GL_FALSE, sizeof(real3), vPlane);
+			context._device->setUniform1i(prg._texture, 0);
+
+			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(P3U2), &vPlane[0]._x);
+			context._device->attributePointer(prg._uv, 2, GL_FLOAT, GL_FALSE, sizeof(P3U2), &vPlane[0]._u);
 
             context._device->drawArrays(GL_TRIANGLES,0,6);
+
         }
         prg.end();
 

@@ -146,14 +146,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CELLFeature.h" />
     <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLProgramLibrary.hpp" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
-    <ClInclude Include="CELLShpReader.h" />
     <ClInclude Include="CELLTimestamp.hpp" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="CELLWinApp.hpp" />
@@ -171,6 +169,7 @@
     <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
+    <ClInclude Include="LifeiProgramLibrary.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="OPENGL_GIS.h" />
     <ClInclude Include="Resource.h" />

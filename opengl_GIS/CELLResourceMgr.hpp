@@ -17,6 +17,7 @@ namespace   CELL
         /// PROGRAM_P3_UC
         PROGRAM_P3_UC   _PROGRAM_P3_UC;
         /// 
+		PROGRAM_P3_U2	_PROGRAM_P3_U2;
         MapTexture      _mapTexture;
 
     public:
@@ -31,19 +32,21 @@ namespace   CELL
             _device =   device;
             _PROGRAM_P2_UC.initialize(device);
             _PROGRAM_P3_UC.initialize(device);
+			_PROGRAM_P3_U2.initialize(device);
         }
 
         void    destroy()
         {
             _PROGRAM_P2_UC.destroy();
             _PROGRAM_P3_UC.destroy();
+			_PROGRAM_P3_U2.destroy();
         }
 
         /// 获取纹理资源
         Texture*    getTexture(const char* filePathName)
         {
             MapTexture::iterator itr = _mapTexture.find(filePathName);
-            if (itr != _mapTexture.end())
+            if (itr == _mapTexture.end())
             {
                 return  0;
             }
