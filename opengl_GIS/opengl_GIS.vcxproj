@@ -149,7 +149,6 @@
     <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
-    <ClInclude Include="CELLProgramLibrary.hpp" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLTimestamp.hpp" />

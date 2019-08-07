@@ -8,7 +8,7 @@
 #include    "lifeiThread.h"
 #include    "lifeiContext.h"
 #include    "lifeiEvent.h"
-#include    "CELLProgramLibrary.hpp"
+#include    "LifeiProgramLibrary.h"
 #include    "CELLResourceMgr.hpp"
 #include	"CELLFrameBigMap.h"
 #include    <assert.h>
