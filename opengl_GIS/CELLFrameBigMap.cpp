@@ -62,7 +62,7 @@ namespace CELL
         }
 		if (_textureId._texture == -1)
 		{
-			Texture2dId* pTex = _context._resMgr->createTextue2d("./data/image/1.jpg");
+			Texture2dId* pTex = _context._resMgr->createTextue2d("image/1.jpg");
 			if (pTex)
 			{
 				_textureId = *pTex;

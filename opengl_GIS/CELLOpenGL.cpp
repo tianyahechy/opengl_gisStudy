@@ -156,8 +156,6 @@ namespace   CELL
     }
 
 
-
-
     void CELLOpenGL::bindTexture2D( const Texture2dId* textureId,unsigned stage /*= 0*/ )
     {
         if (textureId)

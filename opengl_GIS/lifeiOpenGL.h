@@ -53,7 +53,7 @@ namespace CELL
 		unsigned _width;
 		unsigned _height;
 	public:
-		Texture2dId() : Texture2dId(TEXTURE_2D)
+		Texture2dId() : Texture(TEXTURE_2D)
 		{
 			_width = 0;
 			_height = 0;
@@ -316,6 +316,51 @@ namespace CELL
 		static void resizeFrameBuffer(FrameBufferId bufferID, int width, int height);
 		//删除一个渲染对象
 		static void destroyFrameBuffer(FrameBufferId& frameBuffer);
+		//创建顶点缓冲区
+		static IndexBufferId createIndexBuffer(unsigned size, unsigned acc, short type, const void* data);
+		static void setIndexBuffer(unsigned size, unsigned acc, const void* data);
+		static void updateIndexBuffer(unsigned offset, unsigned size, const void* data);
+		static void bindIndexBuffer(const IndexBufferId* id);
+		static void destroyIndexBuffer(IndexBufferId& id);
+		static void bindIndirectBuffer(unsigned bufId);
+
+		//创建一个渲染对象，离屏对象
+		static FrameBufferId createFrameBuffer(int width, int height);
+		static void resizeFrameBuffer(FrameBufferId bufferId, int width, int height);
+		//删除一个渲染对象
+		static void destroyFrameBuffer(FrameBufferId& frameBuffer);
+		//将一个纹理与渲染目标绑定，并使用
+		static void beginFrameBuffer(const FrameBufferId& targetId, const Texture2dId& textureId);
+		//完成渲染到目标
+		static void endFrameBuffer();
+		//使用渲染对象
+		static void bindFrameBuffer(const FrameBufferId* targetID);
+		static bool createProgram(lifeiProgram& program, const char* vs, const char* ps);
+		static bool createProgram(lifeiProgram& program);
+		//销毁
+		static void destroyProgram(lifeiProgram& program);
+		//使用程序
+		static void useProgram(GLint progHandle);
+		static void useProgram(lifeiProgram& program);
+		static GLint getUniformLocation(GLuint program, const char* name);
+		static GLint getAttribLocation(GLuint program, const char* name);
+		static void enableVertexAttribArray(GLuint index);
+		static void disableVertexAttribArray(GLuint index);
+		static void vertexAttribDivisor(GLuint index, GLuint divisor);
+		static void attributePointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr);
+		static void setUniform1f(int index, float v0);
+		static void setUniform2f(int index, float v0, float v1);
+		static void setUniform2d(int index, double v0, double v1);
+		static void setUniform3f(int index, float v0, float v1, float v2);
+		static void setUniform3d(int index, double v0, double v1, double v2);
+		static void setUniform4f(int index, float v0, float v1, float v2, float v3);
+		static void setUniform4d(int index, double v0, double v1, double v2, double v3);
+		static void setUniform1i(int index, int v0);
+		static void setUniform2i(int index, int v0, int v1);
+		static void setUniform3i(int index, int v0, int v1, int v2);
+		static void setUniform4i(int index, int v0, int v1, int v2, int v3);
+		static void setUniform1fv(int index, int count, )
+
 
 	};
 }

@@ -11,6 +11,8 @@ namespace   CELL
     public:
         typedef     std::map<std::string,Texture*>  MapTexture;
     public:
+		//资源的目录
+		char*			_path;
         CELLOpenGL*     _device;
         /// 针对绘制屏幕二维数据
         PROGRAM_P2_UC   _PROGRAM_P2_UC;
@@ -58,7 +60,9 @@ namespace   CELL
         /// 创建2d纹理方法
         Texture1d*    createTextue1d(const char* pName)
         {
-            Texture*    pTex    =   getTexture(pName);
+			char szFullPath[CELL_PATH_LENGTH];
+			sprintf(szFullPath, "%s/%s", _path, pName);
+            Texture*    pTex    =   getTexture(szFullPath);
             if (pTex)
             {
                 return  dynamic_cast<Texture1d*>(pTex);
@@ -66,14 +70,16 @@ namespace   CELL
             else
             {
                 Texture1d*  pTex1d    =   new Texture1d();
-                *pTex1d =   createTexture1dFromImage(pName);
-                _mapTexture[pName]  =   pTex1d;
+                *pTex1d =   createTexture1dFromImage(szFullPath);
+				_mapTexture[szFullPath] = pTex1d;
                 return  pTex1d;
             }
         }
         /// 创建2d纹理方法
         Texture2dId*    createTextue2d(const char* pName)
-        {
+		{
+			char szFullPath[CELL_PATH_LENGTH];
+			sprintf(szFullPath, "%s/%s", _path, pName);
             Texture*    pTex = getTexture(pName);
             if (pTex)
             {
@@ -81,9 +87,9 @@ namespace   CELL
             }
             else
             {
-                Texture2dId*  pTex1d = new Texture2dId();
-                *pTex1d = createTexture2dFromImage(pName);
-                _mapTexture[pName] = pTex1d;
+				Texture2dId*  pTex1d = new Texture2dId();
+				*pTex1d = createTexture2dFromImage(szFullPath);
+				_mapTexture[szFullPath] = pTex1d;
                 return  pTex1d;
             }
         }
