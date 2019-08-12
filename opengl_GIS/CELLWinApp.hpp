@@ -109,8 +109,7 @@ namespace CELL
             _device.initialize();
 			_resMgr._path = _context._pathRes;
             _context._resMgr->initialize(_context._device);
-            /// 解除与主线程的绑定
-            _contextGL.makeCurrentNone();
+
             return  true;
         }
 
@@ -138,7 +137,8 @@ namespace CELL
         {
 
             _frame  =   createFrame();
-
+			/// 解除与主线程的绑定
+			_contextGL.makeCurrentNone();
             if (_frame != 0)
             {
                 lifeiThread::start();

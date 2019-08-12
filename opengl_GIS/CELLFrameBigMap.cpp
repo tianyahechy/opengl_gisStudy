@@ -22,6 +22,12 @@ namespace CELL
         context._camera.setUp(real3(0,1,0));
         context._camera.setRight(real3(1,0,0));
 
+		Texture2dId* pTex = _context._resMgr->createTextue2d("image/1.jpg");
+		if (pTex)
+		{
+			_textureId = *pTex;
+		}
+
     }
 
     CELLFrameBigMap::~CELLFrameBigMap()
@@ -60,15 +66,6 @@ namespace CELL
         {
             _context._camera.moveRight(_context._timePerFrame);
         }
-		if (_textureId._texture == -1)
-		{
-			Texture2dId* pTex = _context._resMgr->createTextue2d("image/1.jpg");
-			if (pTex)
-			{
-				_textureId = *pTex;
-			}
-
-		}
     }
 
 	void CELLFrameBigMap::onFrameStart(lifeiContext& context)
