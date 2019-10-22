@@ -26,7 +26,7 @@ namespace CELL
 		}
 		~LifeiGLContext()
 		{
-			shutdownGL();
+			shutdown();
 		}
 
 		//³õÊ¼»¯GL
@@ -102,7 +102,7 @@ namespace CELL
 			return wglMakeCurrent(0, 0);
 		}
 		//Ïú»Ùegl
-		void shutdownGL()
+		void shutdown()
 		{
 			if (NULL != _hRC)
 			{

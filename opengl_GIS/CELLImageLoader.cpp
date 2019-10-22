@@ -4,7 +4,7 @@
 
 namespace   CELL
 {
-	CELL::lifeiImage* CELLImageLoader::load(const char* fileName)
+    CELL::lifeiImage* CELLImageLoader::load( const char* fileName )
     {
         int         width   =   0;
         int         height  =   0;
@@ -16,15 +16,15 @@ namespace   CELL
             return  0;
         }
 
-		lifeiImage*  pImage = new lifeiImage;
+		lifeiImage*  pImage  =   new lifeiImage;
 
         if (chanel == 3)
         {
-			pImage->create(width, height, lifeiImage::FORMAT_RGB8, pixels);
+            pImage->create(width,height, lifeiImage::FORMAT_RGB8,pixels);
         }
         else if(chanel == 4)
         {
-			pImage->create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
+            pImage->create(width,height, lifeiImage::FORMAT_RGBA8,pixels);
         }
         else
         {
@@ -36,7 +36,7 @@ namespace   CELL
         return  pImage;
     }
 
-	bool CELLImageLoader::loadImage(const char* fileName, CELL::lifeiImage& image)
+    bool CELLImageLoader::loadImage( const char* fileName,CELL::lifeiImage& image )
     {
         int         width   =   0;
         int         height  =   0;
@@ -50,11 +50,29 @@ namespace   CELL
 
         if (chanel == 3)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGB8, pixels);
+			for (int j = 0, k = width * 3; j < height / 2; j++)
+			{
+				for (int i = 0; i < width * 3; i++)
+				{
+					byte l = pixels[j*k + i];
+					pixels[j*k + i] = pixels[(height - j - 1) * k + i];
+					pixels[(height - j - 1)* k + i] = l;
+				}
+			}
+            image.create(width,height, lifeiImage::FORMAT_RGB8,pixels);
         }
         else if(chanel == 4)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
+			for (int j = 0, k = width * 4; j < height / 2; j++)
+			{
+				for (int i = 0; i < width * 4; i++)
+				{
+					byte l = pixels[j*k + i];
+					pixels[j*k + i] = pixels[(height - j - 1) * k + i];
+					pixels[(height - j - 1)* k + i] = l;
+				}
+			}
+            image.create(width,height, lifeiImage::FORMAT_RGBA8,pixels);
         }
         else
         {
@@ -152,7 +170,7 @@ namespace   CELL
     }
 
 
-	bool CELLImageLoader::loadImageToRgb(const char* fileName, lifeiImage& image)
+    bool CELLImageLoader::loadImageToRgb(const char* fileName, lifeiImage& image)
     {
         int         width   =   0;
         int         height  =   0;
@@ -166,12 +184,12 @@ namespace   CELL
 
         if (chanel == 3)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGB8, pixels);
+            image.create(width, height, lifeiImage::FORMAT_RGB8, pixels);
         }
         else if (chanel == 4)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGB8, 0);
-			byte*   data = (byte*)image.data();
+            image.create(width, height, lifeiImage::FORMAT_RGB8, 0);
+            byte*   data    =   (byte*)image.data();
             for (int i = 0 ;i < width * height; ++ i)
             {
                 data[i*3 + 0]   =   pixels[i * 4 + 0];
@@ -189,7 +207,7 @@ namespace   CELL
         return  false;
     }
 
-	bool CELLImageLoader::loadImageToRgba(const char* fileName, lifeiImage& image)
+    bool CELLImageLoader::loadImageToRgba(const char* fileName, lifeiImage& image)
     {
         int         width   =   0;
         int         height  =   0;
@@ -203,8 +221,8 @@ namespace   CELL
 
         if (chanel == 3)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
-			byte*   data = (byte*)image.data();
+            image.create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
+            byte*   data = (byte*)image.data();
             for (int i = 0; i < width * height; ++i)
             {
                 data[i * 3 + 0] =   pixels[i * 3 + 0];
@@ -215,7 +233,7 @@ namespace   CELL
         }
         else if (chanel == 4)
         {
-			image.create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
+            image.create(width, height, lifeiImage::FORMAT_RGBA8, pixels);
             
         }
         else

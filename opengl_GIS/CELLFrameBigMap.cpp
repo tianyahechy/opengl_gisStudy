@@ -6,42 +6,51 @@
 #include    "lifeiContext.h"
 #include    "CELLResourceMgr.hpp"
 #include    "LifeiProgramLibrary.h"
+//#include    "CELLSpatialReference.hpp"
+#include "lifeiSpatialReference.h"
 
-
+#define     FSIZE   20037508
 namespace CELL
 {
 
-	CELLFrameBigMap::CELLFrameBigMap(lifeiContext& context)
+    CELLFrameBigMap::CELLFrameBigMap(lifeiContext& context)
         :lifeiFrame(context)
         ,_bLbuttonDown(false)
+        ,_terrain(_context)
     {
-        context._camera.setEye(real3(0,0,-10));
+        context._camera.setEye(real3(0,FSIZE * 2,0));
         context._camera.setTarget(real3(0,0,0));
         context._camera.calcDir();
 
-        context._camera.setUp(real3(0,1,0));
+        context._camera.setUp(real3(0,0,1));
         context._camera.setRight(real3(1,0,0));
+        
+        Texture2dId*    pTex = _context._resMgr->createTextue2d("temp/1.jpg");
+        if (pTex)
+        {
+            _textureId = *pTex;
+        }
 
-		Texture2dId* pTex = _context._resMgr->createTextue2d("image/1.jpg");
-		if (pTex)
-		{
-			_textureId = *pTex;
-		}
+        //CELLSpatialReference    spr;
+		lifeiSpatialReference spr;
+        int2 tileId =   spr.getKey(1,-90,-45);
 
+        _terrain.setTileSourcePath("D:/lifei/test/opengl_gis/tile");
+		_terrain.initialize();
     }
 
     CELLFrameBigMap::~CELLFrameBigMap()
     {
     }
 
-	void CELLFrameBigMap::update(lifeiContext&)
+    void CELLFrameBigMap::update(lifeiContext& )
     {
         _context._device->setViewPort(0,0,_context._width,_context._height);
         _context._screenPrj =   CELL::ortho<real>(0.0f,(real)_context._width,(real)_context._height,0,-1000.0f,1000.0f);
 
         _context._camera.setViewSize(real2(_context._width,_context._height));
 
-        _context._camera.perspective(45.0,real(_context._width)/real(_context._height),0.1,1000.0);
+        _context._camera.perspective(45.0,real(_context._width)/real(_context._height),1.0,FSIZE * 10);
 
         _context._camera.update();
         _context._mvp   =   _context._camera._matProj * _context._camera._matView * _context._camera._matWorld ;
@@ -66,61 +75,20 @@ namespace CELL
         {
             _context._camera.moveRight(_context._timePerFrame);
         }
+		//更新地形
+		_terrain.update(_context);
     }
 
-	void CELLFrameBigMap::onFrameStart(lifeiContext& context)
+    void CELLFrameBigMap::onFrameStart(lifeiContext& context)
     {
         context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         context._device->clearColor(0, 0, 0, 1);
         context._device->disableRenderState(GL_CULL_FACE);
-
-		struct P3U2
-		{
-			float _x, _y, _z;
-			float _u, _v;
-			P3U2(float x, float y, float z, float u, float v)
-			{
-				_x = x;
-				_y = y;
-				_z = z;
-				_u = u;
-				_v = v;
-			}
-		};
-        /// 顶点数据
-		P3U2  vPlane[6] =
-		{
-			P3U2(-10.0f, -3.0f, +10.0f, 0, 1),
-			P3U2(+10.0f, -3.0f, +10.0f,1,1),
-			P3U2(+10.0f, -3.0f, -10.0f,1,0),
-
-			P3U2(-10.0f, -3.0f, +10.0f, 0, 1),
-			P3U2(+10.0f, -3.0f, -10.0f, 1, 0),
-			P3U2(-10.0f, -3.0f, -10.0f, 0, 0),
-        };
-
-        _aabb.setExtents(real3(-10,-3.0,-10),real3(10,-3.0,10));
-
-        Rgba    color(255,0,0,255);
-		_context._device->bindTexture2D(&_textureId, 0);
-        /// 获取shader
-        PROGRAM_P3_U2&  prg =   context._resMgr->_PROGRAM_P3_U2;
-        prg.begin();
-        {
-            context._device->setUniformMatrix4fv(prg._mvp,1,false,context._vp.dataPtr());
-			context._device->setUniform1i(prg._texture, 0);
-
-			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(P3U2), &vPlane[0]._x);
-			context._device->attributePointer(prg._uv, 2, GL_FLOAT, GL_FALSE, sizeof(P3U2), &vPlane[0]._u);
-
-            context._device->drawArrays(GL_TRIANGLES,0,6);
-
-        }
-        prg.end();
+        _terrain.render(context);
 
     }
 
-	void CELLFrameBigMap::onFrameEnd(lifeiContext& context)
+    void CELLFrameBigMap::onFrameEnd(lifeiContext& context)
     {
     }
 
@@ -136,32 +104,25 @@ namespace CELL
         _bLbuttonDown   =   false;
     }
 
-	void CELLFrameBigMap::onRButtonDown(int x, int y)
-	{
-	}
-
-	void CELLFrameBigMap::onRButtonUp(int x, int y)
-	{
-	}
-
-	void CELLFrameBigMap::onMButtonDown(int x, int y)
-	{
-	}
-
-	void CELLFrameBigMap::onMButtonUp(int x, int y)
-	{
-	}
     void CELLFrameBigMap::onMouseMove(int x, int y)
     {
-        if (!_bLbuttonDown)
-        {
-            return;
+        if (_bLbuttonDown)
+		{
+			int2    curPoint(x,y);
+			int2    offset  =   curPoint - _lbuttonDown;
+			_lbuttonDown    =   curPoint;
+			_context._camera.roteteViewYByCenter(offset.x,_basePoint);
+			_context._camera.roteteViewXByCenter(offset.y,_basePoint);
+            
         }
-        int2    curPoint(x,y);
-        int2    offset  =   curPoint - _lbuttonDown;
-        _lbuttonDown    =   curPoint;
-        _context._camera.roteteViewYByCenter(offset.x,_basePoint);
-		_context._camera.roteteViewXByCenter(offset.y, _basePoint);
+		if (_bMbuttonDown)
+		{
+			//摄像机平移
+			int2 ofScreen = int2(x, y) - _mButtonDown;
+			_mButtonDown = int2(x, y);
+			moveScene(_basePoint, ofScreen);
+
+		}
     }
 
     void CELLFrameBigMap::onMouseWheel(int delta)
@@ -191,37 +152,80 @@ namespace CELL
     bool CELLFrameBigMap::getPointsFromScreen(int x, int y, real3& point)
     {
         CELL::Ray   ray     =   _context._camera.createRayFromScreen(x, y);
-
-		real t, u, v;
-		bool res = CELL::intersectTriangle<real>(
-					ray.getOrigin(),
-					ray.getDirection(),
-					real3(-10.0f, -3.0f, +10.0f),
-					real3(+10.0f, -3.0f, +10.0f),
-					real3(+10.0f, -3.0f, -10.0f),
-					&t,
-					&u,
-					&v
-					);
-		if (! res)
-		{
-			res = CELL::intersectTriangle<real>(
-				ray.getOrigin(),
-				ray.getDirection(),
-				real3(-10.0f, -3.0f, +10.0f),
-				real3(+10.0f, -3.0f, -10.0f),
-				real3(-10.0f, -3.0f, -10.0f),
-				&t,
-				&u,
-				&v
-				);
-		}
-		if (res)
-		{
-			point = ray.getPoint(t);
-		}
+        
+        real    t,u,v;
+        bool    res     =   CELL::intersectTriangle<real>(
+                            ray.getOrigin()
+                            ,ray.getDirection()
+                            ,real3(-FSIZE, -3.0f, +FSIZE)
+                            ,real3(+FSIZE, -3.0f, +FSIZE)
+                            ,real3(+FSIZE, -3.0f, -FSIZE)
+                            ,&t
+                            ,&u
+                            ,&v
+                            );
+        if (!res)
+        {
+            res =   CELL::intersectTriangle<real>(
+                ray.getOrigin()
+                , ray.getDirection()
+                , real3(-FSIZE, -3.0f, +FSIZE)
+                , real3(+FSIZE, -3.0f, -FSIZE)
+                , real3(-FSIZE, -3.0f, -FSIZE)
+                , &t
+                , &u
+                , &v
+                );
+        }
+        if (res)
+        {
+            point   =   ray.getPoint(t);
+        }
         return  res;
     }
+
+	void CELLFrameBigMap::moveScene(const real3 & worldPickup, const int2 & ofScreen)
+	{
+		lifeiCamera& camera = _context._camera;
+		real3 rightDir(camera._right.x, camera._right.y, camera._right.z);
+		real3 upDir(camera._up.x, camera._up.y, camera._up.z);
+		real3 pos = real3(worldPickup.x, worldPickup.y, worldPickup.z);
+		real3 pos1 = worldPickup + rightDir * 1000.0;
+		real2 screen0 = camera.worldToScreen(pos);
+		real2 screen1 = camera.worldToScreen(pos1);
+
+		real pixelU = 1000.0 / (screen1.x - screen0.x);
+		//首先计算出来一个像素和当前场景的比例
+		real3 offset = rightDir * (-pixelU * (real)ofScreen.x);
+		offset += upDir * (pixelU * (real)ofScreen.y);
+
+		real3 newEye = camera.getEye() + offset;
+		real3 newTgt = camera.getTarget() + offset;
+
+		camera.setEye(newEye);
+		camera.setTarget(newTgt);
+		camera.update();
+	}
+
+	void CELLFrameBigMap::onRButtonDown(int x, int y)
+	{
+
+	}
+
+	void CELLFrameBigMap::onRButtonUp(int x, int y)
+	{
+	}
+
+	void CELLFrameBigMap::onMButtonDown(int x, int y)
+	{
+		_mButtonDown = int2(x, y);
+		_bMbuttonDown = true;
+	}
+
+	void CELLFrameBigMap::onMButtonUp(int x, int y)
+	{
+		_bMbuttonDown = false;
+	}
 
 }
 

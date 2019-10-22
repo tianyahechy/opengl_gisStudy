@@ -5,12 +5,12 @@
 #include    <tchar.h>
 #include    "lifeiGLContext.h"
 #include    "CELLOpenGL.h"
-#include    "lifeiThread.h"
+#include    "CELLFrameBigMap.h"
 #include    "lifeiContext.h"
+#include    "lifeiThread.h"
 #include    "lifeiEvent.h"
 #include    "LifeiProgramLibrary.h"
 #include    "CELLResourceMgr.hpp"
-#include	"CELLFrameBigMap.h"
 #include    <assert.h>
 
 
@@ -22,14 +22,14 @@ namespace CELL
     {
     public:
         HWND            _hWnd;
-        LifeiGLContext   _contextGL;
-        lifeiContext     _context;
+		LifeiGLContext  _contextGL;
+		lifeiContext     _context;
         CELLResourceMgr _resMgr;
         CELLOpenGL      _device;
         lifeiFrame*      _frame;
         bool            _threadRun;
         bool            _makeReuslt;
-        lifeiEvent       _event;
+        lifeiEvent      _event;
     public:
         CELLWinApp()
         {
@@ -91,25 +91,26 @@ namespace CELL
                 DestroyWindow(_hWnd);
                 return  false;
             }
-			char szFileName[CELL_PATH_LENGTH] = { 0 };
-			GetModuleFileNameA(0, szFileName, sizeof(szFileName));
-			std::string strPath = szFileName;
-			std::size_t pos = strPath.rfind("\\");
-			if (pos != std::string::npos )
-			{
-				std::string exePath = strPath.substr(0, pos);
-				strcpy(_context._pathEXE, exePath.c_str());
-				pos = exePath.rfind("\\");
-				if (pos != std::string::npos)
-				{
-					std::string	resPath = exePath +"\\data";
-					strcpy(_context._pathRes, resPath.c_str());
-				}
-			}
+            char    szFileName[CELL_PATH_LENGTH]    =   {0};
+            GetModuleFileNameA(0,szFileName,sizeof(szFileName));
+            std::string     strPath =   szFileName;
+            std::size_t     pos     =   strPath.rfind("\\");
+            if (pos != std::string::npos)
+            {
+                std::string exePath =   strPath.substr(0,pos);
+                strcpy(_context._pathEXE,exePath.c_str());
+                pos     =   exePath.rfind("\\");
+                if (pos != std::string::npos)
+                {
+                    std::string resPath = exePath.substr(0,pos);
+                    resPath +=  "/data";
+                    strcpy(_context._pathRes,resPath.c_str());
+                }
+            }
             _device.initialize();
-			_resMgr._path = _context._pathRes;
+            _resMgr._path   =   _context._pathRes;
             _context._resMgr->initialize(_context._device);
-
+            
             return  true;
         }
 
@@ -137,8 +138,10 @@ namespace CELL
         {
 
             _frame  =   createFrame();
-			/// 解除与主线程的绑定
-			_contextGL.makeCurrentNone();
+
+            /// 解除与主线程的绑定
+            _contextGL.makeCurrentNone();
+
             if (_frame != 0)
             {
                 lifeiThread::start();
@@ -146,9 +149,9 @@ namespace CELL
                 _event.wait();
                 if (!_makeReuslt)
                 {
-                    lifeiThread::join();
+					lifeiThread::join();
                     delete  _frame;
-                    _contextGL.shutdownGL();
+                    _contextGL.shutdown();
                     return;
                 }
                 MSG msg = { 0 };
@@ -212,14 +215,14 @@ namespace CELL
             {
                 render();
             }
-            return false;
+            return  false;
         }
         /// <summary>
         /// 结束函数
         /// </summary>
         virtual bool    onDestroy()
         {
-            _contextGL.shutdownGL();
+            _contextGL.shutdown();
             return  false;
         }
 
@@ -234,6 +237,18 @@ namespace CELL
             case WM_LBUTTONUP:
                 _frame->onLButtonUp(LOWORD(lParam),HIWORD(lParam));
                 break;
+			case WM_RBUTTONDOWN:
+				_frame->onRButtonDown(LOWORD(lParam), HIWORD(lParam));
+				break;
+			case WM_RBUTTONUP:
+				_frame->onRButtonUp(LOWORD(lParam), HIWORD(lParam));
+				break;
+			case WM_MBUTTONDOWN:
+				_frame->onMButtonDown(LOWORD(lParam), HIWORD(lParam));
+				break;
+			case WM_MBUTTONUP:
+				_frame->onMButtonUp(LOWORD(lParam), HIWORD(lParam));
+				break;
             case WM_MOUSEMOVE:
                 _context._mouseX = LOWORD(lParam);
                 _context._mouseY = HIWORD(lParam);
@@ -269,7 +284,7 @@ namespace CELL
                 break;
             case WM_DESTROY:
                 _threadRun  =   false;
-                lifeiThread::join();
+				lifeiThread::join();
                 PostQuitMessage(0);
                 break;
             default:

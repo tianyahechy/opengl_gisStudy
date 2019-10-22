@@ -25,11 +25,11 @@ namespace CELL
         /// <summary>
         /// 加载png/jpg格式数据并转化成Rgb
         /// </summary>
-		static  bool        loadImageToRgb(const char* fileName, lifeiImage& image);
+        static  bool        loadImageToRgb( const char* fileName, lifeiImage& image );
         // <summary>
         /// 加载png/jpg格式数据并转化成Rgba
         /// </summary>
-		static  bool        loadImageToRgba(const char* fileName, lifeiImage& image);
+        static  bool        loadImageToRgba( const char* fileName, lifeiImage& image );
        
 
     };

@@ -3,6 +3,7 @@
 #include "CELLMath.hpp"
 #include "lifeiCamera.h"
 
+#define CELL_PATH_LENGTH 1024
 namespace CELL
 {
 	class CELLFrame;
