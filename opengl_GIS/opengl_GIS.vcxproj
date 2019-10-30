@@ -152,6 +152,7 @@
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
+    <ClInclude Include="CELLTaskSystem.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="CELLWinApp.hpp" />
