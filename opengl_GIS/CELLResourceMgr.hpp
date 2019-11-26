@@ -154,5 +154,22 @@ namespace   CELL
             }
             return  tex;
         }
+		Texture2dId createTexture2dFromImage(lifeiImage& image)
+		{
+			Texture2dId tex;
+						
+			switch (image._format)
+			{
+			case lifeiImage::FORMAT_RGB8:
+				tex = _device->createTexure2D(0, GL_RGBA, image._width, image._height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data());
+				break;
+			case lifeiImage::FORMAT_RGBA8:
+				tex = _device->createTexure2D(0, GL_RGBA, image._width, image._height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+				break;
+			default:
+				assert(0 != 0);
+			}			
+			return  tex;
+		}
     };
 }

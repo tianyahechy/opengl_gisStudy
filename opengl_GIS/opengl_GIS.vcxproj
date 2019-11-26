@@ -152,9 +152,11 @@
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
+    <ClInclude Include="CELLTask.hpp" />
     <ClInclude Include="CELLTaskSystem.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
+    <ClInclude Include="CELLTileTask.hpp" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
@@ -168,10 +170,12 @@
     <ClInclude Include="lifeiGLContext.h" />
     <ClInclude Include="lifeiImage.h" />
     <ClInclude Include="lifeiInput.h" />
+    <ClInclude Include="lifeiMutex.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="LifeiProgramLibrary.h" />
     <ClInclude Include="lifeiQuadTree.h" />
+    <ClInclude Include="lifeiSemaphore.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
