@@ -13,9 +13,15 @@ namespace   CELL
         ,public lifeiTerrainInterface
 		,public CELLTaskObserver
     {
+		struct  P3U2
+		{
+			float x, y, z;
+			float u, v;
+		};
 	public:
 		typedef std::vector<CELLTask*> ArrayTask;
 		typedef std::map<std::string, lifeiQuadTree*> MapNode;
+		typedef std::vector<P3U2> ArrayVertex;
     public:
         lifeiQuadTree*  _root;
 		lifeiContext&   _context;
@@ -23,7 +29,8 @@ namespace   CELL
 		CELLTaskSystem	_taskSystem;
 		ArrayTask		_tasks;
 		lifeiMutex		_mutex;
-		MapNode		_nodes;
+		MapNode			_nodes;
+		ArrayVertex		_vertex;
     public:
         CELLTerrain(lifeiContext& context);
         ~CELLTerrain();
@@ -43,7 +50,12 @@ namespace   CELL
         /// <summary>
         /// 绘制
         /// </summary>
-        virtual void    render(lifeiContext& context);
+        virtual void    render(lifeiContext& context);      
+		/// <summary>
+		/// 绘制方式1，顶点数据打包
+		/// </summary>
+		virtual void    renderPackVertex(lifeiContext& context);
+
     public:
         /// <summary>
         /// 创建纹理
@@ -63,6 +75,8 @@ namespace   CELL
 		virtual void onTaskCancel(CELLTask* task);
 		//请求数据
 		virtual void request(lifeiQuadTree * node);
+	protected:
+		void calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, ArrayVertex& vertex);
     };
 }
 

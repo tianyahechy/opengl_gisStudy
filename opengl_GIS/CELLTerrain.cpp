@@ -10,6 +10,7 @@ namespace CELL
     {
         _root   =   0;
 		_taskSystem.setObserver(this);
+		_vertex.reserve(1024 * 4);
     }
 
 
@@ -69,6 +70,8 @@ namespace CELL
 
     void CELLTerrain::render(lifeiContext& context)
     {
+		renderPackVertex(context);
+		return;
         lifeiQuadTree::ArrayNode nodes;
         _root->getAllRenderableNode(nodes);
 
@@ -76,12 +79,9 @@ namespace CELL
 
         /// 获取shader
         PROGRAM_P3_U2&  prg = context._resMgr->_PROGRAM_P3_U2;
-        struct  P3U2
-        {
-            float x, y, z;
-            float u, v;
-        };
-        P3U2  vPlane[4];
+  
+        P3U2  vPlane[6];
+		std::vector<P3U2> tempBuf(nodes.size() * 6);
         prg.begin();
         {
             for (size_t i = 0 ;i < nodes.size() ; ++ i)
@@ -109,11 +109,24 @@ namespace CELL
                 vPlane[2].u     =   uvEnd.x;
                 vPlane[2].v     =   uvStart.y;
 
-                vPlane[3].x     =   vStart.x;
-                vPlane[3].y     =   0;
-                vPlane[3].z     =   vStart.y;
-                vPlane[3].u     =   uvStart.x;
-                vPlane[3].v     =   uvStart.y;
+				vPlane[3].x = vStart.x;
+				vPlane[3].y = 0;
+				vPlane[3].z = vEnd.y;
+				vPlane[3].u = uvStart.x;
+				vPlane[3].v = uvEnd.y;
+
+				vPlane[4].x = vEnd.x;
+				vPlane[4].y = 0;
+				vPlane[4].z = vStart.y;
+				vPlane[4].u = uvEnd.x;
+				vPlane[4].v = uvStart.y;
+			
+
+                vPlane[5].x     =   vStart.x;
+                vPlane[5].y     =   0;
+                vPlane[5].z     =   vStart.y;
+                vPlane[5].u     =   uvStart.x;
+                vPlane[5].v     =   uvStart.y;
 
                 Texture2dId texId;
                 texId._texture  =   pNode->_textureID;
@@ -124,13 +137,42 @@ namespace CELL
                 context._device->attributePointer(prg._uv, 2, GL_FLOAT, GL_FALSE, sizeof(P3U2), &vPlane[0].u);
 
 
-                context._device->drawArrays(GL_TRIANGLE_FAN, 0, 4);
+                context._device->drawArrays(GL_TRIANGLES, 0, 6);
             }
             
         }
         prg.end();
 
     }
+
+	void CELLTerrain::renderPackVertex(lifeiContext& context)
+	{
+		lifeiQuadTree::ArrayNode nodes;
+		_root->getAllRenderableNode(nodes);
+
+		if (nodes.empty())
+		{
+			return;
+		}
+		/// 对节点进行绘制
+		Texture2dId texID;
+		texID._texture = nodes.front()->_textureID;
+		/// 获取shader
+		PROGRAM_P3_U2&  prg = context._resMgr->_PROGRAM_P3_U2;
+		calcVertexBuffer(nodes, _vertex);
+		context._device->bindTexture2D(&texID);
+		prg.begin();
+		if (_vertex.size() > 0)
+		{
+			context._device->setUniformMatrix4fv(prg._mvp, 1, false, context._vp.dataPtr());
+			context._device->setUniform1i(prg._texture, 0);
+			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(P3U2), &_vertex[0].x);
+			context._device->attributePointer(prg._uv, 2, GL_FLOAT, GL_FALSE, sizeof(P3U2), &_vertex[0].u);
+			context._device->drawArrays(GL_TRIANGLES, 0, _vertex.size());
+		}
+		prg.end();
+
+	}
 
     uint CELLTerrain::createTexture(const TileId& id)
     {
@@ -201,6 +243,58 @@ namespace CELL
 			return;
 		}
 		_nodes[szBuf] = node;
+	}
+
+	void CELLTerrain::calcVertexBuffer(lifeiQuadTree::ArrayNode & nodes, ArrayVertex & vertex)
+	{
+		vertex.resize(nodes.size() * 6);
+		P3U2* vPlane = &vertex.front();
+		for (size_t i = 0;i < nodes.size(); ++i)
+		{
+			lifeiQuadTree*  pNode = nodes[i];
+			real2           vStart = pNode->_vStart;
+			real2           vEnd = pNode->_vEnd;
+			float2			uvStart = pNode->_uvStart;
+			float2			uvEnd = pNode->_uvEnd;
+			vPlane[0].x = vStart.x;
+			vPlane[0].y = 0;
+			vPlane[0].z = vEnd.y;
+			vPlane[0].u = uvStart.x;
+			vPlane[0].v = uvEnd.y;
+
+			vPlane[1].x = vEnd.x;
+			vPlane[1].y = 0;
+			vPlane[1].z = vEnd.y;
+			vPlane[1].u = uvEnd.x;
+			vPlane[1].v = uvEnd.y;
+
+			vPlane[2].x = vEnd.x;
+			vPlane[2].y = 0;
+			vPlane[2].z = vStart.y;
+			vPlane[2].u = uvEnd.x;
+			vPlane[2].v = uvStart.y;
+
+			vPlane[3].x = vStart.x;
+			vPlane[3].y = 0;
+			vPlane[3].z = vEnd.y;
+			vPlane[3].u = uvStart.x;
+			vPlane[3].v = uvEnd.y;
+
+			vPlane[4].x = vEnd.x;
+			vPlane[4].y = 0;
+			vPlane[4].z = vStart.y;
+			vPlane[4].u = uvEnd.x;
+			vPlane[4].v = uvStart.y;
+
+
+			vPlane[5].x = vStart.x;
+			vPlane[5].y = 0;
+			vPlane[5].z = vStart.y;
+			vPlane[5].u = uvStart.x;
+			vPlane[5].v = uvStart.y;
+
+			vPlane += 6;
+		}
 	}
 
 }
