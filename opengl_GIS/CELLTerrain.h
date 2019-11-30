@@ -18,10 +18,16 @@ namespace   CELL
 			float x, y, z;
 			float u, v;
 		};
+		struct FaceIndex
+		{
+			short x, y, z;
+		};
 	public:
 		typedef std::vector<CELLTask*> ArrayTask;
 		typedef std::map<std::string, lifeiQuadTree*> MapNode;
 		typedef std::vector<P3U2> ArrayVertex;
+		typedef std::vector<FaceIndex> ArrayFace;
+
     public:
         lifeiQuadTree*  _root;
 		lifeiContext&   _context;
@@ -31,6 +37,7 @@ namespace   CELL
 		lifeiMutex		_mutex;
 		MapNode			_nodes;
 		ArrayVertex		_vertex;
+		ArrayFace		_faces;
     public:
         CELLTerrain(lifeiContext& context);
         ~CELLTerrain();
@@ -77,6 +84,7 @@ namespace   CELL
 		virtual void request(lifeiQuadTree * node);
 	protected:
 		void calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, ArrayVertex& vertex);
+		void calcIndex(lifeiQuadTree::ArrayNode& nodes);
     };
 }
 

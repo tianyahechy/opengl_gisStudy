@@ -11,12 +11,15 @@ namespace CELL
         _root   =   0;
 		_taskSystem.setObserver(this);
 		_vertex.reserve(1024 * 4);
+		_faces.resize(1024 * 4);
     }
 
 
     CELLTerrain::~CELLTerrain()
     {
         delete  _root;
+		_vertex.clear();
+		_faces.clear();
     }
 
     void CELLTerrain::setTileSourcePath(const char* pathName)
@@ -297,5 +300,51 @@ namespace CELL
 		}
 	}
 
+
+	void CELLTerrain::calcIndex(lifeiQuadTree::ArrayNode& nodes)
+	{
+		_vertex.resize(nodes.size() * 6);
+		_faces.resize(nodes.size() * 2);
+		P3U2* vPlane = &_vertex.front();
+		for (size_t i = 0; i < nodes.size(); ++i)
+		{
+			lifeiQuadTree*  pNode = nodes[i];
+			real2           vStart = pNode->_vStart;
+			real2           vEnd = pNode->_vEnd;
+			float2			uvStart = pNode->_uvStart;
+			float2			uvEnd = pNode->_uvEnd;
+			vPlane[0].x = vStart.x;
+			vPlane[0].y = 0;
+			vPlane[0].z = vEnd.y;
+			vPlane[0].u = uvStart.x;
+			vPlane[0].v = uvEnd.y;
+
+			vPlane[1].x = vEnd.x;
+			vPlane[1].y = 0;
+			vPlane[1].z = vEnd.y;
+			vPlane[1].u = uvEnd.x;
+			vPlane[1].v = uvEnd.y;
+
+			vPlane[2].x = vEnd.x;
+			vPlane[2].y = 0;
+			vPlane[2].z = vStart.y;
+			vPlane[2].u = uvEnd.x;
+			vPlane[2].v = uvStart.y;
+
+			vPlane[3].x = vStart.x;
+			vPlane[3].y = 0;
+			vPlane[3].z = vStart.y;
+			vPlane[3].u = uvStart.x;
+			vPlane[3].v = uvStart.y;
+
+			vPlane += 4;
+
+			short id = short(i) * 4;
+			FaceIndex index0 = { id, id + 1, id + 2 };
+			FaceIndex index1 = { id, id + 2, id + 3 };
+			_faces[i * 2 + 0] = index0;
+			_faces[i * 2 + 1] = index1;
+		}
+	}
 }
 
