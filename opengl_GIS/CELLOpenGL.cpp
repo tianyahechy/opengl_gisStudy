@@ -237,7 +237,7 @@ namespace   CELL
             width,
             height,
             1,
-            GL_RGBA,
+			srcFormat,
             GL_UNSIGNED_BYTE,
             data);
         checkError(__FUNCDNAME__);

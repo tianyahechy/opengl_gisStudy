@@ -11,7 +11,7 @@ namespace CELL
 	{
 	public:
 		//任务执行通知
-		virtual void onTaskEXE(CELLTask* task) = 0;
+		virtual void onTaskExe(CELLTask* task) = 0;
 		//任务完成通知
 		virtual void onTaskFinish(CELLTask* task) = 0;		
 		//任务取消通知
@@ -138,7 +138,7 @@ namespace CELL
 			//3,通知过程
 			if (_observer && pTask)
 			{
-				_observer->onTaskEXE(pTask);
+				_observer->onTaskExe(pTask);
 				_observer->onTaskFinish(pTask);
 			}
 		}

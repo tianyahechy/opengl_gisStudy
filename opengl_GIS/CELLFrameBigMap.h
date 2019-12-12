@@ -15,7 +15,7 @@ namespace CELL
         bool            _bLbuttonDown;
         int2            _lbuttonDown;
         Texture2dId     _textureId;
-        CELLTerrain     _terrain;
+        CELLTerrain		_terrain;
 		bool			_bMbuttonDown;
 		int2			_mButtonDown;
     public:

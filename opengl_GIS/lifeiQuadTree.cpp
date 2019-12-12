@@ -77,6 +77,7 @@ namespace CELL
 	lifeiQuadTree::~lifeiQuadTree()
 	{
 		_terrain->cancelRequest(this);
+		_terrain->getCounts()._nodes--;
 		if (_textureID != -1 && _flag & FLAG_HAS_IMAGE)
 		{
 			_terrain->releaseTexture(_textureID);

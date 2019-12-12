@@ -19,7 +19,8 @@ namespace CELL
 		enum
 		{
 			FLAG_HAS_IMAGE	= 1 << 0,
-			FLAG_RENDER		= 1 << 1,
+			FLAG_OUT_VIEW	= 1 << 1,
+			FLAG_RENDER		= 1 << 2,
 		};
 	public:
 		typedef std::vector<lifeiQuadTree*> ArrayNode;

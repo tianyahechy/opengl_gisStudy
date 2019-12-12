@@ -157,6 +157,7 @@
     <ClInclude Include="CELLTaskSystem.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
+    <ClInclude Include="CELLTextureMgr.hpp" />
     <ClInclude Include="CELLTileTask.hpp" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />

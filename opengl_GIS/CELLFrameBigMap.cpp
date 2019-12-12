@@ -36,7 +36,7 @@ namespace CELL
         int2 tileId =   spr.getKey(1,-90,-45);
 
         _terrain.setTileSourcePath("E:/opengl_gis/trunk/opengl_GIS/data/tile");
-		_terrain.initialize();
+		_terrain.initailze();
     }
 
     CELLFrameBigMap::~CELLFrameBigMap()

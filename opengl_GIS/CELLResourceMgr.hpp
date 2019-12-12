@@ -20,6 +20,8 @@ namespace   CELL
         PROGRAM_P3_UC   _PROGRAM_P3_UC;
         /// 
         PROGRAM_P3_U2   _PROGRAM_P3_U2;
+		//处理2d纹理数组
+		PROGRAM_P3_U3_TEXARRAY	_program_P3_U3_TEXARRAY;
         /// 
         MapTexture      _mapTexture;
 
@@ -36,6 +38,7 @@ namespace   CELL
             _PROGRAM_P2_UC.initialize(device);
             _PROGRAM_P3_UC.initialize(device);
             _PROGRAM_P3_U2.initialize(device);
+			_program_P3_U3_TEXARRAY.initialize(device);
         }
 
         void    destroy()
@@ -43,6 +46,7 @@ namespace   CELL
             _PROGRAM_P2_UC.destroy();
             _PROGRAM_P3_UC.destroy();
             _PROGRAM_P3_U2.destroy();
+			_program_P3_U3_TEXARRAY.destroy();
         }
 
         /// 获取纹理资源
