@@ -1,15 +1,15 @@
 #pragma once
 
-#include    "CELLQuadTree.h"
-#include    "CELLContext.hpp"
-#include    "CELLTerrainInterface.hpp"
+#include    "lifeiQuadTree.h"
+#include    "lifeiContext.h"
+#include    "lifeiTerrainInterface.h"
 #include    "CELLTaskSystem.hpp"
 #include    "CELLTextureMgr.hpp"
 namespace   CELL
 {
     class CELLTerrain 
-        :public CELLObject
-        ,public CELLTerrainInterface
+        :public lifeiObject
+        ,public lifeiTerrainInterface
         ,public CELLTaskObserver
     {
     public:
@@ -25,23 +25,23 @@ namespace   CELL
         };
     public:
         typedef std::vector<CELLTask*>  ArrayTask;
-        typedef std::map<std::string,CELLQuadTree*>     MapNode;
+        typedef std::map<std::string,lifeiQuadTree*>     MapNode;
         typedef std::vector<P3U3>                       ArrayVertex;
         typedef std::vector<FaceIndex>                  ArrayFace;
     public:
-        CELLQuadTree*   _root;
-        CELLContext&    _context;
-        char            _path[CELL_PATH_LENGHT];
+		lifeiQuadTree*   _root;
+        lifeiContext&    _context;
+        char            _path[CELL_PATH_LENGTH];
         CELLTaskSystem  _taskSystem;
         ArrayTask       _tasks;
-        CELLMutex       _mutex;
+        lifeiMutex       _mutex;
         MapNode         _nodes;
         ArrayVertex     _vertex;
         ArrayFace       _facees;
         CELLTextureMgr  _textureMgr;
-        Counts          _counts;
+        lifeiCounts          _counts;
     public:
-        CELLTerrain(CELLContext& context);
+        CELLTerrain(lifeiContext& context);
         ~CELLTerrain();
         /// <summary>
         /// 指定数据源
@@ -55,20 +55,20 @@ namespace   CELL
         /// <summary>
         /// 更新接口
         /// </summary>
-        virtual void    update(CELLContext& context);
+        virtual void    update(lifeiContext& context);
         /// <summary>
         /// 绘制
         /// </summary>
-        virtual void    render(CELLContext& context);
+        virtual void    render(lifeiContext& context);
         /// <summary>
        /// 获取统计信息
        /// </summary>
 
-        virtual Counts& getCounts();
+        virtual lifeiCounts& getCounts();
         /// <summary>
         /// 绘制方式1,顶点数据打包
         /// </summary>
-        virtual void    renderPackVertex(CELLContext& context);
+        virtual void    renderPackVertex(lifeiContext& context);
 
     public:
         /// <summary>
@@ -78,11 +78,11 @@ namespace   CELL
         /// <summary>
         /// 释放纹理
         /// </summary>
-        virtual void    request(CELLQuadTree* node);
+        virtual void    request(lifeiQuadTree* node);
         /// <summary>
         /// 释放纹理
         /// </summary>
-        virtual void    cancelRequest(CELLQuadTree* node);
+        virtual void    cancelRequest(lifeiQuadTree* node);
 
         /// <summary>
         /// 释放纹理
@@ -102,8 +102,8 @@ namespace   CELL
         /// </summary>
         virtual void    onTaskFinish(CELLTask* task);
     protected:
-        void    calcVertexBuffer(CELLQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
-        void    calcIndex(CELLQuadTree::ArrayNode& nodes);
+        void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
+        void    calcIndex(lifeiQuadTree::ArrayNode& nodes);
     };
 }
 

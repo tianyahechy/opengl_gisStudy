@@ -1,12 +1,12 @@
 #include "CELLTerrain.h"
 #include "CELLResourceMgr.hpp"
-#include "CELLProgramLibary.hpp"
+#include "LifeiProgramLibrary.h"
 #include "CELLTileTask.hpp"
-#include "CELLTimestamp.hpp"
+#include "lifeiTimeStamp.hpp"
 
 namespace CELL
 {
-    CELLTerrain::CELLTerrain(CELLContext& context)
+    CELLTerrain::CELLTerrain(lifeiContext& context)
         :_context(context)
         ,_textureMgr(_context)
     {
@@ -35,15 +35,15 @@ namespace CELL
     void CELLTerrain::initailze()
     {
         _taskSystem.start(4);
-        _root = new CELLQuadTree(this, 0, real2(-20037508, -20037508), real2(20037508, 20037508), 0, CELLQuadTree::CHILD_LT);
+        _root = new lifeiQuadTree(this, 0, real2(-20037508, -20037508), real2(20037508, 20037508), 0, lifeiQuadTree::CHILD_LT);
     }
 
-    void CELLTerrain::update(CELLContext& context)
+    void CELLTerrain::update(lifeiContext& context)
     {
         _root->update(context);
         ArrayTask   tasks;
         {
-            CELLMutex::ScopeLock lk(_mutex);
+            lifeiMutex::ScopeLock lk(_mutex);
             tasks   =   _tasks;
             _tasks.clear();
         }
@@ -83,19 +83,19 @@ namespace CELL
         }
     }
 
-    void CELLTerrain::render(CELLContext& context)
+    void CELLTerrain::render(lifeiContext& context)
     {
         renderPackVertex(context);
     }
 
-    CELL::Counts& CELLTerrain::getCounts()
+    CELL::lifeiCounts& CELLTerrain::getCounts()
     {
         return  _counts;
     }
 
-    void CELLTerrain::renderPackVertex(CELLContext& context)
+    void CELLTerrain::renderPackVertex(lifeiContext& context)
     {
-        CELLQuadTree::ArrayNode nodes;
+		lifeiQuadTree::ArrayNode nodes;
         _root->getAllRenderableNode(nodes);
         getCounts()._drawNodes  =   (uint)nodes.size();
         getCounts()._texUsed    =   _textureMgr.getUsedCount();
@@ -106,9 +106,9 @@ namespace CELL
             return;
         }
         /// 对节点进行绘制
-        CELLTimestamp   tm;
+        lifeiTimeStamp   tm;
         /// 获取shader
-        PROGRAM_P3_U3_TEXARRAY&  prg = context._resMgr->_PROGRAM_P3_U3_TEXARRAY;
+        PROGRAM_P3_U3_TEXARRAY&  prg = context._resMgr->_program_P3_U3_TEXARRAY;
         
         
         calcVertexBuffer(nodes,_vertex);
@@ -138,16 +138,16 @@ namespace CELL
 
     uint CELLTerrain::createTexture(const TileId& id)
     {
-        char    szPathName[CELL_PATH_LENGHT];
+        char    szPathName[CELL_PATH_LENGTH];
         sprintf(szPathName,"%s/L%02d/%06d-%06d.jpg",_path,id._lev + 1,id._row,id._col);
         Texture2dId texId = _context._resMgr->createTexture2dFromImage(szPathName);
         return  texId._texture;
     }
-    void CELLTerrain::request(CELLQuadTree* node)
+    void CELLTerrain::request(lifeiQuadTree* node)
     {
         CELLTileTask*   pTask   =   new CELLTileTask();
         pTask->_node    =   node;
-        pTask->_tileId  =   node->_tileId ;
+        pTask->_tileId  =   node->_tileID ;
         _taskSystem.addTask(pTask);
 
         char    szBuf[128];
@@ -165,15 +165,15 @@ namespace CELL
         _nodes[szBuf]   =   node;
     }
 
-    void CELLTerrain::cancelRequest(CELLQuadTree* node)
+    void CELLTerrain::cancelRequest(lifeiQuadTree* node)
     {
         char    szBuf[128];
         sprintf(
             szBuf
             , "%d-%d-%d:%p"
-            , node->_tileId._lev
-            , node->_tileId._row
-            , node->_tileId._col
+            , node->_tileID._lev
+            , node->_tileID._row
+            , node->_tileID._col
             , node);
         MapNode::iterator itr = _nodes.find(szBuf);
         if (itr != _nodes.end())
@@ -199,11 +199,11 @@ namespace CELL
         {
             return;
         }
-        char    szPathName[CELL_PATH_LENGHT];
+        char    szPathName[CELL_PATH_LENGTH];
         sprintf(szPathName, "%s/L%02d/%06d-%06d.jpg", _path, pTask->_tileId._lev + 1, pTask->_tileId._row, pTask->_tileId._col);
         if(CELLImageLoader::loadImage(szPathName, pTask->_image))
         {
-            CELLMutex::ScopeLock lk(_mutex);
+            lifeiMutex::ScopeLock lk(_mutex);
             _tasks.push_back(pTask);
         }
         else
@@ -218,13 +218,13 @@ namespace CELL
 
  
 
-    void CELLTerrain::calcVertexBuffer(CELLQuadTree::ArrayNode& nodes, ArrayVertex& vertx)
+    void CELLTerrain::calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, ArrayVertex& vertx)
     {
         vertx.resize(nodes.size() * 6);
         P3U3*   vPlane  =   &vertx.front();
         for (size_t i = 0 ;i < nodes.size() ; ++ i)
         {
-            CELLQuadTree*   pNode   =   nodes[i];
+            lifeiQuadTree*   pNode   =   nodes[i];
             real2           vStart  =   pNode->_vStart;
             real2           vEnd    =   pNode->_vEnd;
 
@@ -236,7 +236,7 @@ namespace CELL
 
             vPlane[0].u     =   uvStart.x;
             vPlane[0].v     =   uvEnd.y;
-            vPlane[0].w     =   pNode->_textureId;
+            vPlane[0].w     =   pNode->_textureID;
 
             vPlane[1].x     =   vEnd.x;
             vPlane[1].y     =   0;
@@ -244,14 +244,14 @@ namespace CELL
 
             vPlane[1].u     =   uvEnd.x;
             vPlane[1].v     =   uvEnd.y;
-            vPlane[1].w     =   pNode->_textureId;
+            vPlane[1].w     =   pNode->_textureID;
 
             vPlane[2].x     =   vEnd.x;
             vPlane[2].y     =   0;
             vPlane[2].z     =   vStart.y;
             vPlane[2].u     =   uvEnd.x;
             vPlane[2].v     =   uvStart.y;
-            vPlane[2].w     =   pNode->_textureId;
+            vPlane[2].w     =   pNode->_textureID;
 
             vPlane[3].x     =   vStart.x;
             vPlane[3].y     =   0;
@@ -259,14 +259,14 @@ namespace CELL
 
             vPlane[3].u     =   uvStart.x;
             vPlane[3].v     =   uvEnd.y;
-            vPlane[3].w     =   pNode->_textureId;
+            vPlane[3].w     =   pNode->_textureID;
 
             vPlane[4].x     =   vEnd.x;
             vPlane[4].y     =   0;
             vPlane[4].z     =   vStart.y;
             vPlane[4].u     =   uvEnd.x;
             vPlane[4].v     =   uvStart.y;
-            vPlane[4].w     =   pNode->_textureId;
+            vPlane[4].w     =   pNode->_textureID;
 
             vPlane[5].x     =   vStart.x;
             vPlane[5].y     =   0;
@@ -274,21 +274,21 @@ namespace CELL
 
             vPlane[5].u     =   uvStart.x;
             vPlane[5].v     =   uvStart.y;
-            vPlane[5].w     =   pNode->_textureId;
+            vPlane[5].w     =   pNode->_textureID;
 
             vPlane          +=  6;
         }
 
     }
 
-    void CELLTerrain::calcIndex(CELLQuadTree::ArrayNode& nodes)
+    void CELLTerrain::calcIndex(lifeiQuadTree::ArrayNode& nodes)
     {
         _vertex.resize(nodes.size() * 4);
         _facees.resize(nodes.size() * 2);
         P3U3*   vPlane  =   &_vertex.front();
         for (size_t i = 0 ;i < nodes.size() ; ++ i)
         {
-            CELLQuadTree*   pNode   =   nodes[i];
+			lifeiQuadTree*   pNode   =   nodes[i];
             real2           vStart  =   pNode->_vStart;
             real2           vEnd    =   pNode->_vEnd;
 

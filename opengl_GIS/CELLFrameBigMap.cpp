@@ -35,7 +35,7 @@ namespace CELL
 		lifeiSpatialReference spr;
         int2 tileId =   spr.getKey(1,-90,-45);
 
-        _terrain.setTileSourcePath("E:/opengl_gis/trunk/opengl_GIS/data/tile");
+        _terrain.setTileSourcePath("D:/lifei/test/opengl_gis/trunk/opengl_GIS/data/tile");
 		_terrain.initailze();
     }
 
