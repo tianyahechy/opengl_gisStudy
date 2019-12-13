@@ -19,7 +19,7 @@ namespace CELL
 		enum
 		{
 			FLAG_HAS_IMAGE	= 1 << 0,
-			FLAG_OUT_VIEW	= 1 << 1,
+			FLAG_HAS_CULL	= 1 << 1,
 			FLAG_RENDER		= 1 << 2,
 		};
 	public:
@@ -63,6 +63,15 @@ namespace CELL
 		bool hasChild();
 		//判断是否存在图像
 		bool hasImage();
+		//判断是否存在标志
+		bool hasFlag(uint flag)
+		{
+			return (_flag & flag) ? true : false;
+		}
+		bool hasNoFlag(uint flag)
+		{
+			return !hasFlag(flag);
+		}
 		//纹理数据到达
 		virtual void updateTexture(unsigned texID);
 	};

@@ -93,18 +93,20 @@ namespace CELL
 
 	void lifeiQuadTree::getAllRenderableNode(ArrayNode & nodes)
 	{
-		bool bHasChild = this->hasChild();
-		if (false == bHasChild)
+		if (hasChild())
 		{
-			nodes.push_back(this);
-			return;
+			_childs[0]->getAllRenderableNode(nodes);
+			_childs[1]->getAllRenderableNode(nodes);
+			_childs[2]->getAllRenderableNode(nodes);
+			_childs[3]->getAllRenderableNode(nodes);
 		}
-		//递归判断是否各自节点是否存在子节点
-		for (int i = 0; i < 4; i++)
+		else
 		{
-			_childs[i]->getAllRenderableNode(nodes);
+			if (hasFlag(FLAG_RENDER))
+			{
+				nodes.push_back(this);
+			}
 		}
-
 	}
 	//根据距离进行四叉树分割
 	void lifeiQuadTree::update(lifeiContext & context)
@@ -115,12 +117,29 @@ namespace CELL
 		
 		real fSize = vSize.x;
 		real dis = CELL::length(vCenter - camera._eye);
+		if (context._frustum.cubeInFrustum(
+											_aabb._minimum.x,
+											_aabb._maximum.x,
+											_aabb._minimum.y,
+											_aabb._maximum.y,
+											_aabb._minimum.z,
+											_aabb._maximum.z
+		))
+		{
+			_flag &= ~FLAG_HAS_CULL;
+			_flag |= FLAG_RENDER;
+		}
+		else
+		{
+			_flag |= FLAG_HAS_CULL;
+			_flag &= ~FLAG_RENDER;
+		}
 		//瓦片大小/距离，随距离进行裂分
 
 		bool bHasChild = this->hasChild();
 		if (dis / fSize < 3 )
 		{
-			if (!bHasChild && hasImage())
+			if (!bHasChild && hasImage() && hasNoFlag(FLAG_HAS_CULL))
 			{
 				vSize = _aabb.getHalfSize();
 				_childs[CHILD_LT] = new lifeiQuadTree(
