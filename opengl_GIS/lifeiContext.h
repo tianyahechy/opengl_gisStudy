@@ -2,6 +2,7 @@
 #include "lifeiPlatform.h"
 #include "CELLMath.hpp"
 #include "lifeiCamera.h"
+#include "lifeiFrustum.h"
 
 #define CELL_PATH_LENGTH 1024
 namespace CELL

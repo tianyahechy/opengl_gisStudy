@@ -6031,7 +6031,7 @@ namespace CELL
             return (right._distance != _distance && right._normal != _normal);
         }
     };
-
+/*
     template<class T>
     class   tfrustum
     {
@@ -6049,6 +6049,7 @@ namespace CELL
         /**
         *   project * modleview
         */
+	/*
         void    loadFrustum(const tmat4x4<T> &mvp)
         {
             const T*  dataPtr =   mvp.data();
@@ -6103,6 +6104,7 @@ namespace CELL
     public:
         Plane<T>    _planes[6];
     };
+	*/
     inline uint getClosestPowerOfTwo(const uint x) 
     {
         uint i = 1;
@@ -6333,7 +6335,7 @@ namespace CELL
     typedef tquat<real>         quatr;
     typedef tray<real>          Ray;
     typedef tray<float>         RayF;
-    typedef tfrustum<real>      Frustum;    
+  //  typedef tfrustum<real>      Frustum;    
 
     typedef tellipsoidModel<real>  ellipsoid;
 

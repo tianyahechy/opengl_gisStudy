@@ -169,6 +169,7 @@
     <ClInclude Include="lifeiContext.h" />
     <ClInclude Include="lifeiEvent.h" />
     <ClInclude Include="lifeiFrame.h" />
+    <ClInclude Include="lifeiFrustum.h" />
     <ClInclude Include="lifeiGLContext.h" />
     <ClInclude Include="lifeiImage.h" />
     <ClInclude Include="lifeiInput.h" />
