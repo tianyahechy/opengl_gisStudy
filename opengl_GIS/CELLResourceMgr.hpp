@@ -2,7 +2,7 @@
 
 #include    "LifeiProgramLibrary.h"
 #include    "lifeiImage.h"
-#include    "CELLImageLoader.hpp"
+#include    "lifeiImageLoader.h"
 #include    <map>
 namespace   CELL
 {
@@ -121,7 +121,7 @@ namespace   CELL
             Texture1d   tex;
 			lifeiImage   image;
 
-            if(CELLImageLoader::loadImage(pathName,image))
+            if(lifeiImageLoader::loadImage(pathName,image))
             {
                 switch (image._format)
                 {
@@ -142,7 +142,7 @@ namespace   CELL
             Texture2dId tex;
 			lifeiImage   image;
 
-            if (CELLImageLoader::loadImage(pathName, image))
+            if (lifeiImageLoader::loadImage(pathName, image))
             {
                 switch (image._format)
                 {

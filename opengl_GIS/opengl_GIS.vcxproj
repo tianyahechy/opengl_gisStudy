@@ -147,7 +147,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CELLImageLoader.hpp" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLMercator.h" />
     <ClInclude Include="CELLOpenGL.h" />
@@ -172,6 +171,7 @@
     <ClInclude Include="lifeiFrustum.h" />
     <ClInclude Include="lifeiGLContext.h" />
     <ClInclude Include="lifeiImage.h" />
+    <ClInclude Include="lifeiImageLoader.h" />
     <ClInclude Include="lifeiInput.h" />
     <ClInclude Include="lifeiMutex.h" />
     <ClInclude Include="lifeiObject.h" />
@@ -190,11 +190,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CELLImageLoader.cpp" />
     <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
+    <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiQuadTree.cpp" />
     <ClCompile Include="OPENGL_GIS.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
