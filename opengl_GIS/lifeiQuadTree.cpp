@@ -67,6 +67,10 @@ namespace CELL
 		default:
 			break;
 		}
+		if (_parent->hasFlag(FLAG_HAS_IMAGE))
+		{
+			_flag |= FLAG_RENDER;
+		}
 		//如果是根节点，（无父节点）,如果不是根节点，则看看是否能生成纹理，不能生成，则用父节点的纹理
 		_textureID = _parent->_textureID;
 		_terrain->request(this);
@@ -127,12 +131,10 @@ namespace CELL
 		))
 		{
 			_flag &= ~FLAG_HAS_CULL;
-			_flag |= FLAG_RENDER;
 		}
 		else
 		{
 			_flag |= FLAG_HAS_CULL;
-			_flag &= ~FLAG_RENDER;
 		}
 		//瓦片大小/距离，随距离进行裂分
 
@@ -182,11 +184,21 @@ namespace CELL
 			//递归子节点是否可以分割
 				for (int i = 0; i < 4; i++)
 				{
-					if (NULL == _childs[i])
+					if (_childs[i])
 					{
-						continue;
+						_childs[i]->update(context);						
 					}
-					_childs[i]->update(context);
+					else
+					{
+						if (hasFlag(FLAG_HAS_IMAGE) )
+						{
+							_flag |= FLAG_RENDER;
+						}
+						else
+						{
+							_flag &= ~FLAG_RENDER;
+						}
+					}
 				}
 			}
 
@@ -221,6 +233,7 @@ namespace CELL
 	{
 		_textureID = texID;
 		_flag |= FLAG_HAS_IMAGE;
+		_flag |= FLAG_RENDER;
 		_uvStart = float2(0, 0);
 		_uvEnd = float2(1.0f, 1.0f);		
 	}
