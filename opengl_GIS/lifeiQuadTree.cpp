@@ -139,9 +139,9 @@ namespace CELL
 		//瓦片大小/距离，随距离进行裂分
 
 		bool bHasChild = this->hasChild();
-		if (dis / fSize < 3 )
+		if (dis / fSize < 3  && hasNoFlag(FLAG_HAS_CULL))
 		{
-			if (!bHasChild && hasImage() && hasNoFlag(FLAG_HAS_CULL))
+			if (!bHasChild && hasImage())
 			{
 				vSize = _aabb.getHalfSize();
 				_childs[CHILD_LT] = new lifeiQuadTree(
@@ -184,20 +184,13 @@ namespace CELL
 			//递归子节点是否可以分割
 				for (int i = 0; i < 4; i++)
 				{
-					if (_childs[i])
+					if (_childs[i] && hasNoFlag(FLAG_HAS_CULL))
 					{
 						_childs[i]->update(context);						
 					}
 					else
 					{
-						if (hasFlag(FLAG_HAS_IMAGE) )
-						{
-							_flag |= FLAG_RENDER;
-						}
-						else
-						{
-							_flag &= ~FLAG_RENDER;
-						}
+						_flag &= FLAG_RENDER;
 					}
 				}
 			}
