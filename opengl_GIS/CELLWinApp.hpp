@@ -10,9 +10,8 @@
 #include    "lifeiThread.h"
 #include    "lifeiEvent.h"
 #include    "LifeiProgramLibrary.h"
-#include    "CELLResourceMgr.hpp"
+#include    "lifeiResourceMgr.h"
 #include    <assert.h>
-
 
 namespace CELL
 {
@@ -24,7 +23,7 @@ namespace CELL
         HWND            _hWnd;
 		LifeiGLContext  _contextGL;
 		lifeiContext     _context;
-        CELLResourceMgr _resMgr;
+		lifeiResourceMgr _resMgr;
         CELLOpenGL      _device;
         lifeiFrame*      _frame;
         bool            _threadRun;

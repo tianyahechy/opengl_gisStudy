@@ -1,5 +1,5 @@
 #include "CELLTerrain.h"
-#include "CELLResourceMgr.hpp"
+#include "lifeiResourceMgr.h"
 #include "LifeiProgramLibrary.h"
 #include "CELLTileTask.hpp"
 #include "lifeiTimeStamp.hpp"

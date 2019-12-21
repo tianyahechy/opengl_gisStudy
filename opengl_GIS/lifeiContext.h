@@ -8,7 +8,7 @@
 namespace CELL
 {
 	class CELLFrame;
-	class CELLResourceMgr;
+	class lifeiResourceMgr;
 	class CELLOpenGL;
 	class CELLGIS3DPlatform;
 	class lifeiContext
@@ -20,7 +20,7 @@ namespace CELL
 		CELLFrame *			_frame;
 		CELLOpenGL *		_device;
 		//资源管理者指针
-		CELLResourceMgr *	_resMgr;
+		lifeiResourceMgr *	_resMgr;
 		//运行时目录
 		char				_pathEXE[CELL_PATH_LENGTH];
 		//资源目录

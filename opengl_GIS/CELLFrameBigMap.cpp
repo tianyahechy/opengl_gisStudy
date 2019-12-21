@@ -4,7 +4,7 @@
 #include    "CELLFrameBigMap.h"
 #include    "CELLOpenGL.h"
 #include    "lifeiContext.h"
-#include    "CELLResourceMgr.hpp"
+#include    "lifeiResourceMgr.h"
 #include    "LifeiProgramLibrary.h"
 //#include    "CELLSpatialReference.hpp"
 #include "lifeiSpatialReference.h"
@@ -25,7 +25,7 @@ namespace CELL
         context._camera.setUp(real3(0,0,1));
         context._camera.setRight(real3(1,0,0));
         
-        Texture2dId*    pTex = _context._resMgr->createTextue2d("temp/1.jpg");
+        Texture2dId*    pTex = _context._resMgr->createTexture2d("temp/1.jpg");
         if (pTex)
         {
             _textureId = *pTex;

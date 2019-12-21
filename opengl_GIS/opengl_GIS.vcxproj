@@ -150,7 +150,6 @@
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLMercator.h" />
     <ClInclude Include="CELLOpenGL.h" />
-    <ClInclude Include="CELLResourceMgr.hpp" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLTask.hpp" />
     <ClInclude Include="CELLTaskSystem.hpp" />
@@ -178,6 +177,7 @@
     <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="LifeiProgramLibrary.h" />
     <ClInclude Include="lifeiQuadTree.h" />
+    <ClInclude Include="lifeiResourceMgr.h" />
     <ClInclude Include="lifeiSemaphore.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
     <ClInclude Include="lifeiThread.h" />
