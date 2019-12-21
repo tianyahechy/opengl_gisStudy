@@ -4,7 +4,7 @@
 #include    "lifeiContext.h"
 #include    "lifeiTerrainInterface.h"
 #include    "CELLTaskSystem.hpp"
-#include    "CELLTextureMgr.hpp"
+#include    "lifeiTextureMgr.h"
 namespace   CELL
 {
     class CELLTerrain 
@@ -38,7 +38,7 @@ namespace   CELL
         MapNode         _nodes;
         ArrayVertex     _vertex;
         ArrayFace       _facees;
-        CELLTextureMgr  _textureMgr;
+        lifeiTextureMgr  _textureMgr;
         lifeiCounts          _counts;
     public:
         CELLTerrain(lifeiContext& context);

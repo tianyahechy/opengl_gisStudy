@@ -155,7 +155,6 @@
     <ClInclude Include="CELLTaskSystem.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
-    <ClInclude Include="CELLTextureMgr.hpp" />
     <ClInclude Include="CELLTileTask.hpp" />
     <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />
@@ -180,6 +179,7 @@
     <ClInclude Include="lifeiResourceMgr.h" />
     <ClInclude Include="lifeiSemaphore.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
+    <ClInclude Include="lifeiTextureMgr.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
     <ClInclude Include="OPENGL_GIS.h" />
