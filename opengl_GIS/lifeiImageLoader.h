@@ -1,5 +1,6 @@
 #pragma once
 #include "lifeiImage.h"
+#include "CELLDXTCompressor.h"
 
 namespace CELL
 {
@@ -17,6 +18,11 @@ namespace CELL
 		static bool loadImageToRGB(const char* fileName, lifeiImage& image);
 		//加载png/jpg格式数据并转换成rgba
 		static bool loadImageToRGBA(const char* fileName, lifeiImage& image);
+		//加载png/jpg格式数据并转换成dxt1
+		static bool loadImageToDXT1(const char* fileName, lifeiImage& image);
+		//加载png/jpg格式数据并转换成dxt5
+		static bool loadImageToDXT5(const char* fileName, lifeiImage& image);
+		
 
 	};
 }

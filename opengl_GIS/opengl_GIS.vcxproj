@@ -147,6 +147,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CELLDXTCompressor.h" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLMercator.h" />
     <ClInclude Include="CELLOpenGL.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CELLDXTCompressor.cpp" />
     <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />

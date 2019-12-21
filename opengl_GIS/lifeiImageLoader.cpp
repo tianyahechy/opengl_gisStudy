@@ -226,4 +226,51 @@ namespace CELL
 		stbi_image_free(pixels);
 		return false;
 	}
+	bool lifeiImageLoader::loadImageToDXT1(const char * fileName, lifeiImage & image)
+	{
+		int width = 0;
+		int height = 0;
+		int chanel = 0;
+		stbi_uc* pixels = stbi_load(fileName, &width, &height, &chanel, 0);
+		if (0 == pixels)
+		{
+			return false;
+		}
+		stbi_uc * data = 0;
+		if (4 == chanel)
+		{
+			data = pixels;
+		}
+		else if (3 == chanel)
+		{
+			data = new stbi_uc[width * height * 4];
+			for (int i = 0; i < width * height; i++)
+			{
+				data[i * 4 + 0] = pixels[i * 3 + 0];
+				data[i * 4 + 1] = pixels[i * 3 + 1];
+				data[i * 4 + 2] = pixels[i * 3 + 2];
+				data[i * 4 + 3] = 255;
+			}
+
+			for (int j = 0, k = width * 4; j < height / 2; j++)
+			{
+				for (int i = 0; i < width * 4; i++)
+				{
+					BYTE a = data[j*k + i];
+					data[j*k + i] = data[(height - j - 1) * k + i];
+					data[(height - j - 1) * k + i] = a;
+				}
+			}
+		}
+
+		image.create(width, height, lifeiImage::FORMAT_DXT1, 0);
+		void * pDst = image.data();
+		DXTC::CompressImageDXT1(data, (BYTE*)pDst, width, height);
+		if ( 3 == chanel)
+		{
+			delete []data;
+		}
+		stbi_image_free(pixels);
+		return true;
+	}
 }

@@ -201,7 +201,7 @@ namespace CELL
         }
         char    szPathName[CELL_PATH_LENGTH];
         sprintf(szPathName, "%s/L%02d/%06d-%06d.jpg", _path, pTask->_tileId._lev + 1, pTask->_tileId._row, pTask->_tileId._col);
-        if(lifeiImageLoader::loadImage(szPathName, pTask->_image))
+        if(lifeiImageLoader::loadImageToDXT1(szPathName, pTask->_image))
         {
             lifeiMutex::ScopeLock lk(_mutex);
             _tasks.push_back(pTask);
