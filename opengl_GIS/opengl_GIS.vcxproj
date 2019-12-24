@@ -150,9 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="CELLDXTCompressor.h" />
     <ClInclude Include="CELLGIS3DPlatform.h" />
     <ClInclude Include="CELLMath.hpp" />
@@ -191,12 +188,8 @@
     <ClInclude Include="lifeiTextureMgr.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
-    <ClInclude Include="OPENGL_GIS.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="shp\shapefil.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
@@ -207,25 +200,11 @@
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiQuadTree.cpp" />
-    <ClCompile Include="OPENGL_GIS.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />
     <ClCompile Include="shp\shptree.c" />
     <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="opengl_GIS.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="opengl_GIS.ico" />
-    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

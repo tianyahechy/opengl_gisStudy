@@ -14,7 +14,7 @@ namespace CELL
 		~CELLGIS3DPlatform();
 	public:
 		//初始化平台
-		virtual bool initialize(HWND hWnd);
+		virtual bool initialize();
 		//反向
 		virtual void unInitialize();
 	};

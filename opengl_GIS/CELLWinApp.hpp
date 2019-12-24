@@ -41,9 +41,9 @@ namespace CELL
         }
     public:
         /// 创建窗口函数
-        virtual bool    createWindow(int width, int height,INSTANCE hInst)
+        virtual bool    createWindow(HWND hParentWnd, int width, int height,INSTANCE hInst)
         {
-
+			_hParentWnd = hParentWnd;
             HDISPLAY    hDC     =   GetDC(_hParentWnd);
             if(!_contextGL.init(_hParentWnd,hDC))
             {
@@ -100,7 +100,7 @@ namespace CELL
             /// 解除与主线程的绑定
             _contextGL.makeCurrentNone();
 
-            if (_frame != 0)
+            if (_frame == 0)
             {
 				return;
             }

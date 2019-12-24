@@ -12,7 +12,7 @@ namespace CELL
 	{
 	public:
 		//初始化平台
-		virtual bool initialize(HWND hWnd) = 0;
+		virtual bool initialize() = 0;
 		//反向
 		virtual void unInitialize() = 0;
 	};

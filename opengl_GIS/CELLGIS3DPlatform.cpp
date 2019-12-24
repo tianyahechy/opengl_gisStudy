@@ -11,11 +11,10 @@ namespace CELL
 	{
 	}
 
-	bool CELLGIS3DPlatform::initialize(HWND hWnd)
+	bool CELLGIS3DPlatform::initialize()
 	{
 		_winApp = new CELLWinApp();
-		
-		bool bCreateWinAppSuccess = _winApp->createWindow(800, 600, 0);
+		bool bCreateWinAppSuccess = _winApp->createWindow(_createParam._hWnd,800, 600, 0);
 		if (!bCreateWinAppSuccess)
 		{
 			delete _winApp;
