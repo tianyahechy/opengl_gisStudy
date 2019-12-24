@@ -20,7 +20,7 @@ namespace CELL
         ,public lifeiThread
     {
     public:
-        HWND            _hWnd;
+        HWND            _hParentWnd;
 		LifeiGLContext  _contextGL;
 		lifeiContext     _context;
 		lifeiResourceMgr _resMgr;
@@ -32,7 +32,7 @@ namespace CELL
     public:
         CELLWinApp()
         {
-            _hWnd               =   0;
+			_hParentWnd			=   0;
             _frame              =   0;
             _threadRun          =   true;
             _makeReuslt         =   false;
@@ -43,51 +43,10 @@ namespace CELL
         /// 创建窗口函数
         virtual bool    createWindow(int width, int height,INSTANCE hInst)
         {
-            /// 1.注册窗口类
-            /// 2.创建窗口
-            /// 3.更新显示
 
-            WNDCLASSEXW wcex;
-
-            wcex.cbSize         =   sizeof(WNDCLASSEX);
-
-            wcex.style          =   CS_HREDRAW | CS_VREDRAW;
-            wcex.lpfnWndProc    =   wndProc;
-            wcex.cbClsExtra     =   0;
-            wcex.cbWndExtra     =   0;
-            wcex.hInstance      =   hInst;
-            wcex.hIcon          =   0;
-            wcex.hCursor        =   LoadCursor(nullptr, IDC_ARROW);
-            wcex.hbrBackground  =   (HBRUSH)(COLOR_WINDOW + 1);
-            wcex.lpszMenuName   =   0;
-            wcex.lpszClassName  =   _T("CELL.BigMap");
-            wcex.hIconSm        =   0;
-            RegisterClassExW(&wcex);
-            /// 创建窗口
-            _hWnd   =   CreateWindow(
-                                      _T("CELL.BigMap")
-                                    , _T("BigMap")
-                                    , WS_OVERLAPPEDWINDOW
-                                    , CW_USEDEFAULT
-                                    , 0
-                                    , CW_USEDEFAULT
-                                    , 0
-                                    , nullptr
-                                    , nullptr
-                                    , hInst
-                                    , this);
-            if (_hWnd == 0 )
+            HDISPLAY    hDC     =   GetDC(_hParentWnd);
+            if(!_contextGL.init(_hParentWnd,hDC))
             {
-                return  false;
-            }
-
-            ShowWindow(_hWnd,SW_SHOW);
-            UpdateWindow(_hWnd);
-
-            HDISPLAY    hDC     =   GetDC(_hWnd);
-            if(!_contextGL.init(_hWnd,hDC))
-            {
-                DestroyWindow(_hWnd);
                 return  false;
             }
             char    szFileName[CELL_PATH_LENGTH]    =   {0};
@@ -118,10 +77,10 @@ namespace CELL
         /// </summary>
         virtual lifeiFrame*  createFrame()
         {
-            if (IsWindow(_hWnd))
+            if (IsWindow(_hParentWnd))
             {
                 RECT    rect;
-                GetClientRect(_hWnd, &rect);
+                GetClientRect(_hParentWnd, &rect);
                 _context._width     =   rect.right - rect.left;
                 _context._height    =   rect.bottom - rect.top;
             }
@@ -143,41 +102,19 @@ namespace CELL
 
             if (_frame != 0)
             {
-                lifeiThread::start();
-
-                _event.wait();
-                if (!_makeReuslt)
-                {
-					lifeiThread::join();
-                    delete  _frame;
-                    _contextGL.shutdown();
-                    return;
-                }
-                MSG msg = { 0 };
-#if 1
-                /// 主消息循环: 
-                /// PeekMessage
-                while (GetMessage(&msg, nullptr, 0, 0))
-                {
-                    TranslateMessage(&msg);
-                    DispatchMessage(&msg);
-                }
-#else
-                /// 主消息循环: 
-                /// PeekMessage
-                while (msg.message != WM_QUIT)
-                {
-                    if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-                    {
-                        TranslateMessage(&msg);
-                        DispatchMessage(&msg);
-                    }
-                    render();
-                }
-                _contextGL.shutdown();
-#endif
+				return;
             }
-            
+            lifeiThread::start();
+
+             _event.wait();
+             if (!_makeReuslt)
+             {
+				lifeiThread::join();
+                 delete  _frame;
+                 _contextGL.shutdown();
+                 return;
+             }
+
         }
 
         /// 绘制函数
@@ -272,10 +209,10 @@ namespace CELL
                 break;
             case WM_SIZE:
                 {
-                    if(IsWindow(_hWnd))
+                    if(IsWindow(_hParentWnd))
                     { 
                         RECT    rect;
-                        GetClientRect(_hWnd,&rect);
+                        GetClientRect(_hParentWnd,&rect);
                         _context._width     =   rect.right - rect.left;
                         _context._height    =   rect.bottom - rect.top;
                     }

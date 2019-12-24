@@ -31,7 +31,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -71,6 +71,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>CELLGISPlatform</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -91,6 +92,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>export.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -98,7 +100,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;ENGINE_API_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\opengl_gis\trunk\opengl_GIS;D:\lifei\test\opengl_gis\trunk\opengl_GIS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -106,6 +108,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,6 +127,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>export.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,6 +146,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>export.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -148,8 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CELLDXTCompressor.h" />
+    <ClInclude Include="CELLGIS3DPlatform.h" />
     <ClInclude Include="CELLMath.hpp" />
-    <ClInclude Include="CELLMercator.h" />
     <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLShader.hpp" />
     <ClInclude Include="CELLTask.hpp" />
@@ -162,6 +168,7 @@
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
+    <ClInclude Include="IGIS3DPlatform.h" />
     <ClInclude Include="lifeiApp.h" />
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
@@ -172,6 +179,7 @@
     <ClInclude Include="lifeiImage.h" />
     <ClInclude Include="lifeiImageLoader.h" />
     <ClInclude Include="lifeiInput.h" />
+    <ClInclude Include="lifeiMercator.h" />
     <ClInclude Include="lifeiMutex.h" />
     <ClInclude Include="lifeiObject.h" />
     <ClInclude Include="lifeiPlatform.h" />
@@ -192,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
+    <ClCompile Include="CELLGIS3DPlatform.cpp" />
     <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />

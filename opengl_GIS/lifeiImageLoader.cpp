@@ -236,14 +236,15 @@ namespace CELL
 		{
 			return false;
 		}
-		stbi_uc * data = 0;
+		stbi_uc data[256 * 256 * 4];
+		stbi_uc * pData = data;
 		if (4 == chanel)
 		{
-			data = pixels;
-		}
+			pData = pixels;
+		}	
 		else if (3 == chanel)
 		{
-			data = new stbi_uc[width * height * 4];
+		
 			for (int i = 0; i < width * height; i++)
 			{
 				data[i * 4 + 0] = pixels[i * 3 + 0];
@@ -265,11 +266,8 @@ namespace CELL
 
 		image.create(width, height, lifeiImage::FORMAT_DXT1, 0);
 		void * pDst = image.data();
-		DXTC::CompressImageDXT1(data, (BYTE*)pDst, width, height);
-		if ( 3 == chanel)
-		{
-			delete []data;
-		}
+		DXTC::CompressImageDXT1(pData, (BYTE*)pDst, width, height);
+	
 		stbi_image_free(pixels);
 		return true;
 	}
