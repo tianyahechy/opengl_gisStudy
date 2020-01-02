@@ -183,7 +183,9 @@
     <ClInclude Include="lifeiQuadTree.h" />
     <ClInclude Include="lifeiResourceMgr.h" />
     <ClInclude Include="lifeiSemaphore.h" />
+    <ClInclude Include="lifeiTaskObserver.h" />
     <ClInclude Include="lifeiTaskSystem.h" />
+    <ClInclude Include="lifeiTaskThread.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
     <ClInclude Include="lifeiTextureMgr.h" />
     <ClInclude Include="lifeiThread.h" />
@@ -200,6 +202,8 @@
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiQuadTree.cpp" />
+    <ClCompile Include="lifeiTaskSystem.cpp" />
+    <ClCompile Include="lifeiTaskThread.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />
