@@ -1,23 +1,25 @@
 #pragma once
 #include "CELLTask.hpp"
 #include "lifeiThread.h"
+#include <vector>
 #include <list>
 #include "lifeiSemaphore.h"
 #include "lifeiMutex.h"
+
 namespace CELL
 {
-
-	class CELLTaskObserver
+	class lifeiTaskObserver
 	{
 	public:
 		//任务执行通知
 		virtual void onTaskExe(CELLTask* task) = 0;
 		//任务完成通知
-		virtual void onTaskFinish(CELLTask* task) = 0;		
+		virtual void onTaskFinish(CELLTask* task) = 0;
 		//任务取消通知
 		virtual void onTaskCancel(CELLTask* task) = 0;
 	};
-	class CELLTaskSystem
+
+	class lifeiTaskSystem
 	{
 	public:
 		class TaskThread : public lifeiThread
@@ -25,28 +27,31 @@ namespace CELL
 		public:
 			//退出标志
 			bool _exitFlag;
-			CELLTaskSystem* _system;
+			lifeiTaskSystem* _system;
 
 		public:
-			TaskThread( CELLTaskSystem* pSystem)
+			TaskThread(lifeiTaskSystem* pSystem)
 			{
 				_exitFlag = true;
 				_system = pSystem;
 			}
+
 			//退出
 			virtual void join()
 			{
 				_exitFlag = true;
 				lifeiThread::join();
 			}
+
 			virtual bool onCreate()
 			{
 				_exitFlag = false;
 				return false;
 			}
+
 			virtual bool onRun()
 			{
-				while (!_exitFlag)
+				while ( !_exitFlag)
 				{
 					_system->run();
 				}
@@ -59,30 +64,32 @@ namespace CELL
 		};
 		typedef std::vector<lifeiThread* >	arrayThread;
 		typedef std::list<CELLTask*>		arrayTask;
+
 	public:
-		CELLTaskObserver* _observer;
+		lifeiTaskObserver * _observer;
 		arrayThread _threads;
 		arrayTask _tasks;
 		lifeiSemaphore _semphore;
 		lifeiMutex _mutex;
+
 	public:
-		CELLTaskSystem()
+		lifeiTaskSystem()
 		{
 			_observer = 0;
 			_threads.clear();
 		}
-		virtual~ CELLTaskSystem()
+		virtual ~lifeiTaskSystem()
 		{
 			_threads.clear();
 		}
-
 		//设置观察者指针
-		virtual void setObserver(CELLTaskObserver* observer)
+		virtual void setObserver(lifeiTaskObserver * observer)
 		{
 			_observer = observer;
 		}
+
 	public:
-		//启动任务处理
+		//启动任务管理
 		virtual void start(int threadNum = 4)
 		{
 			destroy();
@@ -93,6 +100,7 @@ namespace CELL
 				_threads.push_back(pThread);
 			}
 		}
+
 		//销毁
 		virtual void destroy()
 		{
@@ -103,6 +111,7 @@ namespace CELL
 			}
 			_threads.clear();
 		}
+
 		//添加任务接口
 		virtual void addTask(CELLTask* task)
 		{
@@ -110,37 +119,37 @@ namespace CELL
 				lifeiMutex::ScopeLock lk(_mutex);
 				_tasks.push_back(task);
 			}
-			
 			_semphore.set(1);
 		}
 
-	public:
-		virtual void run()
-		{
-			if (!_semphore.wait())
+		public:
+			virtual void run()
 			{
-				return;
-			}
-			CELLTask* pTask = 0;
-			{
-				lifeiMutex::ScopeLock lk(_mutex);
-				bool taskEmpty = _tasks.empty();
-				if (taskEmpty)
+				if (!_semphore.wait())
 				{
 					return;
 				}
-				//1，取数据
-				pTask = _tasks.front();
-				_tasks.pop_front();
+
+				CELLTask* pTask = 0;
+				{
+					lifeiMutex::ScopeLock lk(_mutex);
+					bool taskEmpty = _tasks.empty();
+					if (taskEmpty)
+					{
+						return;
+					}
+					//取数据
+					pTask = _tasks.front();
+					_tasks.pop_front();
+				}
+				//2执行过程
+				//3通知过程
+				if (_observer && pTask)
+				{
+					_observer->onTaskExe(pTask);
+					_observer->onTaskFinish(pTask);
+				}
 			}
 
-			//2,执行过程
-			//3,通知过程
-			if (_observer && pTask)
-			{
-				_observer->onTaskExe(pTask);
-				_observer->onTaskFinish(pTask);
-			}
-		}
 	};
 }

@@ -162,7 +162,7 @@ namespace CELL
             return  false;
         }
 
-    protected:
+    public:
         LRESULT         eventProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             switch (message)

@@ -31,6 +31,16 @@ namespace CELL
 		_winApp = 0;
 	}
 
+	LRESULT CELLGIS3DPlatform::inputEvent(HWND hWnd, UINT msgId, WPARAM wParam, LPARAM lParam)
+	{
+		if (!_winApp)
+		{
+			return 0;
+		}
+		return _winApp->eventProc(hWnd, msgId, wParam, lParam);
+		
+	}
+
 	IGIS3DPlatform * createPlatform(const CREATEPARAM& param)
 	{
 		return new CELLGIS3DPlatform(param);

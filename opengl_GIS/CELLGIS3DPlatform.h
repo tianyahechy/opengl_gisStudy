@@ -17,6 +17,8 @@ namespace CELL
 		virtual bool initialize();
 		//反向
 		virtual void unInitialize();
+		//事件响应
+		virtual LRESULT inputEvent(HWND hWnd, UINT msgId, WPARAM wParam, LPARAM lParam);
 	};
 	IGIS3DPlatform* createPlatform(const CREATEPARAM& param);
 }

@@ -15,6 +15,8 @@ namespace CELL
 		virtual bool initialize() = 0;
 		//反向
 		virtual void unInitialize() = 0;
+		//事件响应
+		virtual LRESULT inputEvent(HWND hWnd, UINT msgId, WPARAM wParam, LPARAM lParam) = 0;
 	};
 
 	struct CREATEPARAM

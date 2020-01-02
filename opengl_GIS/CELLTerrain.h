@@ -3,14 +3,14 @@
 #include    "lifeiQuadTree.h"
 #include    "lifeiContext.h"
 #include    "lifeiTerrainInterface.h"
-#include    "CELLTaskSystem.hpp"
+#include    "lifeiTaskSystem.h"
 #include    "lifeiTextureMgr.h"
 namespace   CELL
 {
     class CELLTerrain 
         :public lifeiObject
         ,public lifeiTerrainInterface
-        ,public CELLTaskObserver
+        ,public lifeiTaskObserver
     {
     public:
         struct  P3U3
@@ -32,7 +32,7 @@ namespace   CELL
 		lifeiQuadTree*   _root;
         lifeiContext&    _context;
         char            _path[CELL_PATH_LENGTH];
-        CELLTaskSystem  _taskSystem;
+        lifeiTaskSystem  _taskSystem;
         ArrayTask       _tasks;
         lifeiMutex       _mutex;
         MapNode         _nodes;
