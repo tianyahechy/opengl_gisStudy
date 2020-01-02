@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opengl_GIS", "opengl_GIS.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "..\demo\demo.vcxproj", "{C4108143-7DF3-483F-8A61-D3A84288AF1F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.googleMap", "..\plugin.tileSource.googleMap\plugin.tileSource.googleMap.vcxproj", "{C53624D5-C8E9-4765-8E36-161AF81DC497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,14 @@ Global
 		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|Win32.Build.0 = Release|Win32
 		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|x64.ActiveCfg = Release|x64
 		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|x64.Build.0 = Release|x64
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|Win32.Build.0 = Debug|Win32
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|x64.ActiveCfg = Debug|x64
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|x64.Build.0 = Debug|x64
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|Win32.ActiveCfg = Release|Win32
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|Win32.Build.0 = Release|Win32
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|x64.ActiveCfg = Release|x64
+		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
