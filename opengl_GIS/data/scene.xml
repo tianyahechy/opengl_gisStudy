@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <imageSource url ="e:/111" ext =".jpg" loader ="googleMapLoader.dll"></imageSource>
+  <imageSource url ="e:/111" ext =".jpg" loader ="plugin.tileSource.googleMap.dll"></imageSource>
 </root>

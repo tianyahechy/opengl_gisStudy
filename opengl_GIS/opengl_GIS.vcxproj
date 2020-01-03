@@ -191,6 +191,8 @@
     <ClInclude Include="lifeiTextureMgr.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
+    <ClInclude Include="rapidxml.hpp" />
+    <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="shp\shapefil.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

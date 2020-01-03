@@ -13,12 +13,15 @@
 namespace CELL
 {
 	class CELLTask;
+	class IPluginTileSource;
+	class IGIS3DPlatform;
 	class IPlugin
 	{
 	public:
 	};
 
 #define CREATE_TILESOURCE	"createTileSource"
+	typedef IPluginTileSource* (*CREATETILESOURCEFUNC)(IGIS3DPlatform*);
 
 	class IPluginTileSource : public IPlugin
 	{
@@ -39,6 +42,8 @@ namespace CELL
 		virtual void unInitialize() = 0;
 		//事件响应
 		virtual LRESULT inputEvent(HWND hWnd, UINT msgId, WPARAM wParam, LPARAM lParam) = 0;
+		//加载
+		virtual bool loadScene(const char* sceneFile) = 0;
 	};
 
 	struct CREATEPARAM
