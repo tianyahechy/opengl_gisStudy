@@ -1,8 +1,8 @@
 #pragma once
 #ifdef ENGINE_API_EXP
-#define ENGINE_API_EXP	declspec(dllexport)
+#define ENGINE_API	declspec(dllexport)
 #else
-#define ENGINE_API_EXP	declspec(dllimport)
+#define ENGINE_API	declspec(dllimport)
 #endif
 
 #define EXPORTFUNC	_declspec(dllexport)
@@ -20,7 +20,7 @@ namespace CELL
 	public:
 	};
 
-#define CREATE_TILESOURCE	"createTileSource"
+	#define CREATE_TILESOURCE	"createTileSource"
 	typedef IPluginTileSource* (*CREATETILESOURCEFUNC)(IGIS3DPlatform*);
 
 	class IPluginTileSource : public IPlugin
