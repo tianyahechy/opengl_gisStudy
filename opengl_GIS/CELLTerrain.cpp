@@ -3,6 +3,8 @@
 #include "LifeiProgramLibrary.h"
 #include "CELLTileTask.hpp"
 #include "lifeiTimeStamp.hpp"
+#include "rapidxml.hpp"
+#include "CELLGIS3DPlatform.h"
 
 namespace CELL
 {
@@ -10,6 +12,8 @@ namespace CELL
         :_context(context)
         ,_textureMgr(_context)
     {
+		_tileSource = 0;
+		_hTileSourceDll = 0;
         _root   =   0;
         _taskSystem.setObserver(this);
         _vertex.reserve(1024*4);
@@ -199,6 +203,20 @@ namespace CELL
         {
             return;
         }
+		if (_tileSource == 0)
+		{
+			delete task;
+			return;
+		}
+		if (_tileSource->load(task) == 0)
+		{
+			delete task;
+			return;
+		}
+
+		lifeiMutex::ScopeLock lk(_mutex);
+		_tasks.push_back(pTask);
+#if 0
         char    szPathName[CELL_PATH_LENGTH];
         sprintf(szPathName, "%s/L%02d/%06d-%06d.jpg", _path, pTask->_tileId._lev + 1, pTask->_tileId._row, pTask->_tileId._col);
         if(lifeiImageLoader::loadImageToDXT1(szPathName, pTask->_image))
@@ -210,11 +228,67 @@ namespace CELL
         {
             delete  task;
         }
+#endif
     }
 
     void CELLTerrain::onTaskFinish(CELLTask* task)
     {
     }
+
+	bool CELLTerrain::loadScene(const char * fileName)
+	{
+		rapidxml::xml_document<> doc;
+		FILE* file = fopen(fileName, "rb");
+		if (0 == file)
+		{
+			return false;
+		}
+
+		fseek(file, 0, SEEK_END);
+		size_t nSize = ftell(file);
+		fseek(file, 0, SEEK_SET);
+		char * pBuf = new char[nSize + 1];
+		memset(pBuf, 0, nSize + 1);
+		fread(pBuf, nSize, 1, file);
+		pBuf[nSize] = '\0';
+		fclose(file);
+
+		try
+		{
+			do
+			{
+				doc.parse<0>(pBuf);
+				rapidxml::xml_node<> * pRoot = doc.first_node();
+				rapidxml::xml_node<> * pImageSource = pRoot->first_node();
+				if (0 == pImageSource)
+				{
+					break;
+				}
+				rapidxml::xml_attribute<>* pDll = pImageSource->first_attribute("loader");
+				if (0 == pDll)
+				{
+					break;
+				}
+				_tileSource = createTileSource(pDll->value());
+				if (0 == _tileSource)
+				{
+					break;
+				}
+				rapidxml::xml_attribute<>* pAttr = pImageSource->first_attribute();
+				for (; pAttr; pAttr = pAttr->next_attribute())
+				{
+					_tileSource->setParam(pAttr->name(), pAttr->value());
+				}
+
+			} while (false);
+		}
+		catch (...)
+		{
+
+		}
+		delete[] pBuf;
+		return false;
+	}
 
  
 
@@ -329,6 +403,25 @@ namespace CELL
             _facees[i*2 + 1]    =   index1;
         }
     }
+
+
+	IPluginTileSource * CELLTerrain::createTileSource(const char * dllFileName)
+	{
+		HMODULE hDll = LoadLibraryA(dllFileName);
+		if (0 == hDll)
+		{
+			return NULL;
+		}
+		CREATETILESOURCEFUNC func = (CREATETILESOURCEFUNC)GetProcAddress(hDll, CREATE_TILESOURCE);
+		if (NULL == func)
+		{
+			CloseHandle(hDll);
+			return NULL;
+		}
+		_hTileSourceDll = hDll;
+		return func(0);
+	}
+
 
 }
 

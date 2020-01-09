@@ -4,25 +4,28 @@
 #include "CELLOpenGL.h"
 #include "CELLTerrain.h"
 #include "lifeiContext.h"
+
 namespace CELL
 {
     class CELLFrameBigMap :public lifeiFrame
     {
     public:
-        lifeiTimeStamp  _timeStamp;
-        aabb3dr         _aabb;
-        real3           _basePoint;
-        bool            _bLbuttonDown;
-        int2            _lbuttonDown;
-        Texture2dId     _textureId;
-        CELLTerrain		_terrain;
-		bool			_bMbuttonDown;
-		int2			_mButtonDown;
+        lifeiTimeStamp		_timeStamp;
+        aabb3dr				_aabb;
+        real3				_basePoint;
+        bool				_bLbuttonDown;
+        int2				_lbuttonDown;
+        Texture2dId			_textureId;
+        CELLTerrain			_terrain;
+		bool				_bMbuttonDown;
+		int2				_mButtonDown;
+
     public:
         CELLFrameBigMap(lifeiContext& context);
 
         virtual ~CELLFrameBigMap();
-
+		//加载场景
+		virtual bool loadScene(const char* fileName);
         /// <summary>
         /// 更新数据
         /// </summary>
@@ -76,6 +79,7 @@ namespace CELL
         bool   getPointsFromScreen(int x,int y,real3& point);
 		//平移场景
 		void moveScene(const real3& worldPickup, const int2& ofScreen);
+
 
     };
 

@@ -7,7 +7,7 @@
 #define CELL_PATH_LENGTH 1024
 namespace CELL
 {
-	class CELLFrame;
+	class lifeiFrame;
 	class lifeiResourceMgr;
 	class CELLOpenGL;
 	class CELLGIS3DPlatform;
@@ -17,7 +17,7 @@ namespace CELL
 		//全局的app
 		CELLGIS3DPlatform * _app;
 		//框架
-		CELLFrame *			_frame;
+		lifeiFrame *			_frame;
 		CELLOpenGL *		_device;
 		//资源管理者指针
 		lifeiResourceMgr *	_resMgr;

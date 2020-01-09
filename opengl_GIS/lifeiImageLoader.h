@@ -1,10 +1,11 @@
 #pragma once
 #include "lifeiImage.h"
 #include "CELLDXTCompressor.h"
+#include "IGIS3DPlatform.h"
 
 namespace CELL
 {
-	class lifeiImageLoader
+	class EXPORTFUNC lifeiImageLoader
 	{
 	public:
 		//根据文件加载图形信息

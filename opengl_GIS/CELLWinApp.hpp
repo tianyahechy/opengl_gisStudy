@@ -11,6 +11,7 @@
 #include    "lifeiEvent.h"
 #include    "LifeiProgramLibrary.h"
 #include    "lifeiResourceMgr.h"
+#include	"CELLFrameBigMap.h"
 #include    <assert.h>
 
 namespace CELL

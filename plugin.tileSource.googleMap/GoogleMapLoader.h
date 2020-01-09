@@ -5,6 +5,9 @@ namespace CELL
 	class GoogleMapLoader : public IPluginTileSource
 	{
 	public:
+		char _path[1024];
+		char _ext[16];
+	public:
 		GoogleMapLoader();
 		~GoogleMapLoader();
 		//…Ë÷√≤Œ ˝

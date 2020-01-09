@@ -19,6 +19,8 @@ namespace CELL
 		{
 
 		}
+		//加载场景
+		virtual bool loadScene(const char* fileName) = 0;
 		//更新数据
 		virtual void update(lifeiContext& context) = 0;
 		//开始绘制

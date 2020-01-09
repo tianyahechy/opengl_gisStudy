@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IGIS3DPlatform.h"
 #include <stdlib.h>
 #include <string>
 #include <assert.h>
@@ -9,7 +10,7 @@
 
 namespace CELL
 {
-	class lifeiImage : public lifeiObject
+	class EXPORTFUNC lifeiImage : public lifeiObject
 	{
 	public:
 		enum Format

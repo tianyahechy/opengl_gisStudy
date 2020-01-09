@@ -17,6 +17,9 @@ namespace CELL
         ,_bLbuttonDown(false)
         ,_terrain(_context)
     {
+		context._frame = this;
+		_bMbuttonDown = false;
+
         context._camera.setEye(real3(0,FSIZE * 2,0));
         context._camera.setTarget(real3(0,0,0));
         context._camera.calcDir();
@@ -41,6 +44,11 @@ namespace CELL
     CELLFrameBigMap::~CELLFrameBigMap()
     {
     }
+
+	bool CELLFrameBigMap::loadScene(const char * fileName)
+	{
+		return _terrain.loadScene(fileName);
+	}
 
     void CELLFrameBigMap::update(lifeiContext& )
     {

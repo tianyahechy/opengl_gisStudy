@@ -5,8 +5,10 @@
 #include    "lifeiTerrainInterface.h"
 #include    "lifeiTaskSystem.h"
 #include    "lifeiTextureMgr.h"
+
 namespace   CELL
 {
+	class IPluginTileSource;
     class CELLTerrain 
         :public lifeiObject
         ,public lifeiTerrainInterface
@@ -40,6 +42,9 @@ namespace   CELL
         ArrayFace       _facees;
         lifeiTextureMgr  _textureMgr;
         lifeiCounts          _counts;
+
+		IPluginTileSource * _tileSource;
+		HMODULE				_hTileSourceDll;
     public:
         CELLTerrain(lifeiContext& context);
         ~CELLTerrain();
@@ -48,6 +53,8 @@ namespace   CELL
         /// </summary>
         virtual void    setTileSourcePath(const char* pathName);
 
+		//加载场景
+		virtual bool loadScene(const char* fileName);
         /// <summary>
         /// 创建节点
         /// </summary>
@@ -104,6 +111,8 @@ namespace   CELL
     protected:
         void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
         void    calcIndex(lifeiQuadTree::ArrayNode& nodes);
+
+		IPluginTileSource * createTileSource(const char* dllFileName);
     };
 }
 
