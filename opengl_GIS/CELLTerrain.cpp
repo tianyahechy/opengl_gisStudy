@@ -267,7 +267,7 @@ namespace CELL
 
 			} while (false);
 
-			//初始化
+			//初始化,启动线程
 			initailze();
 		}
 		catch (...)
@@ -277,8 +277,6 @@ namespace CELL
 		delete[] pBuf;
 		return false;
 	}
-
- 
 
     void CELLTerrain::calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, ArrayVertex& vertx)
     {

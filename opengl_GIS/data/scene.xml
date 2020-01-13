@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <imageSource url ="D:/lifei/test/opengl_gis/trunk/opengl_GIS/data/tile" ext =".jpg" loader ="plugin.tileSource.googleMap.dll"></imageSource>
+  <imageSource url ="D:/lifei/test/opengl_gis/trunk/opengl_GIS/data/tile/TMS" ext =".png" loader ="plugin.tileSource.TMS.dll"></imageSource>
 </root>

@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "..\demo\demo.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.googleMap", "..\plugin.tileSource.googleMap\plugin.tileSource.googleMap.vcxproj", "{C53624D5-C8E9-4765-8E36-161AF81DC497}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.TMS", "..\plugin.tileSource.TMS\plugin.tileSource.TMS.vcxproj", "{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -41,6 +43,14 @@ Global
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|Win32.Build.0 = Release|Win32
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|x64.ActiveCfg = Release|x64
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Release|x64.Build.0 = Release|x64
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Debug|Win32.Build.0 = Debug|Win32
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Debug|x64.ActiveCfg = Debug|x64
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Debug|x64.Build.0 = Debug|x64
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Release|Win32.ActiveCfg = Release|Win32
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Release|Win32.Build.0 = Release|Win32
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Release|x64.ActiveCfg = Release|x64
+		{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,10 +36,6 @@ namespace CELL
 	bool CELLFrameBigMap::loadScene(const char * fileName)
 	{
 		return _terrain.loadScene(fileName);
-		//_terrain.loadScene(fileName);
-		//_terrain._taskSystem.start();
-		//_terrain._taskSystem.run();
-		//return true;
 	}
 
     void CELLFrameBigMap::update(lifeiContext& )
