@@ -26,19 +26,7 @@ namespace CELL
 
         context._camera.setUp(real3(0,0,1));
         context._camera.setRight(real3(1,0,0));
-        
-        Texture2dId*    pTex = _context._resMgr->createTexture2d("temp/1.jpg");
-        if (pTex)
-        {
-            _textureId = *pTex;
-        }
 
-        //CELLSpatialReference    spr;
-		lifeiSpatialReference spr;
-        int2 tileId =   spr.getKey(1,-90,-45);
-
-        _terrain.setTileSourcePath("D:/lifei/test/opengl_gis/trunk/opengl_GIS/data/tile");
-		_terrain.initailze();
     }
 
     CELLFrameBigMap::~CELLFrameBigMap()
@@ -48,6 +36,10 @@ namespace CELL
 	bool CELLFrameBigMap::loadScene(const char * fileName)
 	{
 		return _terrain.loadScene(fileName);
+		//_terrain.loadScene(fileName);
+		//_terrain._taskSystem.start();
+		//_terrain._taskSystem.run();
+		//return true;
 	}
 
     void CELLFrameBigMap::update(lifeiContext& )

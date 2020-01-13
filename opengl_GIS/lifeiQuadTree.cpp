@@ -14,8 +14,8 @@ namespace CELL
 		lifeiSpatialReference spr;
 		_aabb.setExtents(vStart.x, 0, vStart.y, vEnd.x, 0, vEnd.y);
 		real3 vXCenter = _aabb.getCenter();
-		real2 vlatLon = spr.worldToLongLat(real2(vXCenter.x, vXCenter.z));
-		int2 vTileID = spr.getKey(level, vlatLon.x, vlatLon.y);
+		real2 vWorld = spr.worldToLongLat(real2(vXCenter.x, vXCenter.z));
+		int2 vTileID = spr.getKey(level, vWorld.x, vWorld.y);
 		_tileID._lev = level;
 		_tileID._col = vTileID.x;
 		_tileID._row = vTileID.y;
@@ -31,15 +31,12 @@ namespace CELL
 		_uvStart = float2(0, 0);
 		_uvEnd = float2(1.0f, 1.0f);
 
+		_terrain->getCounts()._nodes++;
 		_flag = 0;
 		_flag &= ~FLAG_HAS_IMAGE;
 		if (NULL == _parent)
 		{
-			_textureID = _terrain->createTexture(_tileID);
-			if (-1 != _textureID)
-			{
-				_flag |= FLAG_HAS_IMAGE;
-			}
+			_terrain->request(this);
 			return;
 		}
 		//计算大小和中心点

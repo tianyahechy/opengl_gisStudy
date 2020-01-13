@@ -31,10 +31,6 @@ namespace CELL
         delete  _root;
     }
 
-    void CELLTerrain::setTileSourcePath(const char* pathName)
-    {
-        strncpy(_path, pathName, sizeof(_path));
-    }
 
     void CELLTerrain::initailze()
     {
@@ -44,6 +40,10 @@ namespace CELL
 
     void CELLTerrain::update(lifeiContext& context)
     {
+		if ( 0 == _root)
+		{
+			return;
+		}
         _root->update(context);
         ArrayTask   tasks;
         {
@@ -99,6 +99,10 @@ namespace CELL
 
     void CELLTerrain::renderPackVertex(lifeiContext& context)
     {
+		if ( 0 == _root)
+		{
+			return;
+		}
 		lifeiQuadTree::ArrayNode nodes;
         _root->getAllRenderableNode(nodes);
         getCounts()._drawNodes  =   (uint)nodes.size();
@@ -140,13 +144,6 @@ namespace CELL
         OutputDebugStringA(szBuf);
     }
 
-    uint CELLTerrain::createTexture(const TileId& id)
-    {
-        char    szPathName[CELL_PATH_LENGTH];
-        sprintf(szPathName,"%s/L%02d/%06d-%06d.jpg",_path,id._lev + 1,id._row,id._col);
-        Texture2dId texId = _context._resMgr->createTexture2dFromImage(szPathName);
-        return  texId._texture;
-    }
     void CELLTerrain::request(lifeiQuadTree* node)
     {
         CELLTileTask*   pTask   =   new CELLTileTask();
@@ -216,19 +213,7 @@ namespace CELL
 
 		lifeiMutex::ScopeLock lk(_mutex);
 		_tasks.push_back(pTask);
-#if 0
-        char    szPathName[CELL_PATH_LENGTH];
-        sprintf(szPathName, "%s/L%02d/%06d-%06d.jpg", _path, pTask->_tileId._lev + 1, pTask->_tileId._row, pTask->_tileId._col);
-        if(lifeiImageLoader::loadImageToDXT1(szPathName, pTask->_image))
-        {
-            lifeiMutex::ScopeLock lk(_mutex);
-            _tasks.push_back(pTask);
-        }
-        else
-        {
-            delete  task;
-        }
-#endif
+
     }
 
     void CELLTerrain::onTaskFinish(CELLTask* task)
@@ -281,6 +266,9 @@ namespace CELL
 				}
 
 			} while (false);
+
+			//≥ı ºªØ
+			initailze();
 		}
 		catch (...)
 		{

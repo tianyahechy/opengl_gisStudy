@@ -33,7 +33,6 @@ namespace   CELL
     public:
 		lifeiQuadTree*   _root;
         lifeiContext&    _context;
-        char            _path[CELL_PATH_LENGTH];
         lifeiTaskSystem  _taskSystem;
         ArrayTask       _tasks;
         lifeiMutex       _mutex;
@@ -48,10 +47,6 @@ namespace   CELL
     public:
         CELLTerrain(lifeiContext& context);
         ~CELLTerrain();
-        /// <summary>
-        /// 指定数据源
-        /// </summary>
-        virtual void    setTileSourcePath(const char* pathName);
 
 		//加载场景
 		virtual bool loadScene(const char* fileName);
@@ -78,10 +73,6 @@ namespace   CELL
         virtual void    renderPackVertex(lifeiContext& context);
 
     public:
-        /// <summary>
-        /// 创建纹理
-        /// </summary>
-        virtual uint    createTexture(const TileId& id);
         /// <summary>
         /// 释放纹理
         /// </summary>

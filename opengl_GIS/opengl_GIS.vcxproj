@@ -204,6 +204,7 @@
     <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiImageLoader.cpp" />
+    <ClCompile Include="lifeiMath_Unused.h" />
     <ClCompile Include="lifeiQuadTree.cpp" />
     <ClCompile Include="lifeiTaskSystem.cpp" />
     <ClCompile Include="lifeiTaskThread.cpp" />
