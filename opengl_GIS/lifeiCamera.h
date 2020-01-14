@@ -137,7 +137,7 @@ namespace CELL
 		{
 			return _matView;
 		}
-
+		
 		//正交投影
 		void ortho(real left, real right, real bottom, real top, real zNear, real zFar)
 		{
@@ -183,6 +183,7 @@ namespace CELL
 			project(worlds, screens);
 			return real2(screens.x, screens.y);
 		}
+		
 		//世界坐标转化为窗口坐标
 		int2 worldToScreenInt(const real3& world)
 		{
@@ -191,7 +192,7 @@ namespace CELL
 			project(worlds, screens);
 			return int2((int)screens.x, (int)screens.y);
 		}
-
+		
 		//窗口坐标转化为世界坐标
 		bool unProject(const real4& screen, real4& world)
 		{

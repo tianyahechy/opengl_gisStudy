@@ -30,30 +30,6 @@ namespace CELL
 			_planes[FRUSTUM_NEAR] = Plane<T>(dataPtr[12] + dataPtr[8], dataPtr[13] + dataPtr[9], dataPtr[14] + dataPtr[10], dataPtr[15] + dataPtr[11]);
 		}
 
-		bool pointInFrustum(const tvec3<T> &pos) const
-		{
-			for (int i = 0; i < 6; i++)
-			{
-				if (_planes[i].distance(pos) <= 0)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
-		bool spereInFrustum(const tvec3 <T>& pos, const float radius) const
-		{
-			for (int i = 0; i < 6; i++)
-			{
-				if (_planes[i].distance(pos) <= -radius)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-	
 		bool cubeInFrustum(T minX, T maxX, T minY, T maxY, T minZ, T maxZ) const
 		{
 			for (int i = 0; i < 6; i++)
@@ -94,11 +70,7 @@ namespace CELL
 			}
 			return true;
 		}
-	
-		const Plane<T>& getPlane(const int plane) const
-		{
-			return _planes[plane];
-		}
+
 	};
 
 	typedef lifeiFrustum<real>	Frustum;

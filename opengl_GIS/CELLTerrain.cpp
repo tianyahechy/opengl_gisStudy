@@ -117,8 +117,7 @@ namespace CELL
         lifeiTimeStamp   tm;
         /// »ñÈ¡shader
         PROGRAM_P3_U3_TEXARRAY&  prg = context._resMgr->_program_P3_U3_TEXARRAY;
-        
-        
+               
         calcVertexBuffer(nodes,_vertex);
         context._device->bindTextureArray(&_textureMgr._textureId);
         prg.begin();
@@ -340,56 +339,6 @@ namespace CELL
         }
 
     }
-
-    void CELLTerrain::calcIndex(lifeiQuadTree::ArrayNode& nodes)
-    {
-        _vertex.resize(nodes.size() * 4);
-        _facees.resize(nodes.size() * 2);
-        P3U3*   vPlane  =   &_vertex.front();
-        for (size_t i = 0 ;i < nodes.size() ; ++ i)
-        {
-			lifeiQuadTree*   pNode   =   nodes[i];
-            real2           vStart  =   pNode->_vStart;
-            real2           vEnd    =   pNode->_vEnd;
-
-            float2          uvStart =   pNode->_uvStart;
-            float2          uvEnd   =   pNode->_uvEnd;
-            vPlane[0].x     =   vStart.x;
-            vPlane[0].y     =   0;
-            vPlane[0].z     =   vEnd.y;
-
-            vPlane[0].u     =   uvStart.x;
-            vPlane[0].v     =   uvEnd.y;
-
-            vPlane[1].x     =   vEnd.x;
-            vPlane[1].y     =   0;
-            vPlane[1].z     =   vEnd.y;
-
-            vPlane[1].u     =   uvEnd.x;
-            vPlane[1].v     =   uvEnd.y;
-
-            vPlane[2].x     =   vEnd.x;
-            vPlane[2].y     =   0;
-            vPlane[2].z     =   vStart.y;
-            vPlane[2].u     =   uvEnd.x;
-            vPlane[2].v     =   uvStart.y;
-
-            vPlane[3].x     =   vStart.x;
-            vPlane[3].y     =   0;
-            vPlane[3].z     =   vStart.y;
-                 
-            vPlane[3].u     =   uvStart.x;
-            vPlane[3].v     =   uvStart.y;
-
-            vPlane          +=  4;
-            short   id      =   short(i) * 4;
-            FaceIndex   index0  =   {id,id + 1,id + 2};
-            FaceIndex   index1  =   {id,id + 2,id + 3};
-            _facees[i*2 + 0]    =   index0;
-            _facees[i*2 + 1]    =   index1;
-        }
-    }
-
 
 	IPluginTileSource * CELLTerrain::createTileSource(const char * dllFileName)
 	{

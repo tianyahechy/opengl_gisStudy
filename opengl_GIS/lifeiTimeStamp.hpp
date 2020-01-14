@@ -1,6 +1,6 @@
 #pragma once
 #include "lifeiPlatform.h"
-#if  LIFEI_PLATFORM == CELL_PLATFORM_WIN32
+
 namespace CELL
 {
 	class lifeiTimeStamp
@@ -44,37 +44,3 @@ namespace CELL
 		
 	};
 }
-#elif LIFEI_PLATFORM == CELL_PLATFORM_LINUX
-namespace CELL
-{
-	class lifeiTimeStamp
-	{
-	protected:
-		timeval _startCount;
-		lifeiTimeStamp()
-		{
-			gettimeofday(&_startCount, NULL);
-		}
-		~lifeiTimeStamp()
-		{
-
-		}
-		void update()
-		{
-			gettimeofday(&_startCount, NULL);
-		}
-		//ªÒ»°Œ¢√Î
-		double getElapsedTimeInMicroSec()
-		{
-			timeval endCount;
-			gettimeofday(&endCount, NULL);
-			double startTimeInMicroSec = (_startCount.tv_sec * 1000000.0) + _startCount.tv_usec;
-			double endTimeInMicroSec = (endCount.tv_sec * 1000000.0) + endCount.tv_usec;
-			return endTimeInMicroSec - startTimeInMicroSec;
-		}
-	};
-}
-
-
-#endif //  LIFEI_PLATFORM == CELL_PLATFORM_WIN32
-

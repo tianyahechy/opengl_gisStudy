@@ -17,7 +17,7 @@ namespace CELL
 		//全局的app
 		CELLGIS3DPlatform * _app;
 		//框架
-		lifeiFrame *			_frame;
+		lifeiFrame *		_frame;
 		CELLOpenGL *		_device;
 		//资源管理者指针
 		lifeiResourceMgr *	_resMgr;

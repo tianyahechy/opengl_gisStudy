@@ -15,7 +15,6 @@ namespace CELL
         real3				_basePoint;
         bool				_bLbuttonDown;
         int2				_lbuttonDown;
-        Texture2dId			_textureId;
         CELLTerrain			_terrain;
 		bool				_bMbuttonDown;
 		int2				_mButtonDown;

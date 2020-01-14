@@ -101,7 +101,6 @@ namespace   CELL
         virtual void    onTaskFinish(CELLTask* task);
     protected:
         void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
-        void    calcIndex(lifeiQuadTree::ArrayNode& nodes);
 
 		IPluginTileSource * createTileSource(const char* dllFileName);
     };

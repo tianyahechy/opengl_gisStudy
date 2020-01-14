@@ -1,6 +1,5 @@
 #pragma once
 #include "lifeiPlatform.h"
-#if LIFEI_PLATFORM == CELL_PLATFORM_WIN32
 namespace CELL
 {
 	class LifeiGLContext
@@ -124,70 +123,3 @@ namespace CELL
 		}
 	};
 }
-#elif LIFEI_PLATFORM == CELL_PLATFORM_LINUX
-namespace CELL
-{
-	class lifeiGLContext
-	{
-	protected:
-		Display* _display;
-		Window	_window;
-		GLXContext _context;
-	public:
-		lifeiGLContext()
-		{
-			_display = 0;
-			_context = 0;
-			_window = 0;
-		}
-		~lifeiGLContext()
-		{
-		}
-		bool init(HWINDOW hWnd, HDISPLAY hDC)
-		{
-			_window = hWnd;
-			_display = hDC;
-
-			int attrib[] = 
-			{
-				GLX_RGBA,				GL_DOUBLEBUFFER,
-				GLX_RED_SIZE,			8,
-				GLX_GREEN_SIZE,			8,
-				GLX_BLUE_SIZE,			8,
-				GLX_ALPHA_SIZE,			8,
-				GLX_DEPTH_SIZE,			24,
-				GLX_STENCIL_SIZE,		8,
-				None,					
-			}
-			int screen = DefaultScreen(_display);
-			XVisualInfo *visual = glXChooseVisual(_display, screen, attrib);
-			if (!_context)
-			{
-				context = glXCreateContex(_display, visual, NULL, TRUE);
-			}
-			if(!_context)
-			{
-				return false;
-			}
-			glMakeCurrent(_display, _window, _context);
-			return true;
-		}
-
-		//Ïú»ÙEGL
-		void shutdownGL()
-		{
-			if (_context)
-			{
-				glXDestroyContext(_display, _context);
-			}
-		}
-
-		//½»»»»º³åÇø
-		void swapBuffer()
-		{
-			glXSwapBuffers(_display,_window);
-		}
-		
-	};
-}
-#endif
