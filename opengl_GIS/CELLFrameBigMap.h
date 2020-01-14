@@ -11,7 +11,6 @@ namespace CELL
     {
     public:
         lifeiTimeStamp		_timeStamp;
-        aabb3dr				_aabb;
         real3				_basePoint;
         bool				_bLbuttonDown;
         int2				_lbuttonDown;
