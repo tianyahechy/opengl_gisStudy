@@ -9,8 +9,6 @@ namespace CELL
 	class lifeiResourceMgr
 	{
 	public:
-		//资源的目录
-		char*					_path;
 		CELLOpenGL*				_device;
 
 		//处理2d纹理数组

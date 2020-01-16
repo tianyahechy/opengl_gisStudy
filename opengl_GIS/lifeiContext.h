@@ -21,10 +21,6 @@ namespace CELL
 		CELLOpenGL *		_device;
 		//资源管理者指针
 		lifeiResourceMgr *	_resMgr;
-		//运行时目录
-		char				_pathEXE[CELL_PATH_LENGTH];
-		//资源目录
-		char				_pathRes[CELL_PATH_LENGTH];
 		//鼠标的当前位置
 		int					_mouseX;
 		//鼠标的当前位置

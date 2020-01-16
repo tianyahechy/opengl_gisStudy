@@ -33,7 +33,8 @@ namespace CELL
 		int level = pTask->_tileId._lev;
 		char    szURL[1024];
 		sprintf(szURL, "http://mt2.google.cn/vt?n=404&lyrs=s&hl=zh-CN&gl=cn&v=191&x=%d&y=%d&z=%d", col, row, pTask->_tileId._lev);
-
+		//sprintf(szURL, "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer", col, row, pTask->_tileId._lev);
+	
 		std::vector<char> imageData;
 		bool result = getImageData(szURL, imageData);
 		if (!result)
@@ -69,10 +70,18 @@ namespace CELL
 
 		char* data = &arBuf.front();
 		char    jpgHeader[] = "JFIF";
+		char arcgisHeader[] = "html";
+		
 		if (memcmp(data+6, jpgHeader, 4) != 0)
 		{
 			return false;
 		}
+		/*
+		if (memcmp(data + 19, arcgisHeader, 4) != 0)
+		{
+			return false;
+		}
+		*/
 		return true;
 	}
 

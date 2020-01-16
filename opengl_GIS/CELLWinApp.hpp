@@ -50,24 +50,7 @@ namespace CELL
             {
                 return  false;
             }
-            char    szFileName[CELL_PATH_LENGTH]    =   {0};
-            GetModuleFileNameA(0,szFileName,sizeof(szFileName));
-            std::string     strPath =   szFileName;
-            std::size_t     pos     =   strPath.rfind("\\");
-            if (pos != std::string::npos)
-            {
-                std::string exePath =   strPath.substr(0,pos);
-                strcpy(_context._pathEXE,exePath.c_str());
-                pos     =   exePath.rfind("\\");
-                if (pos != std::string::npos)
-                {
-                    std::string resPath = exePath.substr(0,pos);
-                    resPath +=  "/data";
-                    strcpy(_context._pathRes,resPath.c_str());
-                }
-            }
             _device.initialize();
-            _resMgr._path   =   _context._pathRes;
             _context._resMgr->initialize(_context._device);
             
             return  true;
