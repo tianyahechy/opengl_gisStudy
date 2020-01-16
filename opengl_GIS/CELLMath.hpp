@@ -3,26 +3,6 @@
 
 namespace CELL
 {
-   template<class T>   inline T    tmin(T a,T b)
-    {
-        return  a < b ? a:b;
-    }
-
-    template<class T>   inline  T    tmax(T a,T b)
-    {
-        return  a > b ? a:b;
-    }
-
-    union   TileId
-    {
-        struct
-        {
-            int64  _row : 28;
-            int64  _col : 28;
-            int64  _lev : 8;
-        };
-        int64  _index;
-    };
 
     template <typename T>
     struct tvec2

@@ -20,4 +20,16 @@ namespace CELL
 #define DEG2RAD(theta)				(0.01745329251994329 * theta)
 #define RAD2DEG						57.2957795130823208
 
+	template <class T>
+	inline T tmin(T a, T b)
+	{
+		return a < b ? a : b;
+	}
+
+	template <class T>
+	inline T tmax(T a, T b)
+	{
+		return a > b ? a : b;
+	}
+
 }

@@ -3,6 +3,7 @@
 #include "lifeiObject.h"
 #include "lifeiContext.h"
 #include "lifeiTerrainInterface.h"
+#include "lifeiTileId.h"
 
 namespace CELL
 {
@@ -27,7 +28,7 @@ namespace CELL
 	public:
 		lifeiTerrainInterface* _terrain;
 		//对应瓦片id
-		TileId _tileID;
+		 lifeiTileId _tileID;
 		//数据标志
 		uint	_flag;
 		//世界坐标范围

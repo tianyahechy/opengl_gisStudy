@@ -2,6 +2,7 @@
 #include "CELLTask.hpp"
 #include "CELLMath.hpp"
 #include "lifeiImage.h"
+#include "lifeiTileId.h"
 namespace CELL
 {
 	class lifeiQuadTree;
@@ -9,7 +10,7 @@ namespace CELL
 	{
 	public:
 		lifeiQuadTree * _node;
-		TileId			_tileId;
+		lifeiTileId		_tileId;
 		lifeiImage		_image;
 	};
 }

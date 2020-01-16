@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.TMS", "..
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.httpGoogle", "..\plugin.tileSource.httpGoogle\plugin.tileSource.httpGoogle.vcxproj", "{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.default", "..\plugin.tileSource.default\plugin.tileSource.default.vcxproj", "{E555F6A5-4092-4DED-A6EF-77FC279320ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -61,6 +63,14 @@ Global
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|Win32.Build.0 = Release|Win32
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|x64.ActiveCfg = Release|x64
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|x64.Build.0 = Release|x64
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Debug|Win32.Build.0 = Debug|Win32
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Debug|x64.ActiveCfg = Debug|x64
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Debug|x64.Build.0 = Debug|x64
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Release|Win32.ActiveCfg = Release|Win32
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Release|Win32.Build.0 = Release|Win32
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Release|x64.ActiveCfg = Release|x64
+		{E555F6A5-4092-4DED-A6EF-77FC279320ED}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
