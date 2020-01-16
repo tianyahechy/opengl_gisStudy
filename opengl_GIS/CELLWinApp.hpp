@@ -50,18 +50,15 @@ namespace CELL
             {
                 return  false;
             }
-			_context._device->initialize();
-            _context._resMgr->initialize(_context._device);
             
             return  true;
         }
-
-        /// <summary>
-        /// 创建框架
-        /// </summary>
-        virtual lifeiFrame*  createFrame()
-        {
-            if (IsWindow(_hParentWnd))
+		//初始化上下文
+		void initContext()
+		{
+			_context._device->initialize();
+            _context._resMgr->initialize(_context._device);          
+			if (IsWindow(_hParentWnd))
             {
                 RECT    rect;
                 GetClientRect(_hParentWnd, &rect);
@@ -73,12 +70,19 @@ namespace CELL
                 _context._width     =   64;
                 _context._height    =   64;
             }
+		}
+
+        /// <summary>
+        /// 创建框架
+        /// </summary>
+        virtual lifeiFrame*  createFrame()
+        {
             return  new CELLFrameBigMap(_context);
         }
         ///  入口函数
         virtual void    main(int argc, char** argv)
         {
-
+			initContext();
             _frame  =   createFrame();
 
             /// 解除与主线程的绑定
