@@ -50,7 +50,7 @@ namespace CELL
             {
                 return  false;
             }
-            _device.initialize();
+			_context._device->initialize();
             _context._resMgr->initialize(_context._device);
             
             return  true;

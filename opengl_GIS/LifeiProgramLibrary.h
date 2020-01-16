@@ -15,6 +15,11 @@ namespace CELL
 	public:
 		virtual bool initialize(CELLOpenGL* device)
 		{
+			_device = device;
+			if (NULL == _device)
+			{
+				return false;
+			}
 			const char* vs =
 			{
 				"#version 330 \n"
@@ -41,14 +46,13 @@ namespace CELL
 				"gl_FragColor = texture(_texture,_outUV);\n"
 				"}\n"
 			};
-			bool result = device->createProgram(*this, vs, ps);
+			bool result = _device->createProgram(*this, vs, ps);
 			if (result)
 			{
-				_position = device->getAttribLocation(_program, "_position");
-				_uv = device->getAttribLocation(_program, "_uv");
-				_texture = device->getUniformLocation(_program, "_texture");
-				_mvp = device->getUniformLocation(_program, "_MVP");
-				_device = device;
+				_position = _device->getAttribLocation(_program, "_position");
+				_uv = _device->getAttribLocation(_program, "_uv");
+				_texture = _device->getUniformLocation(_program, "_texture");
+				_mvp = _device->getUniformLocation(_program, "_MVP");
 			}
 			else
 			{
