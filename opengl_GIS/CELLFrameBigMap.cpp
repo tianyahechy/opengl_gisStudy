@@ -3,8 +3,7 @@
 #include    "CELLFrameBigMap.h"
 #include    "CELLOpenGL.h"
 #include    "lifeiContext.h"
-#include    "lifeiResourceMgr.h"
-#include    "LifeiProgramLibrary.h"
+#include	"lifeiShaderManager.h"
 #include	"lifeiSpatialReference.h"
 
 #define     FSIZE   20037508

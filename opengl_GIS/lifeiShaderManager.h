@@ -3,17 +3,17 @@
 
 namespace CELL
 {
-	class lifeiResourceMgr
+	class lifeiShaderManager
 	{
 	public:
 		//处理2d纹理数组
 		PROGRAM_P3_U3_TEXARRAY	_program_P3_U3_TEXARRAY;
 
 	public:
-		lifeiResourceMgr()
+		lifeiShaderManager()
 		{
 		}
-		~lifeiResourceMgr()
+		~lifeiShaderManager()
 		{
 		}
 

@@ -8,7 +8,7 @@
 namespace CELL
 {
 	class lifeiFrame;
-	class lifeiResourceMgr;
+	class lifeiShaderManager;
 	class CELLOpenGL;
 	class CELLGIS3DPlatform;
 	class lifeiContext
@@ -18,7 +18,7 @@ namespace CELL
 		CELLGIS3DPlatform * _app;
 		CELLOpenGL *		_device;
 		//资源管理者指针
-		lifeiResourceMgr *	_resMgr;
+		lifeiShaderManager *_resMgr;
 		//鼠标的当前位置
 		int					_mouseX;
 		//鼠标的当前位置

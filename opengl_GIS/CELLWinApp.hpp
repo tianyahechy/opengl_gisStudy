@@ -9,8 +9,7 @@
 #include    "lifeiContext.h"
 #include    "lifeiThread.h"
 #include    "lifeiEvent.h"
-#include    "LifeiProgramLibrary.h"
-#include    "lifeiResourceMgr.h"
+#include	"lifeiShaderManager.h"
 #include	"CELLFrameBigMap.h"
 #include    <assert.h>
 
@@ -21,15 +20,15 @@ namespace CELL
         ,public lifeiThread
     {
     public:
-        HWND            _hParentWnd;
-		LifeiGLContext  _contextGL;
-		lifeiContext     _context;
-		lifeiResourceMgr _resMgr;
-        CELLOpenGL      _device;
-        lifeiFrame*      _frame;
-        bool            _threadRun;
-        bool            _makeReuslt;
-        lifeiEvent      _event;
+        HWND				_hParentWnd;
+		LifeiGLContext		_contextGL;
+		lifeiContext		_context;
+		lifeiShaderManager	_resMgr;
+        CELLOpenGL			_device;
+        lifeiFrame*			_frame;
+        bool				_threadRun;
+        bool				_makeReuslt;
+        lifeiEvent			_event;
     public:
         CELLWinApp()
         {
