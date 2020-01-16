@@ -23,7 +23,7 @@ namespace CELL
         HWND				_hParentWnd;
 		LifeiGLContext		_contextGL;
 		lifeiContext		_context;
-		lifeiShaderManager	_resMgr;
+		lifeiShaderManager	_shaderMgr;
         CELLOpenGL			_device;
         lifeiFrame*			_frame;
         bool				_threadRun;
@@ -37,7 +37,7 @@ namespace CELL
             _threadRun          =   true;
             _makeReuslt         =   false;
             _context._device    =   &_device;
-            _context._resMgr    =   &_resMgr;
+            _context._shaderMgr =   &_shaderMgr;
         }
     public:
         /// 创建窗口函数
@@ -56,7 +56,7 @@ namespace CELL
 		void initContext()
 		{
 			_context._device->initialize();
-            _context._resMgr->initialize(_context._device);          
+            _context._shaderMgr->initialize(_context._device);
 			if (IsWindow(_hParentWnd))
             {
                 RECT    rect;

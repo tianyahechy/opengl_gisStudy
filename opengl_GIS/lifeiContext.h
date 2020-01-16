@@ -17,8 +17,8 @@ namespace CELL
 		//全局的app
 		CELLGIS3DPlatform * _app;
 		CELLOpenGL *		_device;
-		//资源管理者指针
-		lifeiShaderManager *_resMgr;
+		//shader指针
+		lifeiShaderManager *_shaderMgr;
 		//鼠标的当前位置
 		int					_mouseX;
 		//鼠标的当前位置

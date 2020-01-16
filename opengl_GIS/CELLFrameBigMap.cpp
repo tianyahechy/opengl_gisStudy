@@ -17,12 +17,12 @@ namespace CELL
 	{
 		_bMbuttonDown = false;
 
-		context._camera.setEye(real3(0, FSIZE * 2, 0));
-		context._camera.setTarget(real3(0, 0, 0));
-		context._camera.calcDir();
+		_context._camera.setEye(real3(0, FSIZE * 2, 0));
+		_context._camera.setTarget(real3(0, 0, 0));
+		_context._camera.calcDir();
 
-		context._camera.setUp(real3(0, 0, 1));
-		context._camera.setRight(real3(1, 0, 0));
+		_context._camera.setUp(real3(0, 0, 1));
+		_context._camera.setRight(real3(1, 0, 0));
 
 	}
 
@@ -75,10 +75,10 @@ namespace CELL
 
 	void CELLFrameBigMap::onFrameStart(lifeiContext& context)
 	{
-		context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		context._device->clearColor(0, 0, 0, 1);
-		context._device->disableRenderState(GL_CULL_FACE);
-		_terrain.render(context);
+		_context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		_context._device->clearColor(0, 0, 0, 1);
+		_context._device->disableRenderState(GL_CULL_FACE);
+		_terrain.render(_context);
 
 	}
 

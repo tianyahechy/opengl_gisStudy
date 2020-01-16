@@ -115,7 +115,7 @@ namespace CELL
         /// 对节点进行绘制
         lifeiTimeStamp   tm;
         /// 获取shader
-        PROGRAM_P3_U3_TEXARRAY&  prg = context._resMgr->_program_P3_U3_TEXARRAY;
+        PROGRAM_P3_U3_TEXARRAY&  prg = context._shaderMgr->_program_P3_U3_TEXARRAY;
                
         calcVertexBuffer(nodes,_vertex);
         context._device->bindTextureArray(&_textureMgr._textureId);
