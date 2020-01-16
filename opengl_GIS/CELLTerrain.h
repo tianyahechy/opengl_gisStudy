@@ -42,7 +42,7 @@ namespace   CELL
         lifeiTextureMgr  _textureMgr;
         lifeiCounts          _counts;
 
-		IPluginTileSource * _tileSource;
+		IPluginTileSource * _tileSourcePlugin;
 		HMODULE				_hTileSourceDll;
     public:
         CELLTerrain(lifeiContext& context);
@@ -102,7 +102,7 @@ namespace   CELL
     protected:
         void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
 
-		IPluginTileSource * createTileSource(const char* dllFileName);
+		IPluginTileSource * createTileSourceDLL(const char* dllFileName);
     };
 }
 

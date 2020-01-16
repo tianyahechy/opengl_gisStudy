@@ -11,7 +11,7 @@ namespace CELL
         :_context(context)
         ,_textureMgr(_context)
     {
-		_tileSource = 0;
+		_tileSourcePlugin = 0;
 		_hTileSourceDll = 0;
         _root   =   0;
         _taskSystem.setObserver(this);
@@ -198,12 +198,12 @@ namespace CELL
         {
             return;
         }
-		if (_tileSource == 0)
+		if (_tileSourcePlugin == 0)
 		{
 			delete task;
 			return;
 		}
-		if (_tileSource->load(task) == 0)
+		if (_tileSourcePlugin->load(task) == 0)
 		{
 			delete task;
 			return;
@@ -252,15 +252,15 @@ namespace CELL
 				{
 					break;
 				}
-				_tileSource = createTileSource(pDll->value());
-				if (0 == _tileSource)
+				_tileSourcePlugin = createTileSourceDLL(pDll->value());
+				if (0 == _tileSourcePlugin)
 				{
 					break;
 				}
 				rapidxml::xml_attribute<>* pAttr = pImageSource->first_attribute();
 				for (; pAttr; pAttr = pAttr->next_attribute())
 				{
-					_tileSource->setParam(pAttr->name(), pAttr->value());
+					_tileSourcePlugin->setParam(pAttr->name(), pAttr->value());
 				}
 
 			} while (false);
@@ -339,14 +339,14 @@ namespace CELL
 
     }
 
-	IPluginTileSource * CELLTerrain::createTileSource(const char * dllFileName)
+	IPluginTileSource * CELLTerrain::createTileSourceDLL(const char * dllFileName)
 	{
 		HMODULE hDll = LoadLibraryA(dllFileName);
 		if (0 == hDll)
 		{
 			return NULL;
 		}
-		CREATETILESOURCEFUNC func = (CREATETILESOURCEFUNC)GetProcAddress(hDll, CREATE_TILESOURCE);
+		CREATETILESOURCEFUNC func = (CREATETILESOURCEFUNC)GetProcAddress(hDll, CREATE_TILESOURCEDLL);
 		if (NULL == func)
 		{
 			CloseHandle(hDll);

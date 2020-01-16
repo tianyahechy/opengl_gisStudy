@@ -20,7 +20,7 @@ namespace CELL
 	public:
 	};
 
-	#define CREATE_TILESOURCE	"createTileSource"
+	#define CREATE_TILESOURCEDLL	"createTileSourceDLL"
 	typedef IPluginTileSource* (*CREATETILESOURCEFUNC)(IGIS3DPlatform*);
 
 	class IPluginTileSource : public IPlugin
