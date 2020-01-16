@@ -15,6 +15,7 @@ namespace CELL
 	typedef unsigned short			ushort;
 	typedef unsigned int			uint;
 	typedef unsigned long			ulong;
+	typedef double					real;
 
 #define	PI							3.14159265358979323846264338327
 #define DEG2RAD(theta)				(0.01745329251994329 * theta)

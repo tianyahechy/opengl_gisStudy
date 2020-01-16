@@ -5,63 +5,6 @@ namespace CELL
 {
 
     template <typename T>
-    struct tvec2
-    {
-        typedef T               value_type;
-        typedef std::size_t     size_type;
-        typedef tvec2<T>        type;
-
-        value_type  x;
-        value_type  y;
-
-        value_type & operator[](size_type i)
-        {
-            assert(i < this->length());
-            return (&x)[i];
-        }
-
-        value_type const & operator[]( size_type i ) const
-        {
-            assert(i < this->length());
-            return (&x)[i];
-        }
-        
-		tvec2() :
-            x(value_type(0)),
-            y(value_type(0))
-        {}
-	
-        tvec2(value_type const & s1, value_type const & s2) :
-            x(s1),
-            y(s2)
-        {}
-    };
-	
-    template <typename T> 
-    tvec2<T> operator+ (tvec2<T> const & v1, tvec2<T> const & v2)
-    {
-        return tvec2<T>(
-            v1.x + T(v2.x),
-            v1.y + T(v2.y));
-    }
-		
-    template <typename T> 
-    tvec2<T> operator- (tvec2<T> const & v1, tvec2<T> const & v2)
-    {
-        return tvec2<T>(
-            v1.x - T(v2.x),
-            v1.y - T(v2.y));
-    }
-		
-    template <typename T> 
-    tvec2<T> operator* (tvec2<T> const & v, T const & s)
-    {
-        return tvec2<T>(
-            v.x * T(s),
-            v.y * T(s));
-    }
-
-    template <typename T>
     struct tvec3
     {	
         typedef T               value_type;
@@ -939,14 +882,6 @@ namespace CELL
  
     typedef char                    PATH[256];
     typedef double                  real;
-    typedef tvec2<short>            short2;
-    typedef tvec2<unsigned short>   ushort2;
-    typedef tvec2<unsigned int>     uint2;
-    typedef tvec2<int>              int2;
-    typedef tvec2<float>            float2;
-    typedef tvec2<double>           double2;
-
-    typedef tvec2<real>             real2;
 
     typedef tvec3<unsigned char>    uchar3;
     typedef tvec3<byte>             byte3;
@@ -963,7 +898,6 @@ namespace CELL
 
     typedef tvec4<unsigned short>   ushort4;
 
-    typedef tvec2<unsigned short>   half2;
     typedef tvec3<unsigned short>   half3;
     typedef tvec4<unsigned short>   half4;
 

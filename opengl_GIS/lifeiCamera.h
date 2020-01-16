@@ -2,6 +2,7 @@
 
 #include "lifeiObject.h"
 #include "CELLMath.hpp"
+#include "tvec2.h"
 
 namespace CELL
 {
