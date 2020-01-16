@@ -4,6 +4,7 @@
 #include "lifeiContext.h"
 #include "lifeiTerrainInterface.h"
 #include "lifeiTileId.h"
+#include "AxisALignedBox.h"
 
 namespace CELL
 {

@@ -591,94 +591,6 @@ namespace CELL
         return res;
     }
 
-    template<typename T>
-    class   AxisAlignedBox
-    {
-    public:
-        enum Extent
-        {
-            EXTENT_NULL,
-            EXTENT_FINITE,
-            EXTENT_INFINITE
-        };
-    public:
-	    tvec3<T>    _minimum;
-	    tvec3<T>    _maximum;
-        Extent      _extent;
-    public:
-	    AxisAlignedBox()
-	    {
-		    _minimum    =   tvec3<T>( T(-0.5), T(-0.5), T(-0.5) );
-		    _maximum    =   tvec3<T>( T(0.5), T(0.5), T(0.5) );
-            _extent     =   EXTENT_NULL;
-	    }
-
-	    ~AxisAlignedBox()
-	    {
-	    }
-	    void setExtents(
-		    T mx, T my, T mz,
-		    T Mx, T My, T Mz )
-	    {
-		    _minimum.x  =   mx;
-		    _minimum.y  =   my;
-		    _minimum.z  =   mz;
-
-		    _maximum.x  =   Mx;
-		    _maximum.y  =   My;
-		    _maximum.z  =   Mz;
-            _extent     =   EXTENT_FINITE;
-
-	    }
-	
-	    void merge( const AxisAlignedBox<T>& right )
-	    {
-
-            if ((right._extent == EXTENT_NULL) || (_extent == EXTENT_INFINITE))
-            {
-                return;
-            }
-            else if (right._extent == EXTENT_INFINITE)
-            {
-                _extent =   EXTENT_INFINITE;
-            }
-            else if (_extent == EXTENT_NULL)
-            {
-                setExtents(right._minimum, right._maximum);
-            }
-            else
-            {
-                //! merge
-                tvec3<T> min =   _minimum;
-                tvec3<T> max =   _maximum;
-                max.makeCeil(right._maximum);
-                min.makeFloor(right._minimum);
-                setExtents(min, max);
-            }
-	    }
-
-	    tvec3<T>    getCenter(void) const
-	    {
-		    return tvec3<T>(
-			                (_maximum.x + _minimum.x) * T(0.5f),
-			                (_maximum.y + _minimum.y) * T(0.5f),
-			                (_maximum.z + _minimum.z) * T(0.5f)
-                            );
-	    }
-	    /**
-	    *   Gets the size of the box
-	    */ 
-	    tvec3<T> getSize(void) const
-	    {
-		    return _maximum - _minimum;
-	    }
-        
-	    tvec3<T> getHalfSize(void) const
-	    {
-		    return (_maximum - _minimum) * T(0.5);
-	    }	
-	   
-};
     
     template<typename T>
     class  tray
@@ -783,9 +695,6 @@ namespace CELL
     typedef tvec4<float>            float4;
     typedef tvec4<double>           double4;
     typedef tvec4<real>             real4;
-
-    typedef AxisAlignedBox<float>   aabb3df;
-    typedef AxisAlignedBox<real>    aabb3dr;
 
     typedef tmat3x3<float>      matrix3;
     typedef tmat4x4<float>      matrix4;
