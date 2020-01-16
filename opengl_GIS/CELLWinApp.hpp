@@ -45,12 +45,8 @@ namespace CELL
         {
 			_hParentWnd = hParentWnd;
             HDISPLAY    hDC     =   GetDC(_hParentWnd);
-            if(!_contextGL.init(_hParentWnd,hDC))
-            {
-                return  false;
-            }
-            
-            return  true;
+			bool bInitContextGL = _contextGL.init(_hParentWnd, hDC);
+            return bInitContextGL;
         }
 		//初始化上下文
 		void initContext()
