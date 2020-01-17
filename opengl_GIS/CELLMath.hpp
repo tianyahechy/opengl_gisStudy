@@ -2,6 +2,7 @@
 #include "lifeiMathUtil.h"
 #include "tvec3.h"
 #include "tvec4.h"
+#include "tmat3x3.h"
 
 namespace CELL
 {
@@ -68,43 +69,6 @@ namespace CELL
     }
  
 	
-	template <typename T> 
-    struct tmat3x3
-    {
-        typedef T               value_type;
-        typedef std::size_t     size_type;
-        typedef tvec3<T>      col_type;
-        typedef tvec3<T>      row_type;
-        typedef tmat3x3<T>    type;
-        typedef tmat3x3<T>    transpose_type;
-
-    private:
-        // Data
-        col_type value[3];
-
-    public:
-		
-        size_type length() const
-        {
-            return 3;
-        }
-
-        tmat3x3(value_type const & s)
-        {
-            value_type const Zero(0);
-            this->value[0] = col_type(s, Zero, Zero);
-            this->value[1] = col_type(Zero, s, Zero);
-            this->value[2] = col_type(Zero, Zero, s);
-        }
-	
-        col_type const & operator[](size_type i) const
-        {
-            assert(i < this->length());
-            return this->value[i];
-        }
-		
-    };
-   
 	template <typename T> 
     struct tmat4x4
     {
@@ -555,52 +519,11 @@ namespace CELL
 
     };
 
-    template<class T>
-    class  Plane
-    {
-    public:
-        tvec3<T>    _normal;
-        T           _distance;
-    public:
-		
-        Plane ()
-        {
-            _normal     =   tvec3<T>(0,0,0);
-            _distance   =   0.0f;
-        }
-	
-	    /** Construct a plane using the 4 constants directly **/
-		
-        Plane (T x, T y, T z, T o)
-        {
-            _normal     =   tvec3<T>(x, y, z);
-            T invLen    = 1.0f / (_normal).length();
-            _normal     *=  invLen;
-            _distance   =   o * invLen;
-        }
-		
-			
-        /**
-        *   µ½µãµÄ¾àÀë
-        */
-        T   distance(const tvec3<T> &pos) const
-        {
-            return  dot(_normal,pos) + _distance;
-        }
- 
-    };
- 
     typedef char                    PATH[256];
-    typedef double                  real;
 
 
-    typedef tmat3x3<float>      matrix3;
     typedef tmat4x4<float>      matrix4;
-
-    typedef tmat3x3<double>     matrix3d;
     typedef tmat4x4<double>     matrix4d;
-
-    typedef tmat3x3<real>       matrix3r;
     typedef tmat4x4<real>       matrix4r;
     
     typedef tray<real>          Ray;
