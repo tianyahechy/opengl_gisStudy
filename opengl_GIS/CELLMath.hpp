@@ -463,62 +463,6 @@ namespace CELL
     }
 
     
-    template<typename T>
-    class  tray
-    {
-        typedef T           value_type;
-        typedef tray<T>     type;
-    protected:
-        tvec3<T>    _origin;
-        tvec3<T>    _direction;
-    public:
-        tray():
-            _origin(value_type(0),value_type(0),value_type(0)),
-            _direction(value_type(0),value_type(0),value_type(1))
-        {}
-				
-
-        /**
-        *   设置射线的起点
-        */
-        void            setOrigin(const tvec3<T>& origin)   
-        {   
-            _origin = origin;   
-        } 
-        /**
-        *   返回射线的起点
-        */
-        const tvec3<T>&  getOrigin(void) const               
-        {   
-            return _origin;     
-        } 
-
-        /**
-        *   设置射线的方向
-        */
-        void            setDirection(const tvec3<T>& dir)    
-        {   
-            _direction = dir;   
-        } 
-        
-        /**
-        *   返回射线的方向
-        */
-        const tvec3<T>&  getDirection(void) const
-        {   
-            return _direction;  
-        } 
-
-	    /** 
-        *   Gets the position of a point t units along the ray. 
-        */
-	    tvec3<T>        getPoint(T time) const 
-        {   
-            return tvec3<T>(_origin + (_direction * time));
-        }
-
-    };
-
     typedef char                    PATH[256];
 
 
@@ -526,7 +470,5 @@ namespace CELL
     typedef tmat4x4<double>     matrix4d;
     typedef tmat4x4<real>       matrix4r;
     
-    typedef tray<real>          Ray;
-    typedef tray<float>         RayF;  
 
 }

@@ -197,6 +197,7 @@
     <ClInclude Include="lifeiTimeStamp.hpp" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="tmat3x3.h" />
+    <ClInclude Include="tray.h" />
     <ClInclude Include="tvec2.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
