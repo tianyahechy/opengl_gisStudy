@@ -67,7 +67,7 @@ namespace CELL
 
 	};
 
-	typedef AxisAlignedBox<real> aabb3dr;
+	typedef AxisAlignedBox<real>	aabb3dr;
 	typedef AxisAlignedBox<float>   aabb3df;
 
 }

@@ -198,6 +198,7 @@
     <ClInclude Include="shp\shapefil.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="tvec3.h" />
+    <ClInclude Include="tvec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />

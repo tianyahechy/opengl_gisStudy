@@ -1,10 +1,11 @@
 #pragma once
 #include "lifeiMathUtil.h"
 #include "tvec3.h"
+#include "tvec4.h"
 
 namespace CELL
 {
-
+   
     /**
     *   射线与三角形相交
     */
@@ -67,101 +68,7 @@ namespace CELL
     }
  
 	
-	template <typename T>
-    struct tvec4
-    {
-        typedef T           value_type;
-        typedef std::size_t size_type;
-        typedef tvec4<T>  type;
-
-        value_type x, y, z, w;
-
-        size_type length() const
-        {
-            return 4;
-        }
-		
-        value_type & operator[](size_type i)
-        {
-            assert(i < this->length());
-            return (&x)[i];
-        }
-		
-        value_type const & operator[](size_type i) const
-        {
-            assert(i < this->length());
-            return (&x)[i];
-        }
-		
-        tvec4() :
-            x(value_type(0)),
-            y(value_type(0)),
-            z(value_type(0)),
-            w(value_type(0))
-        {}
-		
-        tvec4(tvec3<T> const& v, T s) :
-            x(v.x),
-            y(v.y),
-            z(v.z),
-            w(s)
-        {}
-	
-        tvec4
-            (
-            value_type s1, 
-            value_type s2, 
-            value_type s3, 
-            value_type s4
-            ) :
-            x(s1),
-            y(s2),
-            z(s3),
-            w(s4)
-        {}
-		
-        template <typename U> 
-        tvec4<T> & operator/=(U const & s)
-        {
-            this->x /= T(s);
-            this->y /= T(s);
-            this->z /= T(s);
-            this->w /= T(s);
-            return *this;
-        }
-    };
-	
-    template <typename T> 
-    tvec4<T> operator+ (tvec4<T> const & v1, tvec4<T> const & v2)
-    {
-        return tvec4<T>(
-            v1.x + v2.x,
-            v1.y + v2.y,
-            v1.z + v2.z,
-            v1.w + v2.w);
-    }
-	
-    template <typename T> 
-    tvec4<T> operator* (tvec4<T> const & v, T const & s)
-    {
-        return tvec4<T>(
-            v.x * s,
-            v.y * s,
-            v.z * s,
-            v.w * s);
-    }
-	
-    template <typename T> 
-    tvec4<T> operator/ (tvec4<T> const & v, T const & s)
-    {
-        return tvec4<T>(
-            v.x / s,
-            v.y / s,
-            v.z / s,
-            v.w / s);
-    }
-	
-    template <typename T> 
+	template <typename T> 
     struct tmat3x3
     {
         typedef T               value_type;
@@ -686,15 +593,6 @@ namespace CELL
     typedef char                    PATH[256];
     typedef double                  real;
 
-
-    typedef tvec4<unsigned short>   ushort4;
-
-    typedef tvec4<unsigned short>   half4;
-
-    typedef tvec4<int>              int4;
-    typedef tvec4<float>            float4;
-    typedef tvec4<double>           double4;
-    typedef tvec4<real>             real4;
 
     typedef tmat3x3<float>      matrix3;
     typedef tmat4x4<float>      matrix4;
