@@ -1,6 +1,6 @@
 
 #include "httpGoogleLoader.h"
-#include "../opengl_GIS/CELLTileTask.hpp"
+#include "../opengl_GIS/lifeiTileTask.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 
 namespace CELL
@@ -25,9 +25,9 @@ namespace CELL
 		}
 	}
 
-	CELLTask * httpGoogleLoader::load(CELLTask * task)
+	lifeiTask * httpGoogleLoader::load(lifeiTask * task)
 	{
-		CELLTileTask* pTask = dynamic_cast<CELLTileTask*> (task);
+		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		int row = pTask->_tileId._row;
 		int col = pTask->_tileId._col;
 		int level = pTask->_tileId._lev;
@@ -49,7 +49,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void httpGoogleLoader::unload(CELLTask * task)
+	void httpGoogleLoader::unload(lifeiTask * task)
 	{
 	}
 

@@ -1,6 +1,6 @@
 
 #include "GoogleMapLoader.h"
-#include "../opengl_GIS/CELLTileTask.hpp"
+#include "../opengl_GIS/lifeiTileTask.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 
 namespace CELL
@@ -25,9 +25,9 @@ namespace CELL
 		}
 	}
 
-	CELLTask * GoogleMapLoader::load(CELLTask * task)
+	lifeiTask * GoogleMapLoader::load(lifeiTask * task)
 	{
-		CELLTileTask* pTask = dynamic_cast<CELLTileTask*> (task);
+		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		char    szPathName[1024];
 		sprintf(szPathName, "%s/L%02d/%06d-%06d%s", _path, pTask->_tileId._lev + 1, pTask->_tileId._row, pTask->_tileId._col, _ext);
 		bool bLoadSuccess = lifeiImageLoader::loadImageToDXT1(szPathName, pTask->_image);
@@ -38,7 +38,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void GoogleMapLoader::unload(CELLTask * task)
+	void GoogleMapLoader::unload(lifeiTask * task)
 	{
 	}
 

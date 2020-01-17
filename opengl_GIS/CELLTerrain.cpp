@@ -1,6 +1,6 @@
 #include "CELLTerrain.h"
 #include "LifeiProgramLibrary.h"
-#include "CELLTileTask.hpp"
+#include "lifeiTileTask.h"
 #include "lifeiTimeStamp.hpp"
 #include "rapidxml.hpp"
 #include "CELLGIS3DPlatform.h"
@@ -52,7 +52,7 @@ namespace CELL
         }
         for (size_t i = 0 ;i < tasks.size() ; ++ i)
         {
-            CELLTileTask*   pTask   =   dynamic_cast<CELLTileTask*>(tasks[i]);
+			lifeiTileTask*   pTask   =   dynamic_cast<lifeiTileTask*>(tasks[i]);
             if (pTask == 0)
             {
                 delete  tasks[i];
@@ -144,7 +144,7 @@ namespace CELL
 
     void CELLTerrain::request(lifeiQuadTree* node)
     {
-        CELLTileTask*   pTask   =   new CELLTileTask();
+		lifeiTileTask*   pTask   =   new lifeiTileTask();
         pTask->_node    =   node;
         pTask->_tileId  =   node->_tileID ;
         _taskSystem.addTask(pTask);
@@ -193,7 +193,7 @@ namespace CELL
 
     void CELLTerrain::onTaskExe(lifeiTask* task)
     {
-        CELLTileTask*   pTask   =   dynamic_cast<CELLTileTask*>(task);
+		lifeiTileTask*   pTask   =   dynamic_cast<lifeiTileTask*>(task);
         if (pTask == 0)
         {
             return;
