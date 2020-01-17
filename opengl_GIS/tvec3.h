@@ -113,6 +113,38 @@ namespace CELL
 			T(s) *v1.y,
 			T(s) *v1.z );
 	}
+	
+	template<typename T>
+	typename tvec3<T>::value_type length(tvec3<T> const& v)
+	{
+		typename tvec3<T>::value_type sqr = v.x * v.x + v.y * v.y + v.z * v.z;
+		return sqrt(sqr);
+	}
+
+	template <typename T>
+	typename tvec3<T>::value_type dot(tvec3<T> const& x, tvec3<T> const& y)
+	{
+		return x.x * y.x + x.y * y.y + x.z * y.z;
+	}
+
+	template<typename T>
+	tvec3<T> cross(tvec3<T> const& x, tvec3<T> const& y)
+	{
+		return tvec3<T>(
+			x.y * y.z - y.y * x.z,
+			x.z * y.x - y.z * x.x,
+			x.x * y.y - y.x * x.y
+			);
+	}
+
+	template <typename T>
+	tvec3<T> normalize(tvec3<T> const & x)
+	{
+		typename tvec3<T>::value_type sqr = x.x * x.x + x.y * x.y + x.z * x.z;
+		return x * inversesqrt(sqr);
+	}
+
+	
 	typedef tvec3<unsigned char>		uchar3;
 	typedef tvec3<byte>					byte3;
 	typedef tvec3<unsigned short>		ushort3;

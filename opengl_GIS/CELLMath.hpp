@@ -306,42 +306,6 @@ namespace CELL
         return res;
     }
 	
-	template <typename T>
-	typename tvec3<T>::value_type length(tvec3<T> const & v)
-	{
-		typename tvec3<T>::value_type sqr = v.x * v.x + v.y * v.y + v.z * v.z;
-		return sqrt(sqr);
-	}
-	
-	template <typename T>
-    typename tvec3<T>::value_type dot(tvec3<T> const & x, tvec3<T> const & y)
-	{
-		return x.x * y.x + x.y * y.y + x.z * y.z;
-	}
-	
-	template <typename T>
-    tvec3<T> cross(tvec3<T> const & x, tvec3<T> const & y)
-	{
-		return  tvec3<T>
-                (
-			    x.y * y.z - y.y * x.z,
-			    x.z * y.x - y.z * x.x,
-			    x.x * y.y - y.x * x.y
-                );
-	}
-	
-    template <typename T>
-    T inversesqrt(T x)
-    {
-        return T(1) / sqrt(x);
-    }	
-	
-	template <typename T>
-	tvec3<T> normalize(tvec3<T> const & x)
-	{
-		typename tvec3<T>::value_type sqr = x.x * x.x + x.y * x.y + x.z * x.z;
-		return x * inversesqrt(sqr);
-	}
 	
     template <typename valType> 
     tmat4x4<valType>  ortho

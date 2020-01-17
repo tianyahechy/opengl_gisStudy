@@ -33,4 +33,10 @@ namespace CELL
 		return a > b ? a : b;
 	}
 
+	template <typename T>
+	T inversesqrt(T x)
+	{
+		return T(1) / sqrt(x);
+	}
+
 }
