@@ -155,7 +155,6 @@
     <ClInclude Include="CELLGIS3DPlatform.h" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLOpenGL.h" />
-    <ClInclude Include="CELLTask.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="CELLTileTask.hpp" />
@@ -184,6 +183,7 @@
     <ClInclude Include="lifeiQuadTree.h" />
     <ClInclude Include="lifeiSemaphore.h" />
     <ClInclude Include="lifeiShaderManager.h" />
+    <ClInclude Include="lifeiTask.h" />
     <ClInclude Include="lifeiTaskObserver.h" />
     <ClInclude Include="lifeiTaskSystem.h" />
     <ClInclude Include="lifeiTaskThread.h" />

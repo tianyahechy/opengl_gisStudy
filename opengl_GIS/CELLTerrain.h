@@ -26,7 +26,7 @@ namespace   CELL
             short   x,y,z;
         };
     public:
-        typedef std::vector<CELLTask*>  ArrayTask;
+        typedef std::vector<lifeiTask*>  ArrayTask;
         typedef std::map<std::string,lifeiQuadTree*>     MapNode;
         typedef std::vector<P3U3>                       ArrayVertex;
         typedef std::vector<FaceIndex>                  ArrayFace;
@@ -90,15 +90,15 @@ namespace   CELL
         /// <summary>
         /// 任务取消通知
         /// </summary>
-        virtual void    onTaskCancel(CELLTask* task);
+        virtual void    onTaskCancel(lifeiTask* task);
         /// <summary>
         /// 任务完成通知
         /// </summary>
-        virtual void    onTaskExe(CELLTask* task);
+        virtual void    onTaskExe(lifeiTask* task);
         /// <summary>
         /// 任务完成通知
         /// </summary>
-        virtual void    onTaskFinish(CELLTask* task);
+        virtual void    onTaskFinish(lifeiTask* task);
     protected:
         void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
 

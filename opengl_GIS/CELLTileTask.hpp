@@ -1,12 +1,12 @@
 #pragma once
-#include "CELLTask.hpp"
+#include "lifeiTask.h"
 #include "CELLMath.hpp"
 #include "lifeiImage.h"
 #include "lifeiTileId.h"
 namespace CELL
 {
 	class lifeiQuadTree;
-	class CELLTileTask : public CELLTask
+	class CELLTileTask : public lifeiTask
 	{
 	public:
 		lifeiQuadTree * _node;

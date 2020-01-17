@@ -186,12 +186,12 @@ namespace CELL
         _textureMgr.freeTexture(texId);
     }
 
-    void CELLTerrain::onTaskCancel(CELLTask* task)
+    void CELLTerrain::onTaskCancel(lifeiTask* task)
     {
         delete  task;
     }
 
-    void CELLTerrain::onTaskExe(CELLTask* task)
+    void CELLTerrain::onTaskExe(lifeiTask* task)
     {
         CELLTileTask*   pTask   =   dynamic_cast<CELLTileTask*>(task);
         if (pTask == 0)
@@ -214,7 +214,7 @@ namespace CELL
 
     }
 
-    void CELLTerrain::onTaskFinish(CELLTask* task)
+    void CELLTerrain::onTaskFinish(lifeiTask* task)
     {
     }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "CELLTask.hpp"
+#include "lifeiTask.h"
 #include "lifeiThread.h"
 #include <vector>
 #include <list>
@@ -9,7 +9,7 @@
 namespace CELL
 {
 	typedef std::vector<lifeiThread* >	arrayThread;
-	typedef std::list<CELLTask*>		arrayTask;
+	typedef std::list<lifeiTask*>		arrayTask;
 	class lifeiTaskSystem
 	{
 	public:
@@ -29,7 +29,7 @@ namespace CELL
 	//销毁
 		virtual void destroy();
 	//添加任务接口
-		virtual void addTask(CELLTask* task);
+		virtual void addTask(lifeiTask* task);
 	public:
 		virtual void run();
 	};

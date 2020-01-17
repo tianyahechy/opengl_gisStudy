@@ -35,7 +35,7 @@ namespace CELL
 		}
 		_threads.clear();
 	}
-	void lifeiTaskSystem::addTask(CELLTask* task)
+	void lifeiTaskSystem::addTask(lifeiTask* task)
 	{
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
@@ -50,7 +50,7 @@ namespace CELL
 			return;
 		}
 
-		CELLTask* pTask = 0;
+		lifeiTask* pTask = 0;
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
 			bool taskEmpty = _tasks.empty();
