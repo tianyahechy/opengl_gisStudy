@@ -2,30 +2,12 @@
 
 #include "lifeiPlatform.h"
 #include "lifeiTexture.h"
+#include "lifeiTexture3dID.h"
 
 namespace   CELL
 { 
     class   CELLOpenGL;
     
-    class   Texture3dId :public lifeiTexture
-    {
-    public:
-        unsigned        _width;
-        unsigned        _height;
-        unsigned        _depth;
-    public:
-        Texture3dId()
-            :lifeiTexture(TEXTURE_3D)
-        {
-            _width      =   0;
-            _height     =   0;
-            _depth      =   1;
-        }
-        virtual~Texture3dId()
-        {}
-        
-    };
-
     class   CELLProgram
     {
 		
@@ -66,7 +48,7 @@ namespace   CELL
 
         static  void        setViewPort(int x,int y,int width,int height);
 
-        static  Texture3dId createTexture2dArray(int width,int height,int layers,unsigned fmt);
+        static  lifeiTexture3dID createTexture2dArray(int width,int height,int layers,unsigned fmt);
 
         static  void    updateCompressTexture2dArray(   int level,
                                                         int xoffset,
@@ -79,7 +61,7 @@ namespace   CELL
                                                         const void* data
                                                         );
 
-        static  void    bindTextureArray(const Texture3dId* textureId,unsigned stage = 0);
+        static  void    bindTextureArray(const lifeiTexture3dID* textureId,unsigned stage = 0);
 
         static  bool    createProgram(CELLProgram& program,const char* vs,const char* ps);
 

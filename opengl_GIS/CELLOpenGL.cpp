@@ -50,9 +50,9 @@ namespace   CELL
         checkError(__FUNCDNAME__);
     }
 
-    Texture3dId CELLOpenGL::createTexture2dArray(int width,int height,int depths,unsigned fmt)
+	lifeiTexture3dID CELLOpenGL::createTexture2dArray(int width,int height,int depths,unsigned fmt)
     {
-        Texture3dId texId;
+		lifeiTexture3dID texId;
         texId._width    =   width;
         texId._height   =   height;
         texId._depth    =   depths;
@@ -107,7 +107,7 @@ namespace   CELL
         checkError(__FUNCDNAME__);
     }
 
-    void CELLOpenGL::bindTextureArray( const Texture3dId* textureId,unsigned stage /*= 0*/ )
+    void CELLOpenGL::bindTextureArray( const lifeiTexture3dID* textureId,unsigned stage /*= 0*/ )
     {
         if (textureId)
         {

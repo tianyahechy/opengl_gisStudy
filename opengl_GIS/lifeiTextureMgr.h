@@ -1,15 +1,16 @@
 #pragma once
 #include "lifeiContext.h"
 #include "CELLOpenGL.h"
+#include "lifeiTexture3dID.h"
 
 namespace CELL
 {
 	class lifeiTextureMgr
 	{
 	public:
-		lifeiContext&	_context;
-		bool			_used[1024];
-		Texture3dId		_textureId;
+		lifeiContext&			_context;
+		bool					_used[1024];
+		lifeiTexture3dID		_textureId;
 
 	public:
 		lifeiTextureMgr(lifeiContext& context)

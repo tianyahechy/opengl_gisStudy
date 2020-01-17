@@ -189,6 +189,7 @@
     <ClInclude Include="lifeiTaskThread.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
     <ClInclude Include="lifeiTexture.h" />
+    <ClInclude Include="lifeiTexture3dID.h" />
     <ClInclude Include="lifeiTextureMgr.h" />
     <ClInclude Include="lifeiThread.h" />
     <ClInclude Include="lifeiTileId.h" />
