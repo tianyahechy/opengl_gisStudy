@@ -3,33 +3,10 @@
 #include "lifeiPlatform.h"
 #include "lifeiTexture.h"
 #include "lifeiTexture3dID.h"
+#include "lifeiProgram.h"
 
 namespace   CELL
 { 
-    class   CELLOpenGL;
-    
-    class   CELLProgram
-    {
-		
-    public:
-        typedef GLint   attribute;
-        typedef GLint   uniform;
-
-    public:
-        GLint       _vHandle;
-        GLint       _pHandle;
-        GLint       _program;
-        CELLOpenGL* _device;
-    public:
-        CELLProgram();
-        virtual ~CELLProgram();
-   
-        virtual void    destroy();
- 
-    };
-
-    class   CELLContext;
-
     class   CELLOpenGL
     {
     public:
@@ -63,18 +40,18 @@ namespace   CELL
 
         static  void    bindTextureArray(const lifeiTexture3dID* textureId,unsigned stage = 0);
 
-        static  bool    createProgram(CELLProgram& program,const char* vs,const char* ps);
+        static  bool    createProgram(lifeiProgram& program,const char* vs,const char* ps);
 
         /**
         *   销毁
         */
-        static  void    destroyProgram(CELLProgram& program);
+        static  void    destroyProgram(lifeiProgram& program);
         /**
         *   使用程序
         */
         static  void    useProgram(GLint progHandle);
 
-        static  void    useProgram(CELLProgram& progam);
+        static  void    useProgram(lifeiProgram& progam);
 
         static  GLint   getUniformLocation(GLuint program,const char* name);
         static  GLint   getAttribLocation(GLuint program,const char* name);

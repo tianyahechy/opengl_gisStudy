@@ -5,7 +5,7 @@
 
 namespace CELL
 {
-	class PROGRAM_P3_U3_TEXARRAY : public CELLProgram
+	class PROGRAM_P3_U3_TEXARRAY : public lifeiProgram
 	{
 	public:
 		attribute	_position;

@@ -122,7 +122,7 @@ namespace   CELL
         checkError(__FUNCDNAME__);
     }
 
-    bool    CELLOpenGL::createProgram( CELLProgram& program,const char* vs,const char* ps )
+    bool    CELLOpenGL::createProgram(lifeiProgram& program,const char* vs,const char* ps )
     {
         bool    result  =   false;
 
@@ -197,7 +197,7 @@ namespace   CELL
         return  result;
     }
 
-    void CELLOpenGL::destroyProgram(CELLProgram& program)
+    void CELLOpenGL::destroyProgram(lifeiProgram& program)
     {
         if (program._vHandle != -1)
         {
@@ -221,7 +221,7 @@ namespace   CELL
         glUseProgram(progHandle);
     }
 
-    void CELLOpenGL::useProgram( CELLProgram& progam )
+    void CELLOpenGL::useProgram(lifeiProgram& progam )
     {
         glUseProgram(progam._program);
     }
@@ -291,22 +291,4 @@ namespace   CELL
         glDisable(state);
     }
 	
-    CELLProgram::CELLProgram()
-    {
-        _device     =   0;
-        _vHandle    =   -1;
-        _pHandle    =   -1;
-        _program    =   -1;
-    }
-
-    CELLProgram::~CELLProgram()
-    {
-        _device->destroyProgram(*this);
-    }
-
-    void CELLProgram::destroy()
-    {
-        _device->destroyProgram(*this);
-    }
-
 }
