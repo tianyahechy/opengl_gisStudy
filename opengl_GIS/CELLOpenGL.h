@@ -1,35 +1,13 @@
 #pragma once
 
-#include    "lifeiPlatform.h"
+#include "lifeiPlatform.h"
+#include "lifeiTexture.h"
 
 namespace   CELL
 { 
     class   CELLOpenGL;
     
-    class   Texture
-    {
-    public:
-        enum
-        {
-            TEXTURE_NONE,
-            TEXTURE_1D,
-            TEXTURE_2D,
-            TEXTURE_3D,
-        };
-    public:
-        unsigned        _texture;
-        unsigned        _texType;
-    public:
-        Texture(unsigned type = TEXTURE_NONE )
-            :_texture(0xFFFFFFFF)
-            ,_texType(type)
-        {}
-        virtual ~Texture()
-        {}
-
-    };
-
-    class   Texture3dId :public Texture
+    class   Texture3dId :public lifeiTexture
     {
     public:
         unsigned        _width;
@@ -37,7 +15,7 @@ namespace   CELL
         unsigned        _depth;
     public:
         Texture3dId()
-            :Texture(TEXTURE_3D)
+            :lifeiTexture(TEXTURE_3D)
         {
             _width      =   0;
             _height     =   0;
