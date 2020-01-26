@@ -5,7 +5,7 @@
 
 namespace CELL
 {
-	class CELLOpenGL;
+	class lifeiOpenGL;
 	class lifeiProgram
 	{
 	public:
@@ -16,7 +16,7 @@ namespace CELL
 		GLint			_vHandle;
 		GLint			_pHandle;
 		GLint			_program;
-		CELLOpenGL*		_device;
+		lifeiOpenGL*	_device;
 
 	public:
 		lifeiProgram();

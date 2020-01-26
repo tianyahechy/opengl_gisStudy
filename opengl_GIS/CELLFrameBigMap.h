@@ -1,7 +1,7 @@
 #pragma once
 #include "lifeiFrame.h"
 #include "lifeiTimeStamp.hpp"
-#include "CELLOpenGL.h"
+#include "lifeiOpengl.h"
 #include "CELLTerrain.h"
 #include "lifeiContext.h"
 

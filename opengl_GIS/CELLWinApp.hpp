@@ -4,7 +4,7 @@
 #include    <windows.h>
 #include    <tchar.h>
 #include    "lifeiGLContext.h"
-#include    "CELLOpenGL.h"
+#include    "lifeiOpenGL.h"
 #include    "CELLFrameBigMap.h"
 #include    "lifeiContext.h"
 #include    "lifeiThread.h"
@@ -24,7 +24,7 @@ namespace CELL
 		LifeiGLContext		_contextGL;
 		lifeiContext		_context;
 		lifeiShaderManager	_shaderMgr;
-        CELLOpenGL			_device;
+		lifeiOpenGL			_device;
         lifeiFrame*			_frame;
         bool				_threadRun;
         bool				_makeReuslt;

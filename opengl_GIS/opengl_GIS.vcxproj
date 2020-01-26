@@ -154,7 +154,6 @@
     <ClInclude Include="CELLDXTCompressor.h" />
     <ClInclude Include="CELLGIS3DPlatform.h" />
     <ClInclude Include="CELLMath.hpp" />
-    <ClInclude Include="CELLOpenGL.h" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="CELLWinApp.hpp" />
@@ -177,6 +176,7 @@
     <ClInclude Include="lifeiMercator.h" />
     <ClInclude Include="lifeiMutex.h" />
     <ClInclude Include="lifeiObject.h" />
+    <ClInclude Include="lifeiOpengl.h" />
     <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="lifeiProgram.h" />
     <ClInclude Include="LifeiProgramLibrary.h" />
@@ -209,11 +209,11 @@
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
     <ClCompile Include="CELLGIS3DPlatform.cpp" />
-    <ClCompile Include="CELLOpenGL.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiImageLoader.cpp" />
+    <ClCompile Include="lifeiOpenGL.cpp" />
     <ClCompile Include="lifeiProgram.cpp" />
     <ClCompile Include="lifeiQuadTree.cpp" />
     <ClCompile Include="lifeiTaskSystem.cpp" />

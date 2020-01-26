@@ -1,5 +1,5 @@
 #include "lifeiProgram.h"
-#include "CELLOpenGL.h"
+#include "lifeiOpengl.h"
 
 namespace CELL
 {

@@ -9,14 +9,14 @@ namespace CELL
 {
 	class lifeiFrame;
 	class lifeiShaderManager;
-	class CELLOpenGL;
+	class lifeiOpenGL;
 	class CELLGIS3DPlatform;
 	class lifeiContext
 	{
 	public:
 		//全局的app
 		CELLGIS3DPlatform * _app;
-		CELLOpenGL *		_device;
+		lifeiOpenGL *		_device;
 		//shader指针
 		lifeiShaderManager *_shaderMgr;
 		//鼠标的当前位置

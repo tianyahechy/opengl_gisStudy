@@ -18,7 +18,7 @@ namespace CELL
 		}
 
 	public:
-		void initialize(CELLOpenGL* device)
+		void initialize(lifeiOpenGL* device)
 		{
 			_program_P3_U3_TEXARRAY.initialize(device);
 		}

@@ -1,6 +1,6 @@
 #pragma once
 #include "lifeiContext.h"
-#include "CELLOpenGL.h"
+#include "lifeiOpengl.h"
 #include "lifeiTexture3dID.h"
 
 namespace CELL

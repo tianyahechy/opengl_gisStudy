@@ -1,7 +1,7 @@
 
 #include    "lifeiPlatform.h"
 #include    "CELLFrameBigMap.h"
-#include    "CELLOpenGL.h"
+#include    "lifeiOpenGL.h"
 #include    "lifeiContext.h"
 #include	"lifeiShaderManager.h"
 #include	"lifeiSpatialReference.h"

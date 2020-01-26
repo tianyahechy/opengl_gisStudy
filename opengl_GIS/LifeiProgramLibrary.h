@@ -1,7 +1,7 @@
 #pragma once
 
 #include <assert.h>
-#include "CELLOpenGL.h"
+#include "lifeiOpengl.h"
 
 namespace CELL
 {
@@ -13,7 +13,7 @@ namespace CELL
 		uniform		_texture;
 		uniform		_mvp;
 	public:
-		virtual bool initialize(CELLOpenGL* device)
+		virtual bool initialize(lifeiOpenGL* device)
 		{
 			_device = device;
 			if (NULL == _device)
