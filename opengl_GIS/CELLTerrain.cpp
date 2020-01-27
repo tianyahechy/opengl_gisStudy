@@ -340,7 +340,7 @@ namespace CELL
 
     }
 
-	IPluginTileSource * CELLTerrain::createTileSourceDLL(const char * dllFileName)
+	IPluginTileManager * CELLTerrain::createTileSourceDLL(const char * dllFileName)
 	{
 		HMODULE hDll = LoadLibraryA(dllFileName);
 		if (0 == hDll)

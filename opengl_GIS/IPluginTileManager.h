@@ -1,4 +1,4 @@
-/*
+
 #pragma once
 
 #include <Windows.h>
@@ -10,7 +10,7 @@ namespace CELL
 	class lifeiTask;
 
 #define CREATE_TILESOURCEDLL		"createTileSourceDLL"
-
+	
 	class IPluginTileManager : public IPlugin
 	{
 	public:
@@ -22,8 +22,9 @@ namespace CELL
 		virtual void unload(lifeiTask * task) = 0;
 
 	};
+	
 
-	typedef IPluginTileManager *  (CREATETILESOURCEFUNC)(ILifeiGISPlatform*);
+	typedef IPluginTileManager *  (*CREATETILESOURCEFUNC)(ILifeiGISPlatform*);
+	
 
 }
-*/

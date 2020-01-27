@@ -8,7 +8,7 @@
 
 namespace   CELL
 {
-	class IPluginTileSource;
+	class IPluginTileManager;
     class CELLTerrain 
         :public lifeiObject
         ,public lifeiTerrainInterface
@@ -42,7 +42,7 @@ namespace   CELL
         lifeiTextureMgr  _textureMgr;
         lifeiCounts          _counts;
 
-		IPluginTileSource * _tileSourcePlugin;
+		IPluginTileManager * _tileSourcePlugin;
 		HMODULE				_hTileSourceDll;
     public:
         CELLTerrain(lifeiContext& context);
@@ -102,7 +102,7 @@ namespace   CELL
     protected:
         void    calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes,ArrayVertex& vertx);
 
-		IPluginTileSource * createTileSourceDLL(const char* dllFileName);
+		IPluginTileManager * createTileSourceDLL(const char* dllFileName);
     };
 }
 
