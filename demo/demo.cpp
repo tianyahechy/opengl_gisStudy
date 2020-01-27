@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "demo.h"
-#include "../opengl_GIS/IGIS3DPlatform.h"
 #include "../opengl_GIS/IlifeiGISPlatform.h"
 
 #define MAX_LOADSTRING 100

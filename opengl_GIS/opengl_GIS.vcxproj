@@ -161,7 +161,6 @@
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
-    <ClInclude Include="IGIS3DPlatform.h" />
     <ClInclude Include="export.h" />
     <ClInclude Include="IlifeiGISPlatform.h" />
     <ClInclude Include="IPlugin.h" />

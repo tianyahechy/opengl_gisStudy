@@ -1,7 +1,6 @@
 #pragma once
 #include "lifeiImage.h"
 #include "CELLDXTCompressor.h"
-#include "IGIS3DPlatform.h"
 
 namespace CELL
 {

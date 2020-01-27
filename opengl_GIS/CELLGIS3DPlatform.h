@@ -1,5 +1,4 @@
 #pragma once
-#include "IGIS3DPlatform.h"
 #include "CELLWinApp.hpp"
 #include "IlifeiGISPlatform.h"
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "../opengl_GIS/IGIS3DPlatform.h"
+#include "../opengl_GIS/IPluginTileManager.h"
 namespace CELL
 {
-	class GoogleMapLoader : public IPluginTileSource
+	class GoogleMapLoader : public IPluginTileManager
 	{
 	public:
 		char _path[1024];

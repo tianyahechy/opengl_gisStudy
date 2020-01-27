@@ -1,7 +1,6 @@
 #pragma once
 
 #include "export.h"
-#include "IGIS3DPlatform.h"
 #include <stdlib.h>
 #include <string>
 #include <assert.h>

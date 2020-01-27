@@ -2,6 +2,7 @@
 #include "TMSLoader.h"
 #include "../opengl_GIS/lifeiTileTask.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
+#include "../opengl_GIS/IPluginTileManager.h"
 
 namespace CELL
 {
@@ -42,7 +43,7 @@ namespace CELL
 	{
 	}
 
-	extern "C" EXPORTFUNC IPluginTileSource * createTileSourceDLL(ILifeiGISPlatform* platform)
+	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(ILifeiGISPlatform* platform)
 	{
 		return new TMSLoader();
 	}

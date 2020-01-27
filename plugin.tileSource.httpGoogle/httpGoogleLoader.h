@@ -1,10 +1,11 @@
 #pragma once
 #include <vector>
 #include "CELLHttpClient.h"
-#include "../opengl_GIS/IGIS3DPlatform.h"
+#include "../opengl_GIS/IPluginTileManager.h"
+
 namespace CELL
 {
-	class httpGoogleLoader : public IPluginTileSource
+	class httpGoogleLoader : public IPluginTileManager
 	{
 	public:
 		char _path[1024];
