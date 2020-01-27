@@ -3,7 +3,8 @@
 #include "lifeiTileTask.h"
 #include "lifeiTimeStamp.hpp"
 #include "rapidxml.hpp"
-#include "CELLGIS3DPlatform.h"
+#include "IPluginTileManager.h"
+#include "lifeiShaderManager.h"
 
 namespace CELL
 {

@@ -10,7 +10,6 @@
 #include    "lifeiThread.h"
 #include    "lifeiEvent.h"
 #include	"lifeiShaderManager.h"
-#include	"CELLFrameBigMap.h"
 #include    <assert.h>
 
 namespace CELL

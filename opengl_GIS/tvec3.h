@@ -145,6 +145,64 @@ namespace CELL
 	}
 
 	
+	//射线与三角形相交
+	template <typename T>
+	bool intersectTriangle(
+		const tvec3<T>& origin,
+		const tvec3<T>& dir,
+		const tvec3<T>& v0,
+		const tvec3<T>& v1,
+		const tvec3<T>& v2,
+		T * t,
+		T * u,
+		T * v
+		)
+	{
+		tvec3<T> edge1 = v1 - v0;
+		tvec3<T> edge2 = v2 - v0;
+
+		tvec3<T> pvec = cross(dir, edge2);
+
+		T det = dot(edge1, pvec);
+		tvec3<T> tvec;
+		if (det > 0)
+		{
+			tvec = origin - v0;
+		}
+		else
+		{
+			tvec = v0 - origin;
+			det = -det;
+		}
+
+		if (det < 0.00000001)
+		{
+			return false;
+		}
+
+		*u = dot(tvec, pvec);
+		if (*u < 0.0f || *u > det)
+		{
+			return false;
+		}
+
+		tvec3<T> qvec = cross(dir, edge1);
+		*v = dot(dir, pvec);
+		if (*v < T(0.0f) || *u + *v> det)
+		{
+			return false;
+		}
+
+		*t = dot(edge2, qvec);
+		T fInvDet = T(1.0) / det;
+
+		*t *= fInvDet;
+		*u *= fInvDet;
+		*v *= fInvDet;
+
+		return true;
+	}
+
 	typedef tvec3<unsigned char>		uchar3;
 	typedef tvec3<byte>					byte3;
 	typedef tvec3<unsigned short>		ushort3;

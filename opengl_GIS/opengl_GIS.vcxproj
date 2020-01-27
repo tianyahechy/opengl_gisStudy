@@ -162,6 +162,10 @@
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="IGIS3DPlatform.h" />
+    <ClInclude Include="export.h" />
+    <ClInclude Include="IlifeiGISPlatform.h" />
+    <ClInclude Include="IPlugin.h" />
+    <ClInclude Include="IPluginTileManager.h" />
     <ClInclude Include="lifeiApp.h" />
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
@@ -197,6 +201,7 @@
     <ClInclude Include="lifeiTimeStamp.hpp" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="tmat3x3.h" />
+    <ClInclude Include="tmat4x4.h" />
     <ClInclude Include="tray.h" />
     <ClInclude Include="tvec2.h" />
     <ClInclude Include="rapidxml.hpp" />

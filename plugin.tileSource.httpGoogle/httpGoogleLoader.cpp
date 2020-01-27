@@ -85,7 +85,7 @@ namespace CELL
 		return true;
 	}
 
-	extern "C" EXPORTFUNC IPluginTileSource * createTileSourceDLL(IGIS3DPlatform* platform)
+	extern "C" EXPORTFUNC IPluginTileSource * createTileSourceDLL(ILifeiGISPlatform* platform)
 	{
 		return new httpGoogleLoader();
 	}

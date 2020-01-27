@@ -1,5 +1,6 @@
-
+/*
 #pragma once
+
 #include <Windows.h>
 #include "IPlugin.h"
 
@@ -8,17 +9,21 @@ namespace CELL
 	class ILifeiGISPlatform;
 	class lifeiTask;
 
-	#define CREATE_TILESOURCEDLL	"createTileSourceDLL"
+#define CREATE_TILESOURCEDLL		"createTileSourceDLL"
 
-	class IPluginTileSource : public IPlugin
+	class IPluginTileManager : public IPlugin
 	{
 	public:
 		//设置参数
 		virtual void setParam(const char* name, const char* value) = 0;
 		//加载数据
-		virtual lifeiTask * load(lifeiTask* task) = 0;
+		virtual lifeiTask* load(lifeiTask* task) = 0;
 		//卸载数据
 		virtual void unload(lifeiTask * task) = 0;
+
 	};
-	typedef IPluginTileSource* (*CREATETILESOURCEFUNC)(ILifeiGISPlatform*);
+
+	typedef IPluginTileManager *  (CREATETILESOURCEFUNC)(ILifeiGISPlatform*);
+
 }
+*/

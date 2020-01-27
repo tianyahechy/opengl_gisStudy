@@ -4,12 +4,13 @@
 #include "stdafx.h"
 #include "demo.h"
 #include "../opengl_GIS/IGIS3DPlatform.h"
+#include "../opengl_GIS/IlifeiGISPlatform.h"
 
 #define MAX_LOADSTRING 100
 
 // 全局变量: 
 HINSTANCE hInst;                                // 当前实例
-CELL::IGIS3DPlatform* pPlatform = NULL;
+CELL::ILifeiGISPlatform* pPlatform = NULL;
 WCHAR szTitle[MAX_LOADSTRING];                  // 标题栏文本
 WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
 
@@ -45,7 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	pPlatform = CELL::createPlatform(params);
 	pPlatform->initialize();
-	pPlatform->loadScene("D:\\lifei\\test\\opengl_gis\\trunk\\opengl_GIS\\data\\scene.xml");
+	pPlatform->loadScene("E:/opengl_gis/trunk/opengl_GIS/data/scene.xml");
 	
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DEMO));
 
