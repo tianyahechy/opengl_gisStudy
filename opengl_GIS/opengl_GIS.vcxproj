@@ -155,7 +155,6 @@
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
-    <ClInclude Include="CELLWinApp.hpp" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
@@ -198,6 +197,7 @@
     <ClInclude Include="lifeiTileId.h" />
     <ClInclude Include="lifeiTileTask.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
+    <ClInclude Include="lifeiWinApp.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="tmat3x3.h" />
     <ClInclude Include="tmat4x4.h" />

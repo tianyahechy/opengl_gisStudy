@@ -19,10 +19,6 @@ namespace CELL
 		lifeiOpenGL *		_device;
 		//shader指针
 		lifeiShaderManager *_shaderMgr;
-		//鼠标的当前位置
-		int					_mouseX;
-		//鼠标的当前位置
-		int					_mouseY;
 		//窗口的大小
 		int					_width;
 		int					_height;
@@ -38,6 +34,8 @@ namespace CELL
 		//视锥裁剪
 		Frustum				_frustum;
 		byte				_keyState[256];
+
+	public:
 		lifeiContext()
 		{
 			memset(_keyState, 0, sizeof(_keyState));

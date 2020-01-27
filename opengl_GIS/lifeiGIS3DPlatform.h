@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "CELLWinApp.hpp"
+#include "lifeiWinApp.h"
 #include "IGISPlatform.h"
 
 namespace CELL
@@ -10,7 +10,7 @@ namespace CELL
 	{
 	protected:
 		CREATEPARAM		_createParam;
-		CELLWinApp		* _winApp;
+		lifeiWinApp		*_winApp;
 
 	public:
 		lifeiGIS3DPlatform(const CREATEPARAM& param);
