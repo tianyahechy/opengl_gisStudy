@@ -6,7 +6,7 @@
 
 namespace CELL
 {
-	class ILifeiGISPlatform;
+	class IGISPlatform;
 	class lifeiTask;
 
 #define CREATE_TILESOURCEDLL		"createTileSourceDLL"
@@ -24,7 +24,7 @@ namespace CELL
 	};
 	
 
-	typedef IPluginTileManager *  (*CREATETILESOURCEFUNC)(ILifeiGISPlatform*);
+	typedef IPluginTileManager *  (*CREATETILESOURCEFUNC)(IGISPlatform*);
 	
 
 }

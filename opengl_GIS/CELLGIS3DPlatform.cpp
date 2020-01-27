@@ -1,5 +1,5 @@
 #include "CELLGIS3DPlatform.h"
-#include "IlifeiGISPlatform.h"
+#include "IGISPlatform.h"
 namespace CELL
 {
 	CELLGIS3DPlatform::CELLGIS3DPlatform(const CREATEPARAM& param)
@@ -51,7 +51,7 @@ namespace CELL
 		return _winApp->_frame->loadScene(sceneFile);
 	}
 
-	ILifeiGISPlatform * createPlatform(const CREATEPARAM& param)
+	IGISPlatform * createPlatform(const CREATEPARAM& param)
 	{
 		return new CELLGIS3DPlatform(param);
 	}

@@ -3,13 +3,13 @@
 
 #include "stdafx.h"
 #include "demo.h"
-#include "../opengl_GIS/IlifeiGISPlatform.h"
+#include "../opengl_GIS/IGISPlatform.h"
 
 #define MAX_LOADSTRING 100
 
 // 全局变量: 
 HINSTANCE hInst;                                // 当前实例
-CELL::ILifeiGISPlatform* pPlatform = NULL;
+CELL::IGISPlatform* pPlatform = NULL;
 WCHAR szTitle[MAX_LOADSTRING];                  // 标题栏文本
 WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
 

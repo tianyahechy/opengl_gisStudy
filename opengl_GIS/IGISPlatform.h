@@ -12,7 +12,7 @@ namespace CELL
 		HWND _hWnd;
 	};
 
-	class ILifeiGISPlatform
+	class IGISPlatform
 	{
 	public:
 		//初始化平台
@@ -26,6 +26,6 @@ namespace CELL
 	};
 
 	//实例化
-	ENGINE_API ILifeiGISPlatform * createPlatform(const CREATEPARAM& param);
+	ENGINE_API IGISPlatform * createPlatform(const CREATEPARAM& param);
 	
 }

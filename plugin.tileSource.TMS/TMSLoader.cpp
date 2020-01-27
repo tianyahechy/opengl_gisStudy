@@ -43,7 +43,7 @@ namespace CELL
 	{
 	}
 
-	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(ILifeiGISPlatform* platform)
+	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(IGISPlatform* platform)
 	{
 		return new TMSLoader();
 	}

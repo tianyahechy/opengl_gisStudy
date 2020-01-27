@@ -162,7 +162,7 @@
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="export.h" />
-    <ClInclude Include="IlifeiGISPlatform.h" />
+    <ClInclude Include="IGISPlatform.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="IPluginTileManager.h" />
     <ClInclude Include="lifeiApp.h" />

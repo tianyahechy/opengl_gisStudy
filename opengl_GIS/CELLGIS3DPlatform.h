@@ -1,10 +1,10 @@
 #pragma once
 #include "CELLWinApp.hpp"
-#include "IlifeiGISPlatform.h"
+#include "IGISPlatform.h"
 
 namespace CELL
 {
-	class CELLGIS3DPlatform : public ILifeiGISPlatform
+	class CELLGIS3DPlatform : public IGISPlatform
 	{
 	protected:
 		CREATEPARAM _createParam;
@@ -23,6 +23,6 @@ namespace CELL
 		virtual bool loadScene(const char* sceneFile);
 
 	};
-	ILifeiGISPlatform* createPlatform(const CREATEPARAM& param);
+	IGISPlatform* createPlatform(const CREATEPARAM& param);
 }
 
