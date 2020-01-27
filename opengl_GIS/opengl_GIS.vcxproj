@@ -152,7 +152,6 @@
   <ItemGroup>
     <ClInclude Include="AxisALignedBox.h" />
     <ClInclude Include="CELLDXTCompressor.h" />
-    <ClInclude Include="CELLGIS3DPlatform.h" />
     <ClInclude Include="CELLMath.hpp" />
     <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="CELLFrameBigMap.h" />
@@ -171,6 +170,7 @@
     <ClInclude Include="lifeiEvent.h" />
     <ClInclude Include="lifeiFrame.h" />
     <ClInclude Include="lifeiFrustum.h" />
+    <ClInclude Include="lifeiGIS3DPlatform.h" />
     <ClInclude Include="lifeiGLContext.h" />
     <ClInclude Include="lifeiImage.h" />
     <ClInclude Include="lifeiImageLoader.h" />
@@ -212,10 +212,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
-    <ClCompile Include="CELLGIS3DPlatform.cpp" />
     <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
+    <ClCompile Include="lifeiGIS3DPlatform.cpp" />
     <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiOpenGL.cpp" />
     <ClCompile Include="lifeiProgram.cpp" />

@@ -10,12 +10,12 @@ namespace CELL
 	class lifeiFrame;
 	class lifeiShaderManager;
 	class lifeiOpenGL;
-	class CELLGIS3DPlatform;
+	class lifeiGIS3DPlatform;
 	class lifeiContext
 	{
 	public:
 		//全局的app
-		CELLGIS3DPlatform * _app;
+		lifeiGIS3DPlatform * _app;
 		lifeiOpenGL *		_device;
 		//shader指针
 		lifeiShaderManager *_shaderMgr;
