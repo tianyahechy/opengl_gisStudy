@@ -1,9 +1,9 @@
 #pragma once
 
 #include "lifeiObject.h"
-#include "CELLMath.hpp"
 #include "tvec2.h"
 #include "tray.h"
+#include "cameraMath.h"
 
 namespace CELL
 {

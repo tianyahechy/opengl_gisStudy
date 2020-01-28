@@ -1,5 +1,4 @@
 #pragma once
-#include "CELLMath.hpp"
 namespace CELL
 {
 	class lifeiQuadTree;

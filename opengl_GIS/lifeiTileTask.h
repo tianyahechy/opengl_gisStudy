@@ -1,7 +1,6 @@
 #pragma once
 
 #include "lifeiTask.h"
-#include "CELLMath.hpp"
 #include "lifeiImage.h"
 #include "lifeiTileId.h"
 

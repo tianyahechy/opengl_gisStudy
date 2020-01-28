@@ -5,8 +5,8 @@
 #include <string>
 #include <assert.h>
 
-#include "CELLMath.hpp"
 #include "lifeiObject.h"
+#include "lifeiMathUtil.h"
 
 namespace CELL
 {

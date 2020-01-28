@@ -1,5 +1,4 @@
 #pragma once
-#include "CELLMath.hpp"
 #include "Plane.h"
 
 namespace CELL
