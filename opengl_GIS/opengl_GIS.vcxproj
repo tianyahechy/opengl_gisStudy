@@ -154,7 +154,6 @@
     <ClInclude Include="cameraMath.h" />
     <ClInclude Include="CELLDXTCompressor.h" />
     <ClInclude Include="CELLTerrain.h" />
-    <ClInclude Include="CELLFrameBigMap.h" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
@@ -213,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
-    <ClCompile Include="CELLFrameBigMap.cpp" />
     <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiFrameBigMap.cpp" />

@@ -1,4 +1,4 @@
-/*
+
 #pragma once
 #include "lifeiFrame.h"
 #include "lifeiOpengl.h"
@@ -33,6 +33,7 @@ namespace CELL
 
 		//Êó±ê×ó¼üÌáÆð
 		virtual void onLButtonUp(int x, int y);
+		virtual void onLButtonDown(int x, int y);
 		//ÓÒ¼ü
 		virtual void onRButtonDown(int x, int y);
 		virtual void onRButtonUp(int x, int y);
@@ -56,4 +57,3 @@ namespace CELL
 		
 	};
 }
-*/

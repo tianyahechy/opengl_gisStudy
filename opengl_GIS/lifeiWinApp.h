@@ -5,7 +5,7 @@
 #include <tchar.h>
 #include "lifeiGLContext.h"
 #include "lifeiOpengl.h"
-#include "CELLFrameBigMap.h"
+#include "lifeiFrameBigMap.h"
 #include "lifeiContext.h"
 #include "lifeiThread.h"
 #include "lifeiEvent.h"
@@ -72,7 +72,7 @@ namespace CELL
 		//创建框架
 		virtual lifeiFrame* createFrame()
 		{
-			return new CELLFrameBigMap(_context);
+			return new lifeiFrameBigMap(_context);
 		}
 
 		//入口函数
