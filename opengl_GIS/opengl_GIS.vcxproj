@@ -153,7 +153,6 @@
     <ClInclude Include="AxisALignedBox.h" />
     <ClInclude Include="cameraMath.h" />
     <ClInclude Include="CELLDXTCompressor.h" />
-    <ClInclude Include="CELLTerrain.h" />
     <ClInclude Include="gl\eglew.h" />
     <ClInclude Include="gl\glew.h" />
     <ClInclude Include="gl\glxew.h" />
@@ -189,6 +188,7 @@
     <ClInclude Include="lifeiTaskObserver.h" />
     <ClInclude Include="lifeiTaskSystem.h" />
     <ClInclude Include="lifeiTaskThread.h" />
+    <ClInclude Include="lifeiTerrain.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
     <ClInclude Include="lifeiTexture.h" />
     <ClInclude Include="lifeiTexture3dID.h" />
@@ -212,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
-    <ClCompile Include="CELLTerrain.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiFrameBigMap.cpp" />
     <ClCompile Include="lifeiGIS3DPlatform.cpp" />
@@ -222,6 +221,7 @@
     <ClCompile Include="lifeiQuadTree.cpp" />
     <ClCompile Include="lifeiTaskSystem.cpp" />
     <ClCompile Include="lifeiTaskThread.cpp" />
+    <ClCompile Include="lifeiTerrain.cpp" />
     <ClCompile Include="lifeiTexture.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
