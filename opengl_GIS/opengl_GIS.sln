@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opengl_GIS", "opengl_GIS.vcxproj", "{517EC519-5D7A-4ACF-B7C6-3F7D5F563E35}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.TMS", "..\plugin.tileSource.TMS\plugin.tileSource.TMS.vcxproj", "{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.httpGoogle", "..\plugin.tileSource.httpGoogle\plugin.tileSource.httpGoogle.vcxproj", "{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.default", "..\plugin.tileSource.default\plugin.tileSource.default.vcxproj", "{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,8 +63,19 @@ Global
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|Win32.Build.0 = Release|Win32
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|x64.ActiveCfg = Release|x64
 		{BD1D38B7-CA40-4255-9B47-CE6ACE25FF6C}.Release|x64.Build.0 = Release|x64
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Debug|Win32.Build.0 = Debug|Win32
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Debug|x64.ActiveCfg = Debug|x64
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Debug|x64.Build.0 = Debug|x64
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Release|Win32.ActiveCfg = Release|Win32
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Release|Win32.Build.0 = Release|Win32
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Release|x64.ActiveCfg = Release|x64
+		{A228A1E6-6F08-4624-AF99-8CFC7CB501DB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {300523CB-9A53-495A-AE18-79A126267D8F}
 	EndGlobalSection
 EndGlobal

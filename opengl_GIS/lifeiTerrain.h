@@ -5,6 +5,7 @@
 #include "lifeiTerrainInterface.h"
 #include "lifeiTaskSystem.h"
 #include "lifeiTextureMgr.h"
+#include <string>
 
 namespace CELL
 {
