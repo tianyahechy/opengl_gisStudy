@@ -2,14 +2,23 @@
 #include <vector>
 #include "CELLHttpClient.h"
 #include "../opengl_GIS/IPluginTileManager.h"
+#include "../opengl_GIS/lifeiTileId.h"
 
 namespace CELL
 {
+#define KEY_ROW				"row"
+#define KEY_REVERSEROW		"rrow"
+#define KEY_COL				"col"
+#define KEY_REVERSECOL		"rcol"
+#define KEY_LEVEL			"lev"
 	class httpGoogleLoader : public IPluginTileManager
 	{
 	public:
 		char _path[1024];
 		char _ext[16];
+		char _arg0[128];  //占位符
+		char _arg1[128];
+		char _arg2[128];
 	public:
 		httpGoogleLoader();
 		~httpGoogleLoader();
@@ -24,6 +33,7 @@ namespace CELL
 		//给定url(http)返回数据
 		bool getImageData(const char* url, std::vector<char>& arBuf);
 
+		int getArg( const char* arg, const lifeiTileId& id);
 	};
 
 }

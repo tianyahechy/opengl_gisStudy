@@ -24,6 +24,18 @@ namespace CELL
 		{
 			strncpy(_ext, value, sizeof(_ext));
 		}
+		else if (_stricmp(name, "arg0") == 0)
+		{
+			strncpy(_arg0, value, sizeof(_arg0));
+		}
+		else if (_stricmp(name, "arg1") == 0)
+		{
+			strncpy(_arg1, value, sizeof(_arg1));
+		}
+		else if (_stricmp(name, "arg2") == 0)
+		{
+			strncpy(_arg2, value, sizeof(_arg2));
+		}
 	}
 
 	lifeiTask * httpGoogleLoader::load(lifeiTask * task)
@@ -33,9 +45,12 @@ namespace CELL
 		int col = pTask->_tileId._col;
 		int level = pTask->_tileId._lev;
 		char    szURL[1024];
-		sprintf(szURL, "http://mt2.google.cn/vt?n=404&lyrs=s&hl=zh-CN&gl=cn&v=191&x=%d&y=%d&z=%d", col, row, pTask->_tileId._lev);
-		//sprintf(szURL, "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer", col, row, pTask->_tileId._lev);
-	
+
+		int arg0 = getArg( _arg0, pTask->_tileId);
+		int arg1 = getArg( _arg1, pTask->_tileId);
+		int arg2 = getArg( _arg2, pTask->_tileId);
+		sprintf(szURL, _path, arg0, arg1, arg2);
+
 		std::vector<char> imageData;
 		bool result = getImageData(szURL, imageData);
 		if (!result)
@@ -84,6 +99,81 @@ namespace CELL
 		}
 		*/
 		return true;
+	}
+
+	int httpGoogleLoader::getArg(const char* args, const lifeiTileId& id)
+	{
+		if (strncmp(args, "row", 3) == 0)
+		{
+			if (isalnum(args[4]))
+			{
+				int num = 0;
+				sscanf(args, "row(%d)", &num);
+				return id._row + num;
+			}
+			else
+			{
+				return id._row;
+			}
+		}
+		else if (strncmp(args, "rrow", 4) == 0)
+		{
+			if (isalnum(args[5]))
+			{
+				int num = 0;
+				sscanf(args, "rrow(%d)", &num);
+				int all = pow(2, id._lev);
+				return all - id._row -1 + num;
+			}
+			else
+			{
+				int all = pow(2, id._lev);
+				return all - id._row - 1 ;
+			}
+		}	
+		else if (strncmp(args, "col", 3) == 0)
+		{
+			if (isalnum(args[4]))
+			{
+				int num = 0;
+				sscanf(args, "col(%d)", &num);
+				return id._col + num;
+			}
+			else
+			{
+				return id._col;
+			}
+		}
+		else if (strncmp(args, "rcol", 4) == 0)
+		{
+			if (isalnum(args[5]))
+			{
+				int num = 0;
+				sscanf(args, "rcol(%d)", &num);
+				int all = pow(2, id._lev);
+				return all - id._col - 1 + num;
+			}
+			else
+			{
+				int all = pow(2, id._lev);
+				return all - id._col - 1;
+			}
+		}
+		else if (strncmp(args, "lev", 3) == 0)
+		{
+			if (isalnum(args[4]))
+			{
+				int num = 0;
+				sscanf(args, "lev(%d)", &num);
+				return id._lev + 1;
+			}
+			else
+			{
+				return id._lev;
+			}
+		}
+
+		 return 0;
 	}
 
 	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(IGISPlatform* platform)

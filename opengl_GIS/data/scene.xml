@@ -2,9 +2,9 @@
 <root>
   <imageSource 
     url ="E:/opengl_gis/trunk/opengl_GIS/data/tile" 
-    _arg0 = "lev(0)"
-    _arg1 ="col(0)"
-    _arg2 ="reverse_row(0)"
+    arg0 = "lev(0)"
+    arg1 ="col(0)"
+    arg2 ="reverse_row(0)"
     ext =".jpg" 
     loader ="plugin.tileSource.googlemap.dll"
     pos =""
