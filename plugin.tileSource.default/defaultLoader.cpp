@@ -1,20 +1,20 @@
 
-#include "httpGoogleLoader.h"
+#include "defaultLoader.h"
 #include "../opengl_GIS/lifeiTileTask.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 #include "../opengl_GIS/IPluginTileManager.h"
 
 namespace CELL
 {
-	httpGoogleLoader::httpGoogleLoader()
+	defaultLoader::defaultLoader()
 	{
 	}
 
-	httpGoogleLoader::~httpGoogleLoader()
+	defaultLoader::~defaultLoader()
 	{
 	}
 
-	void httpGoogleLoader::setParam(const char * name, const char * value)
+	void defaultLoader::setParam(const char * name, const char * value)
 	{
 		if (_stricmp(name,"url") == 0 )
 		{
@@ -38,7 +38,7 @@ namespace CELL
 		}
 	}
 
-	lifeiTask * httpGoogleLoader::load(lifeiTask * task)
+	lifeiTask * defaultLoader::load(lifeiTask * task)
 	{
 		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		int row = pTask->_tileId._row;
@@ -50,26 +50,38 @@ namespace CELL
 		int arg1 = getArg( _arg1, pTask->_tileId);
 		int arg2 = getArg( _arg2, pTask->_tileId);
 		sprintf(szURL, _path, arg0, arg1, arg2);
+		
+		if (isHttp(szURL))
+		{
+			std::vector<char> imageData;
+			bool result = getImageData(szURL, imageData);
+			if (!result)
+			{
+				return 0;
+			}
+			bool bLoadSuccess = lifeiImageLoader::loadImageBufferToDXT1(&imageData.front(), imageData.size(), pTask->_image);
+			if (bLoadSuccess)
+			{
+				return task;
+			}
+		}
+		else
+		{
+			bool bLoadSuccess = lifeiImageLoader::loadImageToDXT1(szURL, pTask->_image);
+			if (bLoadSuccess)
+			{
+				return task;
+			}
+		}
 
-		std::vector<char> imageData;
-		bool result = getImageData(szURL, imageData);
-		if (!result)
-		{
-			return 0;
-		}
-		bool bLoadSuccess = lifeiImageLoader::loadImageBufferToDXT1(&imageData.front(), imageData.size(), pTask->_image);
-		if (bLoadSuccess)
-		{
-			return task;
-		}
 		return nullptr;
 	}
 
-	void httpGoogleLoader::unload(lifeiTask * task)
+	void defaultLoader::unload(lifeiTask * task)
 	{
 	}
 
-	bool httpGoogleLoader::getImageData(const char * url, std::vector<char>& arBuf)
+	bool defaultLoader::getImageData(const char * url, std::vector<char>& arBuf)
 	{
 		CELLHttpClient client;
 		arBuf.clear();
@@ -100,8 +112,8 @@ namespace CELL
 		*/
 		return true;
 	}
-
-	int httpGoogleLoader::getArg(const char* args, const lifeiTileId& id)
+	
+	int defaultLoader::getArg(const char* args, const lifeiTileId& id)
 	{
 		if (strncmp(args, "row", 3) == 0)
 		{
@@ -175,10 +187,10 @@ namespace CELL
 
 		 return 0;
 	}
-
+	
 	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(IGISPlatform* platform)
 	{
-		return new httpGoogleLoader();
+		return new defaultLoader();
 	}
 
 }

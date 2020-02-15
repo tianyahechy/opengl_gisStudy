@@ -11,7 +11,7 @@ namespace CELL
 #define KEY_COL				"col"
 #define KEY_REVERSECOL		"rcol"
 #define KEY_LEVEL			"lev"
-	class httpGoogleLoader : public IPluginTileManager
+	class defaultLoader : public IPluginTileManager
 	{
 	public:
 		char _path[1024];
@@ -20,8 +20,8 @@ namespace CELL
 		char _arg1[128];
 		char _arg2[128];
 	public:
-		httpGoogleLoader();
-		~httpGoogleLoader();
+		defaultLoader();
+		~defaultLoader();
 		//设置参数
 		virtual void setParam(const char* name, const char* value);
 		//加载数据
@@ -30,6 +30,13 @@ namespace CELL
 		virtual void unload(lifeiTask * task);
 
 	protected:
+		//判断是否是在线数据，即http
+		bool isHttp(const char* url)
+		{
+			char szBuf[6];
+			strncpy(szBuf, url, 5);
+			return _stricmp(url, "http:") == 0 ? true : false;
+		}
 		//给定url(http)返回数据
 		bool getImageData(const char* url, std::vector<char>& arBuf);
 

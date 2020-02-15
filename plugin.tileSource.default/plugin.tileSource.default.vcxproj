@@ -161,10 +161,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="httpGoogleLoader.cpp" />
+    <ClCompile Include="defaultLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="httpGoogleLoader.h" />
+    <ClInclude Include="defaultLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
