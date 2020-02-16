@@ -1,18 +1,16 @@
 #pragma once
 namespace CELL
 {
-	class lifeiTask
+	class lifeiTask_2
 	{
 	public:
-		lifeiTask()
+		lifeiTask_2()
 		{
 
 		}
-		virtual ~lifeiTask()
+		virtual ~lifeiTask_2()
 		{
 
 		}
 	};
-
 }
-

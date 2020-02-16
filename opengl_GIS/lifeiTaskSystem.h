@@ -1,5 +1,5 @@
 #pragma once
-#include "lifeiTask.h"
+#include "lifeiTask_2.h"
 #include "lifeiThread.h"
 #include <vector>
 #include <list>
@@ -9,8 +9,8 @@
 namespace CELL
 {
 	typedef std::vector<lifeiThread* >	arrayThread;
-	typedef std::list<lifeiTask*>		arrayTask;
-	class lifeiTaskSystem
+	typedef std::list<lifeiTask_2*>		arrayTask;
+	class lifeiTaskSystem  //应该是要处理的瓦片的集合
 	{
 	public:
 		lifeiTaskObserver * _observer;
@@ -29,7 +29,7 @@ namespace CELL
 	//销毁
 		virtual void destroy();
 	//添加任务接口
-		virtual void addTask(lifeiTask* task);
+		virtual void addTask(lifeiTask_2* task);
 	public:
 		virtual void run();
 	};

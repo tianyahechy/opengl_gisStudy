@@ -26,7 +26,7 @@ namespace CELL
 		}
 	}
 
-	lifeiTask * TMSLoader::load(lifeiTask * task)
+	lifeiTask_2 * TMSLoader::load(lifeiTask_2 * task)
 	{
 		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		char    szPathName[1024];
@@ -39,7 +39,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void TMSLoader::unload(lifeiTask * task)
+	void TMSLoader::unload(lifeiTask_2 * task)
 	{
 	}
 

@@ -26,7 +26,7 @@ namespace CELL
 		}
 	}
 
-	lifeiTask * GoogleMapLoader::load(lifeiTask * task)
+	lifeiTask_2 * GoogleMapLoader::load(lifeiTask_2 * task)
 	{
 		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		char    szPathName[1024];
@@ -39,7 +39,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void GoogleMapLoader::unload(lifeiTask * task)
+	void GoogleMapLoader::unload(lifeiTask_2 * task)
 	{
 	}
 

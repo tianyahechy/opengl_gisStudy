@@ -26,7 +26,7 @@ namespace CELL
 		}
 	}
 
-	lifeiTask * httpGoogleLoader::load(lifeiTask * task)
+	lifeiTask_2 * httpGoogleLoader::load(lifeiTask_2 * task)
 	{
 		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		int row = pTask->_tileId._row;
@@ -50,7 +50,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void httpGoogleLoader::unload(lifeiTask * task)
+	void httpGoogleLoader::unload(lifeiTask_2 * task)
 	{
 	}
 

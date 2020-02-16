@@ -35,12 +35,13 @@ namespace CELL
 		}
 		_threads.clear();
 	}
-	void lifeiTaskSystem::addTask(lifeiTask* task)
+	void lifeiTaskSystem::addTask(lifeiTask_2* task)
 	{
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
 			_tasks.push_back(task);
 		}
+		//这时候应该有一个任务了
 		_semphore.set(1);
 	}
 	void lifeiTaskSystem::run()
@@ -50,7 +51,8 @@ namespace CELL
 			return;
 		}
 
-		lifeiTask* pTask = 0;
+		//取数据任务
+		lifeiTask_2* pTask = 0;
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
 			bool taskEmpty = _tasks.empty();

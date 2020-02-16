@@ -1,5 +1,6 @@
 #pragma once
 #include "../opengl_GIS/IPluginTileManager.h"
+#include "../opengl_GIS/lifeiTask_2.h"
 namespace CELL
 {
 	class GoogleMapLoader : public IPluginTileManager
@@ -13,9 +14,9 @@ namespace CELL
 		//设置参数
 		virtual void setParam(const char* name, const char* value);
 		//加载数据
-		virtual lifeiTask * load(lifeiTask* task);
+		virtual lifeiTask_2 * load(lifeiTask_2* task);
 		//卸载数据
-		virtual void unload(lifeiTask * task);
+		virtual void unload(lifeiTask_2 * task);
 	};
 
 }

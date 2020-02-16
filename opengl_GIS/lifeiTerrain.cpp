@@ -47,8 +47,8 @@ namespace CELL
 		arrayTask tasks;
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
-			tasks = _tasks;
-			_tasks.clear();
+			tasks = _tasksLoaded;
+			_tasksLoaded.clear();
 		}
 
 		for (size_t i = 0; i < tasks.size(); i++)
@@ -163,14 +163,14 @@ namespace CELL
 		_textureMgr.freeTexture(texId);
 	}
 
-	void lifeiTerrain::onTaskCancel(lifeiTask* task)
+	void lifeiTerrain::onTaskCancel(lifeiTask_2* task)
 	{
 		delete task;
 	}
 
-	void lifeiTerrain::onTaskExe(lifeiTask* task)
+	void lifeiTerrain::onTaskExe(lifeiTask_2* task)
 	{
-		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
+		lifeiTask_2* pTask = dynamic_cast<lifeiTask_2*> (task);
 		if (0 == pTask)
 		{
 			return;
@@ -189,10 +189,10 @@ namespace CELL
 		}
 
 		lifeiMutex::ScopeLock lk(_mutex);
-		_tasks.push_back(pTask);
+		_tasksLoaded.push_back(pTask);
 	}
 
-	void lifeiTerrain::onTaskFinish(lifeiTask* task)
+	void lifeiTerrain::onTaskFinish(lifeiTask_2* task)
 	{
 
 	}

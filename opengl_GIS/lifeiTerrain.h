@@ -25,7 +25,7 @@ namespace CELL
 			short x, y, z;
 		};
 	public:
-		typedef std::vector<lifeiTask*>							arrayTask;
+		typedef std::vector<lifeiTask_2*>						arrayTask;
 		typedef std::map<std::string, lifeiQuadTree*>			mapNode;
 		typedef std::vector<P3U3>								arrayVertex;
 		typedef std::vector<FaceIndex>							arrayFace;
@@ -34,7 +34,7 @@ namespace CELL
 		lifeiQuadTree*											_root;
 		lifeiContext&											_context;
 		lifeiTaskSystem											_taskSystem;
-		arrayTask												_tasks;
+		arrayTask												_tasksLoaded;  //已加载完毕的任务集合，不放入任务系统中，而是另外统计,用于更新纹理
 		lifeiMutex												_mutex;
 		mapNode													_nodes;
 		arrayVertex												_vertex;
@@ -71,11 +71,11 @@ namespace CELL
 
 	public:
 		//任务取消通知
-		virtual void onTaskCancel(lifeiTask* task);
+		virtual void onTaskCancel(lifeiTask_2* task);
 		//任务执行通知
-		virtual void onTaskExe(lifeiTask* task);
+		virtual void onTaskExe(lifeiTask_2* task);
 		//任务完成通知
-		virtual void onTaskFinish(lifeiTask* task);
+		virtual void onTaskFinish(lifeiTask_2* task);
 
 	protected:
 		void calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, arrayVertex& vertex);

@@ -38,7 +38,7 @@ namespace CELL
 		}
 	}
 
-	lifeiTask * defaultLoader::load(lifeiTask * task)
+	lifeiTask_2 * defaultLoader::load(lifeiTask_2 * task)
 	{
 		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
 		int row = pTask->_tileId._row;
@@ -77,7 +77,7 @@ namespace CELL
 		return nullptr;
 	}
 
-	void defaultLoader::unload(lifeiTask * task)
+	void defaultLoader::unload(lifeiTask_2 * task)
 	{
 	}
 

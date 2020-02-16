@@ -7,8 +7,8 @@
   arg0 = "lev(1)"
   arg1 = "row()"
   arg2 = "col()"
-  ext =".png"
-  loader ="plugin.tileSource.httpGoogleMap.dll"
+  ext =".jpg"
+  loader ="plugin.tileSource.googlemap.dll"
   pos =""
   sss=""
   ></imageSource>
