@@ -16,7 +16,7 @@ namespace CELL
 	void lifeiTaskThread::join()
 	{
 		_exitFlag = true;
-		lifeiThread::join();
+		lifeiThread_2::join();
 	}
 
 	bool lifeiTaskThread::onCreate()

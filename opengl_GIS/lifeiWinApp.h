@@ -7,14 +7,14 @@
 #include "lifeiOpengl.h"
 #include "lifeiFrameBigMap.h"
 #include "lifeiContext.h"
-#include "lifeiThread.h"
+#include "lifeiThread_2.h"
 #include "lifeiEvent.h"
 #include "lifeiShaderManager.h"
 #include <assert.h>
 
 namespace CELL
 {
-	class lifeiWinApp : public LifeiApp, public lifeiThread
+	class lifeiWinApp : public LifeiApp, public lifeiThread_2
 	{
 	public:
 		HWND					_hParentWnd;
@@ -89,12 +89,12 @@ namespace CELL
 				return;
 			}
 
-			lifeiThread::start();
+			lifeiThread_2::start();
 			_event.wait();
 
 			if (!_makeResult)
 			{
-				lifeiThread::join();
+				lifeiThread_2::join();
 				delete _frame;
 				_contextGL.shutdown();
 				return;
@@ -196,7 +196,7 @@ namespace CELL
 				break;
 			case WM_DESTROY:
 				_threadRun = false;
-				lifeiThread::join();
+				lifeiThread_2::join();
 				PostQuitMessage(0);
 				break;
 			default:

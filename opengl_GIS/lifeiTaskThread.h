@@ -1,9 +1,9 @@
 #pragma once
-#include "lifeiThread.h"
+#include "lifeiThread_2.h"
 namespace CELL
 {
 	class lifeiTaskSystem;
-	class lifeiTaskThread : public lifeiThread
+	class lifeiTaskThread : public lifeiThread_2
 	{
 	public:
 		lifeiTaskThread(lifeiTaskSystem* pSystem);

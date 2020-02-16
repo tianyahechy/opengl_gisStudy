@@ -1,6 +1,6 @@
 #pragma once
 #include "lifeiTask_2.h"
-#include "lifeiThread.h"
+#include "lifeiThread_2.h"
 #include <vector>
 #include <list>
 #include "lifeiSemaphore.h"
@@ -8,7 +8,7 @@
 #include "lifeiTaskObserver.h"
 namespace CELL
 {
-	typedef std::vector<lifeiThread* >	arrayThread;
+	typedef std::vector<lifeiThread_2* >	arrayThread;
 	typedef std::list<lifeiTask_2*>		arrayTask;
 	class lifeiTaskSystem  //应该是要处理的瓦片的集合
 	{

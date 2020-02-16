@@ -193,7 +193,7 @@
     <ClInclude Include="lifeiTexture.h" />
     <ClInclude Include="lifeiTexture3dID.h" />
     <ClInclude Include="lifeiTextureMgr.h" />
-    <ClInclude Include="lifeiThread.h" />
+    <ClInclude Include="lifeiThread_2.h" />
     <ClInclude Include="lifeiTileId.h" />
     <ClInclude Include="lifeiTileTask.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
@@ -223,6 +223,7 @@
     <ClCompile Include="lifeiTaskThread.cpp" />
     <ClCompile Include="lifeiTerrain.cpp" />
     <ClCompile Include="lifeiTexture.cpp" />
+    <ClCompile Include="lifeiThread_2.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />
