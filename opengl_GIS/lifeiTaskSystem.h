@@ -4,7 +4,7 @@
 #include <vector>
 #include <list>
 #include "lifeiSemaphore_2.h"
-#include "lifeiMutex.h"
+#include "lifeiMutex_2.h"
 #include "lifeiTaskObserver_2.h"
 namespace CELL
 {
@@ -17,7 +17,7 @@ namespace CELL
 		arrayThread _threads;
 		arrayTask _tasks;
 		lifeiSemaphore_2 _semphore;
-		lifeiMutex _mutex;
+		lifeiMutex_2 _mutex;
 	public:
 		lifeiTaskSystem();
 		virtual ~lifeiTaskSystem();

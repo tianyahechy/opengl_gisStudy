@@ -37,8 +37,9 @@ namespace CELL
 	}
 	void lifeiTaskSystem::addTask(lifeiTask_2* task)
 	{
+		//添加要求的瓦片数据名称
 		{
-			lifeiMutex::ScopeLock lk(_mutex);
+			lifeiMutex_2::ScopeLock lk(_mutex);
 			_tasks.push_back(task);
 		}
 		//这时候应该有一个任务了
@@ -54,7 +55,7 @@ namespace CELL
 		//取任务
 		lifeiTask_2* pTask = 0;
 		{
-			lifeiMutex::ScopeLock lk(_mutex);
+			lifeiMutex_2::ScopeLock lk(_mutex);
 			bool taskEmpty = _tasks.empty();
 			if (taskEmpty)
 			{

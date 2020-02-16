@@ -35,7 +35,7 @@ namespace CELL
 		lifeiContext&											_context;
 		lifeiTaskSystem											_taskSystem;
 		arrayTask												_tasksLoaded;  //已加载完毕的任务集合，不放入任务系统中，而是另外统计,用于更新纹理
-		lifeiMutex												_mutex;
+		lifeiMutex_2											_mutex;
 		mapNode													_nodes;
 		arrayVertex												_vertex;
 		arrayFace												_faces;

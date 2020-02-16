@@ -46,7 +46,8 @@ namespace CELL
 		_root->update(context);
 		arrayTask tasks;
 		{
-			lifeiMutex::ScopeLock lk(_mutex);
+			//取出要绘制的数组
+			lifeiMutex_2::ScopeLock lk(_mutex);
 			tasks = _tasksLoaded;
 			_tasksLoaded.clear();
 		}
@@ -188,7 +189,8 @@ namespace CELL
 			return;
 		}
 
-		lifeiMutex::ScopeLock lk(_mutex);
+		//存储要绘制的数组
+		lifeiMutex_2::ScopeLock lk(_mutex);
 		_tasksLoaded.push_back(pTask);
 	}
 
