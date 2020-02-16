@@ -186,7 +186,7 @@
     <ClInclude Include="lifeiShaderManager.h" />
     <ClInclude Include="lifeiTaskObserver.h" />
     <ClInclude Include="lifeiTaskSystem.h" />
-    <ClInclude Include="lifeiTaskThread.h" />
+    <ClInclude Include="lifeiTaskThread_2.h" />
     <ClInclude Include="lifeiTask_2.h" />
     <ClInclude Include="lifeiTerrain.h" />
     <ClInclude Include="lifeiTerrainInterface.h" />
@@ -220,7 +220,7 @@
     <ClCompile Include="lifeiProgram.cpp" />
     <ClCompile Include="lifeiQuadTree.cpp" />
     <ClCompile Include="lifeiTaskSystem.cpp" />
-    <ClCompile Include="lifeiTaskThread.cpp" />
+    <ClCompile Include="lifeiTaskThread_2.cpp" />
     <ClCompile Include="lifeiTerrain.cpp" />
     <ClCompile Include="lifeiTexture.cpp" />
     <ClCompile Include="lifeiThread_2.cpp" />

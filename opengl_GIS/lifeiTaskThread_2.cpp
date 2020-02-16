@@ -1,31 +1,31 @@
-#include "lifeiTaskThread.h"
+#include "lifeiTaskThread_2.h"
 #include "lifeiTaskSystem.h"
 
 namespace CELL
 {
-	lifeiTaskThread::lifeiTaskThread(lifeiTaskSystem* pSystem)
+	lifeiTaskThread_2::lifeiTaskThread_2(lifeiTaskSystem * pSystem)
 	{
 		_exitFlag = true;
 		_system = pSystem;
 	}
 
-	lifeiTaskThread::~lifeiTaskThread()
+	lifeiTaskThread_2::~lifeiTaskThread_2()
 	{
 	}
-	//ÍË³ö
-	void lifeiTaskThread::join()
+
+	void lifeiTaskThread_2::join()
 	{
 		_exitFlag = true;
 		lifeiThread_2::join();
 	}
 
-	bool lifeiTaskThread::onCreate()
+	bool lifeiTaskThread_2::onCreate()
 	{
 		_exitFlag = false;
 		return false;
 	}
 
-	bool lifeiTaskThread::onRun()
+	bool lifeiTaskThread_2::onRun()
 	{
 		while (!_exitFlag)
 		{
@@ -33,7 +33,8 @@ namespace CELL
 		}
 		return false;
 	}
-	bool lifeiTaskThread::onDestroy()
+
+	bool lifeiTaskThread_2::onDestroy()
 	{
 		return false;
 	}

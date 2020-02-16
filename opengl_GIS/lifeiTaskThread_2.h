@@ -3,14 +3,16 @@
 namespace CELL
 {
 	class lifeiTaskSystem;
-	class lifeiTaskThread : public lifeiThread_2
+	class lifeiTaskThread_2 : public lifeiThread_2
 	{
 	public:
-		lifeiTaskThread(lifeiTaskSystem* pSystem);
-		~lifeiTaskThread();
+		lifeiTaskThread_2(lifeiTaskSystem* pSystem);
+		~lifeiTaskThread_2();
+
 	public:
 		//退出标志
 		bool _exitFlag;
+		//要求的瓦片名称集合所在的系统
 		lifeiTaskSystem* _system;
 
 		//退出
@@ -19,6 +21,4 @@ namespace CELL
 		virtual bool onRun();
 		virtual bool onDestroy();
 	};
-
 }
-

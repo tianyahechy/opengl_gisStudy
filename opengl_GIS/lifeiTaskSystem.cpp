@@ -1,5 +1,5 @@
 #include "lifeiTaskSystem.h"
-#include "lifeiTaskThread.h"
+#include "lifeiTaskThread_2.h"
 
 namespace CELL
 {
@@ -21,7 +21,7 @@ namespace CELL
 		destroy();
 		for (size_t i = 0; i < threadNum; i++)
 		{
-			lifeiTaskThread * pThread = new lifeiTaskThread(this);
+			lifeiTaskThread_2 * pThread = new lifeiTaskThread_2(this);
 			pThread->start();
 			_threads.push_back(pThread);
 		}
