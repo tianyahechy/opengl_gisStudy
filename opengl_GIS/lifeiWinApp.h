@@ -89,6 +89,7 @@ namespace CELL
 				return;
 			}
 
+			//创建opengl上下文与窗口绑定，然后一边发送event时间信号，让主程序继续运行，一方面多线程渲染。
 			lifeiThread_2::start();
 			_event.wait();
 

@@ -11,7 +11,7 @@ namespace CELL
 {
 	class IPluginTileManager;
 
-	class lifeiTerrain : public lifeiObject_2, public lifeiTerrainInterface, public lifeiTaskObserver
+	class lifeiTerrain : public lifeiObject_2, public lifeiTerrainInterface, public lifeiTaskObserver_2
 	{
 	public:
 		struct P3U3

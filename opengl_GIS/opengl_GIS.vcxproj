@@ -184,7 +184,7 @@
     <ClInclude Include="lifeiQuadTree.h" />
     <ClInclude Include="lifeiSemaphore.h" />
     <ClInclude Include="lifeiShaderManager.h" />
-    <ClInclude Include="lifeiTaskObserver.h" />
+    <ClInclude Include="lifeiTaskObserver_2.h" />
     <ClInclude Include="lifeiTaskSystem.h" />
     <ClInclude Include="lifeiTaskThread_2.h" />
     <ClInclude Include="lifeiTask_2.h" />

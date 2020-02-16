@@ -5,7 +5,7 @@
 #include <list>
 #include "lifeiSemaphore.h"
 #include "lifeiMutex.h"
-#include "lifeiTaskObserver.h"
+#include "lifeiTaskObserver_2.h"
 namespace CELL
 {
 	typedef std::vector<lifeiThread_2* >	arrayThread;
@@ -13,7 +13,7 @@ namespace CELL
 	class lifeiTaskSystem  //应该是要处理的瓦片的集合
 	{
 	public:
-		lifeiTaskObserver * _observer;
+		lifeiTaskObserver_2 * _observer;
 		arrayThread _threads;
 		arrayTask _tasks;
 		lifeiSemaphore _semphore;
@@ -22,7 +22,7 @@ namespace CELL
 		lifeiTaskSystem();
 		virtual ~lifeiTaskSystem();
 	//设置观察者指针
-		virtual void setObserver(lifeiTaskObserver * observer);
+		virtual void setObserver(lifeiTaskObserver_2 * observer);
 	public:
 	//启动任务管理
 		virtual void start(int threadNum = 4);

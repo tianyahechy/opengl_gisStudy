@@ -12,7 +12,7 @@ namespace CELL
 	{
 		_threads.clear();
 	}
-	void lifeiTaskSystem::setObserver(lifeiTaskObserver * observer)
+	void lifeiTaskSystem::setObserver(lifeiTaskObserver_2 * observer)
 	{
 		_observer = observer;
 	}
