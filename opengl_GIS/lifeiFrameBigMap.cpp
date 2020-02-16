@@ -1,6 +1,5 @@
 
 
-#include "lifeiPlatform.h"
 #include "lifeiFrameBigMap.h"
 #include "lifeiOpengl.h"
 #include "lifeiContext.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lifeiPlatform.h"
+#include "export.h"
 #include "lifeiFrame.h"
 
 namespace CELL
@@ -9,7 +9,7 @@ namespace CELL
 	{
 	public:
 		//创建窗口函数
-		virtual bool createWindow(HWND hParentWnd, int width, int height, INSTANCE hInst) = 0;
+		virtual bool createWindow(HWND hParentWnd, int width, int height, HINSTANCE hInst) = 0;
 		//创建框架
 		virtual lifeiFrame* createFrame() = 0;
 		//入口函数

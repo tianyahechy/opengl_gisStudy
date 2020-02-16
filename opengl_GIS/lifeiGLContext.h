@@ -1,13 +1,13 @@
 #pragma once
-#include "lifeiPlatform.h"
+#include "export.h"
 namespace CELL
 {
 	class LifeiGLContext
 	{
 	protected:
 		int				_format;
-		HWINDOW			_hWnd;
-		HDISPLAY		_hDC;
+		HWND			_hWnd;
+		HDC				_hDC;
 		HGLRC			_hRC;
 
 	public:
@@ -29,7 +29,7 @@ namespace CELL
 		}
 
 		//≥ı ºªØGL
-		bool init(HWINDOW hWnd, HDISPLAY hDC)
+		bool init(HWND hWnd, HDC hDC)
 		{
 			_hWnd = hWnd;
 			_hDC = hDC;

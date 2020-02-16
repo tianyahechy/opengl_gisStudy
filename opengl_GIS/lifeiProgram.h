@@ -1,5 +1,5 @@
 #pragma once
-#include "lifeiPlatform.h"
+#include "export.h"
 #include "lifeiTexture.h"
 #include "lifeiTexture3dID.h"
 

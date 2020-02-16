@@ -41,10 +41,10 @@ namespace CELL
 
 	public:
 		//创建窗口函数
-		virtual bool createWindow(HWND hParentWnd, int width, int height, INSTANCE hInst)
+		virtual bool createWindow(HWND hParentWnd, int width, int height, HINSTANCE hInst)
 		{
 			_hParentWnd = hParentWnd;
-			HDISPLAY hDC = GetDC(_hParentWnd);
+			HDC hDC = GetDC(_hParentWnd);
 			bool bInitContextGL = _contextGL.init(_hParentWnd, hDC);
 			return bInitContextGL;
 		}

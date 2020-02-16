@@ -179,7 +179,6 @@
     <ClInclude Include="lifeiMutex.h" />
     <ClInclude Include="lifeiObject_2.h" />
     <ClInclude Include="lifeiOpengl.h" />
-    <ClInclude Include="lifeiPlatform.h" />
     <ClInclude Include="lifeiProgram.h" />
     <ClInclude Include="LifeiProgramLibrary.h" />
     <ClInclude Include="lifeiQuadTree.h" />

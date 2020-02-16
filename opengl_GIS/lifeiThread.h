@@ -1,6 +1,5 @@
 #pragma once
-
-#include "lifeiPlatform.h"
+#include "export.h"
 #include "lifeiObject_2.h"
 
 namespace CELL

@@ -1,5 +1,4 @@
 #pragma once
-#include "lifeiPlatform.h"
 #include "lifeiTexture.h"
 #include "lifeiTexture3dID.h"
 #include "lifeiProgram.h"

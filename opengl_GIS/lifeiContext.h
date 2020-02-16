@@ -1,5 +1,4 @@
 #pragma once
-#include "lifeiPlatform.h"
 #include "lifeiCamera.h"
 #include "lifeiFrustum.h"
 
