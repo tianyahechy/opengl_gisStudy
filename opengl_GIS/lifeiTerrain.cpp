@@ -1,6 +1,6 @@
 #include "lifeiTerrain.h"
 #include "LifeiProgramLibrary.h"
-#include "lifeiTileTask.h"
+#include "lifeiTileTask_2.h"
 #include "lifeiTimeStamp.hpp"
 #include "rapidxml.hpp"
 #include "IPluginTileManager.h"
@@ -53,7 +53,7 @@ namespace CELL
 
 		for (size_t i = 0; i < tasks.size(); i++)
 		{
-			lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (tasks[i]);
+			lifeiTileTask_2* pTask = dynamic_cast<lifeiTileTask_2*> (tasks[i]);
 			if (0 == pTask)
 			{
 				delete tasks[i];
@@ -132,7 +132,7 @@ namespace CELL
 
 	void lifeiTerrain::request(lifeiQuadTree* node)
 	{
-		lifeiTileTask* pTask = new lifeiTileTask();
+		lifeiTileTask_2* pTask = new lifeiTileTask_2();
 		pTask->_node = node;
 		pTask->_tileId = node->_tileID;
 		_taskSystem.addTask(pTask);

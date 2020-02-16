@@ -51,7 +51,7 @@ namespace CELL
 			return;
 		}
 
-		//取数据任务
+		//取任务
 		lifeiTask_2* pTask = 0;
 		{
 			lifeiMutex::ScopeLock lk(_mutex);
