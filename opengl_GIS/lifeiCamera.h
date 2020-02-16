@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lifeiObject.h"
+#include "lifeiObject_2.h"
 #include "tvec2.h"
 #include "tray.h"
 #include "cameraMath.h"
@@ -9,7 +9,7 @@ namespace CELL
 {
 	//×óÊÖ×ø±êÏµ
 #define COORD_LH
-	class lifeiCamera : public lifeiObject
+	class lifeiCamera : public lifeiObject_2
 	{
 	public:
 		enum

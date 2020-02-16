@@ -5,12 +5,12 @@
 #include <string>
 #include <assert.h>
 
-#include "lifeiObject.h"
+#include "lifeiObject_2.h"
 #include "lifeiMathUtil.h"
 
 namespace CELL
 {
-	class EXPORTFUNC lifeiImage : public lifeiObject
+	class EXPORTFUNC lifeiImage : public lifeiObject_2
 	{
 	public:
 		enum Format

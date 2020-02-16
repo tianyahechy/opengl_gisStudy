@@ -1,10 +1,10 @@
 #pragma once
 #include "lifeiPlatform.h"
-#include "lifeiObject.h"
+#include "lifeiObject_2.h"
 
 namespace CELL
 {
-	class lifeiEvent : public lifeiObject
+	class lifeiEvent : public lifeiObject_2
 	{
 	protected:
 		HANDLE _handle;

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "lifeiPlatform.h"
-#include "lifeiObject.h"
+#include "lifeiObject_2.h"
 
 namespace CELL
 {
-	class lifeiThread : public lifeiObject
+	class lifeiThread : public lifeiObject_2
 	{
 	public:
 		DWORD			_threadId;

@@ -1,5 +1,5 @@
 #pragma once
-#include "lifeiObject.h"
+#include "lifeiObject_2.h"
 #include "lifeiContext.h"
 #include "lifeiTerrainInterface.h"
 #include "lifeiTileId.h"
@@ -7,7 +7,7 @@
 
 namespace CELL
 {
-	class lifeiQuadTree : public  lifeiObject
+	class lifeiQuadTree : public  lifeiObject_2
 	{
 	public:
 		enum ChildID
