@@ -1,9 +1,9 @@
 #include "lifeiTaskThread_2.h"
-#include "lifeiTaskSystem.h"
+#include "lifeiTaskSystem_2.h"
 
 namespace CELL
 {
-	lifeiTaskThread_2::lifeiTaskThread_2(lifeiTaskSystem * pSystem)
+	lifeiTaskThread_2::lifeiTaskThread_2(lifeiTaskSystem_2 * pSystem)
 	{
 		_exitFlag = true;
 		_system = pSystem;

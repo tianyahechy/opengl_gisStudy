@@ -3,7 +3,7 @@
 #include "lifeiQuadTree.h"
 #include "lifeiContext.h"
 #include "lifeiTerrainInterface.h"
-#include "lifeiTaskSystem.h"
+#include "lifeiTaskSystem_2.h"
 #include "lifeiTextureMgr.h"
 #include <string>
 
@@ -33,7 +33,7 @@ namespace CELL
 	public:
 		lifeiQuadTree*											_root;
 		lifeiContext&											_context;
-		lifeiTaskSystem											_taskSystem;
+		lifeiTaskSystem_2										_taskSystem;
 		arrayTask												_tasksLoaded;  //已加载完毕的任务集合，不放入任务系统中，而是另外统计,用于更新纹理
 		lifeiMutex_2											_mutex;
 		mapNode													_nodes;
