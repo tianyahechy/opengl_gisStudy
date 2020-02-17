@@ -189,9 +189,10 @@
     <ClInclude Include="lifeiTask_2.h" />
     <ClInclude Include="lifeiTerrain.h" />
     <ClInclude Include="lifeiTerrainInterface_2.h" />
+    <ClInclude Include="lifeiTerrain_2.h" />
     <ClInclude Include="lifeiTexture.h" />
     <ClInclude Include="lifeiTexture3dID.h" />
-    <ClInclude Include="lifeiTextureMgr.h" />
+    <ClInclude Include="lifeiTextureMgr_2.h" />
     <ClInclude Include="lifeiThread_2.h" />
     <ClInclude Include="lifeiTileId.h" />
     <ClInclude Include="lifeiTileTask_2.h" />
@@ -222,7 +223,9 @@
     <ClCompile Include="lifeiTaskSystem_2.cpp" />
     <ClCompile Include="lifeiTaskThread_2.cpp" />
     <ClCompile Include="lifeiTerrain.cpp" />
+    <ClCompile Include="lifeiTerrain_2.cpp" />
     <ClCompile Include="lifeiTexture.cpp" />
+    <ClCompile Include="lifeiTextureMgr_2.cpp" />
     <ClCompile Include="lifeiThread_2.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />

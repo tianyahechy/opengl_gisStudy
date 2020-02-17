@@ -7,7 +7,7 @@ namespace CELL
 	public:
 		unsigned int		_nodes;
 		unsigned int		_drawNodes;
-		unsigned int		_textCounts;
+		unsigned int		_texCounts;
 		unsigned int		_texUsed;
 		unsigned int		_texFree;
 	};

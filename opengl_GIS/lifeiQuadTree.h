@@ -1,7 +1,7 @@
 #pragma once
 #include "lifeiObject_2.h"
 #include "lifeiContext.h"
-#include "lifeiTerrainInterface.h"
+#include "lifeiTerrainInterface_2.h"
 #include "lifeiTileId.h"
 #include "AxisALignedBox.h"
 
@@ -26,7 +26,7 @@ namespace CELL
 	public:
 		typedef std::vector<lifeiQuadTree*> ArrayNode;
 	public:
-		lifeiTerrainInterface* _terrain;
+		lifeiTerrainInterface_2* _terrain;
 		//对应瓦片id
 		 lifeiTileId _tileID;
 		//数据标志
@@ -49,7 +49,7 @@ namespace CELL
 		lifeiQuadTree * _childs[4];
 	public:
 		lifeiQuadTree( 
-			lifeiTerrainInterface * pInterface,
+			lifeiTerrainInterface_2 * pInterface,
 			lifeiQuadTree* parent, 
 			const real2 vStart, 
 			const real2 vEnd,

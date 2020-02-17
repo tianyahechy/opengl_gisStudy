@@ -4,7 +4,7 @@
 namespace CELL
 {
 	lifeiQuadTree::lifeiQuadTree(
-		lifeiTerrainInterface* pInterface,
+		lifeiTerrainInterface_2* pInterface,
 		lifeiQuadTree* parent,
 		const real2 vStart,
 		const real2 vEnd,
