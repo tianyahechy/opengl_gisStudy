@@ -3,7 +3,7 @@
 #include "lifeiFrame.h"
 #include "lifeiOpengl.h"
 #include "lifeiTimeStamp.hpp"
-#include "lifeiTerrain.h"
+#include "lifeiTerrain_2.h"
 #include "lifeiContext.h"
 
 namespace CELL
@@ -14,7 +14,7 @@ namespace CELL
 		real3				_basePoint;
 		bool				_bLbuttonDown;
 		int2				_lbuttonDown;
-		lifeiTerrain		_terrain;
+		lifeiTerrain_2		_terrain;
 		bool				_bMbuttonDown;
 		int2				_mButtonDown;
 

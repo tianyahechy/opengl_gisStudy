@@ -187,7 +187,6 @@
     <ClInclude Include="lifeiTaskSystem_2.h" />
     <ClInclude Include="lifeiTaskThread_2.h" />
     <ClInclude Include="lifeiTask_2.h" />
-    <ClInclude Include="lifeiTerrain.h" />
     <ClInclude Include="lifeiTerrainInterface_2.h" />
     <ClInclude Include="lifeiTerrain_2.h" />
     <ClInclude Include="lifeiTexture.h" />
@@ -222,7 +221,6 @@
     <ClCompile Include="lifeiSemaphore_2.cpp" />
     <ClCompile Include="lifeiTaskSystem_2.cpp" />
     <ClCompile Include="lifeiTaskThread_2.cpp" />
-    <ClCompile Include="lifeiTerrain.cpp" />
     <ClCompile Include="lifeiTerrain_2.cpp" />
     <ClCompile Include="lifeiTexture.cpp" />
     <ClCompile Include="lifeiTextureMgr_2.cpp" />
