@@ -180,10 +180,10 @@
     <ClInclude Include="lifeiOpengl.h" />
     <ClInclude Include="lifeiProgram.h" />
     <ClInclude Include="LifeiProgramLibrary.h" />
-    <ClInclude Include="lifeiQuadTree.h" />
+    <ClInclude Include="lifeiQuadTree_2.h" />
     <ClInclude Include="lifeiSemaphore_2.h" />
     <ClInclude Include="lifeiShaderManager.h" />
-    <ClInclude Include="lifeiSpatialReference.h" />
+    <ClInclude Include="lifeiSpatialReference_2.h" />
     <ClInclude Include="lifeiTaskObserver_2.h" />
     <ClInclude Include="lifeiTaskSystem_2.h" />
     <ClInclude Include="lifeiTaskThread_2.h" />
@@ -218,7 +218,7 @@
     <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiOpenGL.cpp" />
     <ClCompile Include="lifeiProgram.cpp" />
-    <ClCompile Include="lifeiQuadTree.cpp" />
+    <ClCompile Include="lifeiQuadTree_2.cpp" />
     <ClCompile Include="lifeiSemaphore_2.cpp" />
     <ClCompile Include="lifeiTaskSystem_2.cpp" />
     <ClCompile Include="lifeiTaskThread_2.cpp" />

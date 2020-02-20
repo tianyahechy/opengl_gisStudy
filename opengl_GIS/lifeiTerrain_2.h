@@ -1,6 +1,6 @@
 
 #pragma once
-#include "lifeiQuadTree.h"
+#include "lifeiQuadTree_2.h"
 #include "lifeiContext.h"
 #include "lifeiTerrainInterface_2.h"
 #include "lifeiTaskSystem_2.h"
@@ -20,11 +20,11 @@ namespace CELL
 
 	public:
 		typedef std::vector<lifeiTask_2*>				arrayTask;
-		typedef std::map<std::string, lifeiQuadTree*>	mapQuadTreeNode;
+		typedef std::map<std::string, lifeiQuadTree_2*>	mapQuadTreeNode;
 		typedef std::vector<P3U3>						arrayVertex;
 		
 	public:
-		lifeiQuadTree*									_root;
+		lifeiQuadTree_2*								_root;
 		lifeiContext&									_context;
 		lifeiTaskSystem_2								_taskSystem;
 		arrayTask										_tasksLoaded;	//已生成瓦片纹理的任务数组，
@@ -56,9 +56,9 @@ namespace CELL
 
 	public:
 		//将四叉树节点node的属性加入生成瓦片任务系统，获取相应的瓦片数据
-		virtual void request(lifeiQuadTree* node);
+		virtual void request(lifeiQuadTree_2* node);
 		///将四叉树节点node的属性从生成瓦片任务系统中移除
-		virtual void cancelRequest(lifeiQuadTree* node);
+		virtual void cancelRequest(lifeiQuadTree_2* node);
 		//释放纹理
 		virtual void releaseTexture(unsigned int texId);
 
@@ -72,7 +72,7 @@ namespace CELL
 
 	protected:
 		//根据四叉树节点构建三角面集合
-		void calcVertexBuffer(lifeiQuadTree::ArrayNode& nodes, arrayVertex& vertex);
+		void calcVertexBuffer(lifeiQuadTree_2::arrayNode& nodes, arrayVertex& vertex);
 		IPluginTileManager* createTileSourceDLL(const char* dllFileName);
 
 	};

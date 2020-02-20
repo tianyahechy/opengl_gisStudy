@@ -92,7 +92,7 @@ namespace CELL
 	void lifeiTerrain_2::initialize()
 	{
 		_taskSystem.start(4);
-		_root = new lifeiQuadTree(this, NULL, real2(-20037508, -20037508), real2(20037508, 20037508), 0, lifeiQuadTree::CHILD_LT);
+		_root = new lifeiQuadTree_2(this, NULL, real2(-20037508, -20037508), real2(20037508, 20037508), 0, lifeiQuadTree_2::CHILD_LT);
 	}
 
 	void lifeiTerrain_2::update(lifeiContext & context)
@@ -157,7 +157,7 @@ namespace CELL
 			return;
 		}
 		//获得绘制的所有节点
-		lifeiQuadTree::ArrayNode nodes;
+		lifeiQuadTree_2::arrayNode nodes;
 		_root->getAllRenderableNode(nodes);
 		getCounts()._drawNodes = (uint)nodes.size();
 		getCounts()._texUsed = _textureMgr.getUsedCount();
@@ -199,7 +199,7 @@ namespace CELL
 
 	}
 
-	void lifeiTerrain_2::request(lifeiQuadTree * node)
+	void lifeiTerrain_2::request(lifeiQuadTree_2 * node)
 	{
 		lifeiTileTask_2 * pTask = new lifeiTileTask_2();
 		pTask->_node = node;
@@ -216,7 +216,7 @@ namespace CELL
 		_quadTreeNodeSet[szBuf] = node;
 	}
 
-	void lifeiTerrain_2::cancelRequest(lifeiQuadTree * node)
+	void lifeiTerrain_2::cancelRequest(lifeiQuadTree_2 * node)
 	{
 		char szBuf[128];
 		sprintf(szBuf, "%d-%d-%d:%p", node->_tileID._lev, node->_tileID._row, node->_tileID._col, node);
@@ -265,13 +265,13 @@ namespace CELL
 	{
 	}
 
-	void lifeiTerrain_2::calcVertexBuffer(lifeiQuadTree::ArrayNode & nodes, arrayVertex & vertex)
+	void lifeiTerrain_2::calcVertexBuffer(lifeiQuadTree_2::arrayNode & nodes, arrayVertex & vertex)
 	{
 		vertex.resize(nodes.size() * 6);
 		P3U3 * vPlane = &vertex.front();
 		for (size_t i = 0; i < nodes.size(); i++)
 		{
-			lifeiQuadTree* pNode = nodes[i];
+			lifeiQuadTree_2* pNode = nodes[i];
 			real2 vStart = pNode->_vStart;
 			real2 vEnd = pNode->_vEnd;
 

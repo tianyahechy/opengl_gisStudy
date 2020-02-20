@@ -16,7 +16,7 @@ namespace CELL
 		lifeiTextureMgr_2(lifeiContext& context);
 		//初始化
 		virtual bool initialize();
-		//查询获取
+		//查询获取,如果是-1，则无效，否则在lifeiquadtree类的析构中释放纹理
 		virtual uint allocTexture();
 		//释放纹理
 		virtual void freeTexture(uint index);

@@ -1,7 +1,7 @@
 #pragma once
 namespace CELL
 {
-	class lifeiQuadTree;
+	class lifeiQuadTree_2;
 	class lifeiCounts
 	{
 	public:
@@ -21,9 +21,9 @@ namespace CELL
 		//释放纹理
 		virtual void releaseTexture(unsigned int texID) = 0;
 		//请求数据
-		virtual void request(lifeiQuadTree* node) = 0;
+		virtual void request(lifeiQuadTree_2* node) = 0;
 		//取消数据
-		virtual void cancelRequest(lifeiQuadTree* node) = 0;
+		virtual void cancelRequest(lifeiQuadTree_2* node) = 0;
 		//获取统计信息
 		virtual lifeiCounts& getCounts() = 0;
 	};

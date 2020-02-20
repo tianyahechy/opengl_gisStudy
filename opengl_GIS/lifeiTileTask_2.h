@@ -5,11 +5,11 @@
 
 namespace CELL
 {
-	class lifeiQuadTree;
+	class lifeiQuadTree_2;
 	class lifeiTileTask_2 : public lifeiTask_2 //当前要处理的瓦片的内容（各种属性）
 	{
 	public:
-		lifeiQuadTree*	_node;
+		lifeiQuadTree_2*	_node;
 		lifeiTileId		_tileId;
 		lifeiImage		_image;
 	};
