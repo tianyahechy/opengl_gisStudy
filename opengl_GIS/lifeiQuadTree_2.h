@@ -35,9 +35,10 @@ namespace CELL
 		//数据标志
 		uint _flag;
 		//世界坐标范围
-		real2	_vStart;
-		real2	_vEnd;
+		real2	_startXY;
+		real2	_endXY;
 
+		//三维纹理中相对于根节点的uv坐标（根节点起始UV（0，0），终止UV（1，1））
 		float2	_uvStart;
 		float2	_uvEnd;
 
@@ -53,8 +54,8 @@ namespace CELL
 	public:
 		lifeiQuadTree_2(lifeiTerrainInterface_2* pInterface,
 			lifeiQuadTree_2* parent,
-			const real2	vStart,
-			const real2 vEnd,
+			const real2	startXY,
+			const real2 endXY,
 			int level,
 			ChildID corner
 		);

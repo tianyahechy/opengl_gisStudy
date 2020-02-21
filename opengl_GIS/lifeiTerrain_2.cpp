@@ -272,50 +272,50 @@ namespace CELL
 		for (size_t i = 0; i < nodes.size(); i++)
 		{
 			lifeiQuadTree_2* pNode = nodes[i];
-			real2 vStart = pNode->_vStart;
-			real2 vEnd = pNode->_vEnd;
+			real2 startXY = pNode->_startXY;
+			real2 endXY = pNode->_endXY;
 
 			float2 uvStart = pNode->_uvStart;
 			float2 uvEnd = pNode->_uvEnd;
 
-			vPlane[0].x = vStart.x;
+			vPlane[0].x = startXY.x;
 			vPlane[0].y = 0;
-			vPlane[0].z = vEnd.y;
+			vPlane[0].z = endXY.y;
 			vPlane[0].u = uvStart.x;
 			vPlane[0].v = uvEnd.y;
 			vPlane[0].w = pNode->_textureID;
 
-			vPlane[1].x = vEnd.x;
+			vPlane[1].x = endXY.x;
 			vPlane[1].y = 0;
-			vPlane[1].z = vEnd.y;
+			vPlane[1].z = endXY.y;
 			vPlane[1].u = uvEnd.x;
 			vPlane[1].v = uvEnd.y;
 			vPlane[1].w = pNode->_textureID;
 
-			vPlane[2].x = vEnd.x;
+			vPlane[2].x = endXY.x;
 			vPlane[2].y = 0;
-			vPlane[2].z = vStart.y;
+			vPlane[2].z = startXY.y;
 			vPlane[2].u = uvEnd.x;
 			vPlane[2].v = uvStart.y;
 			vPlane[2].w = pNode->_textureID;
 
-			vPlane[3].x = vStart.x;
+			vPlane[3].x = startXY.x;
 			vPlane[3].y = 0;
-			vPlane[3].z = vEnd.y;
+			vPlane[3].z = endXY.y;
 			vPlane[3].u = uvStart.x;
 			vPlane[3].v = uvEnd.y;
 			vPlane[3].w = pNode->_textureID;
 
-			vPlane[4].x = vEnd.x;
+			vPlane[4].x = endXY.x;
 			vPlane[4].y = 0;
-			vPlane[4].z = vStart.y;
+			vPlane[4].z = startXY.y;
 			vPlane[4].u = uvEnd.x;
 			vPlane[4].v = uvStart.y;
 			vPlane[4].w = pNode->_textureID;
 
-			vPlane[5].x = vStart.x;
+			vPlane[5].x = startXY.x;
 			vPlane[5].y = 0;
-			vPlane[5].z = vStart.y;
+			vPlane[5].z = startXY.y;
 			vPlane[5].u = uvStart.x;
 			vPlane[5].v = uvStart.y;
 			vPlane[5].w = pNode->_textureID;

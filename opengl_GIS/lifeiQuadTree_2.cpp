@@ -3,9 +3,15 @@
 
 namespace CELL
 {
-	lifeiQuadTree_2::lifeiQuadTree_2(lifeiTerrainInterface_2 * pInterface, lifeiQuadTree_2 * parent, const real2 vStart, const real2 vEnd, int level, ChildID corner)
+	lifeiQuadTree_2::lifeiQuadTree_2(
+		lifeiTerrainInterface_2* pInterface,
+		lifeiQuadTree_2* parent,
+		const real2	startXY,
+		const real2 endXY,
+		int level,
+		ChildID corner)
 	{
-		_aabb.setExtents(vStart.x, 0, vStart.y, vEnd.x, 0, vEnd.y);
+		_aabb.setExtents(startXY.x, 0, startXY.y, endXY.x, 0, endXY.y);
 		real3 vXCenter = _aabb.getCenter();
 		lifeiSpatialReference spr;
 		real2 vWorld = spr.worldToLongLat(real2(vXCenter.x, vXCenter.z));
@@ -14,8 +20,8 @@ namespace CELL
 		_tileID._col = vTileID.x;
 		_tileID._row = vTileID.y;
 		_parent = parent;
-		_vStart = vStart;
-		_vEnd = vEnd;
+		_startXY = startXY;
+		_endXY = endXY;
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -34,30 +40,30 @@ namespace CELL
 			return;
 		}
 
-		//计算大小和中心点
+		//在三维纹理坐标系中计算相对根节点的uv坐标和中心点
 		float2 vHalf = (_parent->_uvEnd - _parent->_uvStart) * 0.5f;
-		float2 vCenter = (_parent->_uvStart + _parent->_uvEnd) * 0.5f;
+		float2 centerXYZ = (_parent->_uvStart + _parent->_uvEnd) * 0.5f;
 		_textureID = _parent->_textureID;
 		switch (corner)
 		{
 		case CELL::lifeiQuadTree_2::CHILD_LT:
-			_uvStart = float2(vCenter.x - vHalf.x, vCenter.y);
-			_uvEnd = float2(vCenter.x, vCenter.y + vHalf.y);
+			_uvStart = float2(centerXYZ.x - vHalf.x, centerXYZ.y);
+			_uvEnd = float2(centerXYZ.x, centerXYZ.y + vHalf.y);
 			break;
 
 		case CELL::lifeiQuadTree_2::CHILD_RT:
-			_uvStart = float2(vCenter.x, vCenter.y);
-			_uvEnd = float2(vCenter.x + vHalf.x , vCenter.y + vHalf.y);
+			_uvStart = float2(centerXYZ.x, centerXYZ.y);
+			_uvEnd = float2(centerXYZ.x + vHalf.x , centerXYZ.y + vHalf.y);
 			break;
 
 		case CELL::lifeiQuadTree_2::CHILD_LB:
-			_uvStart = float2(vCenter.x - vHalf.x, vCenter.y - vHalf.y);
-			_uvEnd = float2(vCenter.x, vCenter.y);
+			_uvStart = float2(centerXYZ.x - vHalf.x, centerXYZ.y - vHalf.y);
+			_uvEnd = float2(centerXYZ.x, centerXYZ.y);
 			break;
 
 		case CELL::lifeiQuadTree_2::CHILD_RB:
-			_uvStart = float2(vCenter.x, vCenter.y - vHalf.y);
-			_uvEnd = float2(vCenter.x + vHalf.x, vCenter.y);
+			_uvStart = float2(centerXYZ.x, centerXYZ.y - vHalf.y);
+			_uvEnd = float2(centerXYZ.x + vHalf.x, centerXYZ.y);
 			break;
 		default:
 			break;
@@ -128,72 +134,8 @@ namespace CELL
 		{
 			_flag |= FLAG_HAS_CULL;
 		}
-
-		//计算包围盒中心到摄像机的位置,
-		lifeiCamera& camera = context._camera;
-		real3 vCenter = _aabb.getCenter();
-		real3 vSize = _aabb.getSize();
-
-		real fSize = vSize.x;
-		real dis = CELL::length(vCenter - camera._eye);
-		//瓦片大小/距离，随距离进行裂分
-		bool bHasChild = this->hasChild();
-		if (dis / fSize < 3.0 && hasNoFlag(FLAG_HAS_CULL))
-		{
-			if (!bHasChild && hasImage())
-			{
-				vSize = _aabb.getHalfSize();
-				_childs[CHILD_LT] = new lifeiQuadTree_2(
-					_terrain,
-					this,
-					real2(vCenter.x - vSize.x, vCenter.z),
-					real2(vCenter.x, vCenter.z + vSize.z),
-					_tileID._lev + 1,
-					CHILD_LT
-					);
-				_childs[CHILD_RT] = new lifeiQuadTree_2(
-					_terrain,
-					this,
-					real2(vCenter.x, vCenter.z),
-					real2(vCenter.x + vSize.x, vCenter.z + vSize.z),
-					_tileID._lev + 1,
-					CHILD_RT
-				);
-				_childs[CHILD_LB] = new lifeiQuadTree_2(
-					_terrain,
-					this,
-					real2(vCenter.x - vSize.x, vCenter.z - vSize.z),
-					real2(vCenter.x, vCenter.z ),
-					_tileID._lev + 1,
-					CHILD_LB
-				);
-
-				_childs[CHILD_RB] = new lifeiQuadTree_2(
-					_terrain,
-					this,
-					real2(vCenter.x , vCenter.z - vSize.z),
-					real2(vCenter.x + vSize.x, vCenter.z),
-					_tileID._lev + 1,
-					CHILD_RB
-				);
-			}
-			else
-			{
-				//递归子节点是否可以分割
-				for (int i = 0; i < 4; i++)
-				{
-					if (_childs[i] && hasNoFlag(FLAG_HAS_CULL))
-					{
-						_childs[i]->update(context);
-					}
-					else
-					{
-						_flag &= FLAG_RENDER;
-					}
-				}
-			}
-		}
-		else
+		//如果剔除标志，则销毁子节点
+		if(hasFlag(FLAG_HAS_CULL))
 		{
 			//收回子节点
 			for (int i = 0; i < 4; i++)
@@ -205,7 +147,75 @@ namespace CELL
 				delete _childs[i];
 				_childs[i] = NULL;
 			}
+			return;
 		}
+		//计算包围盒中心到摄像机的位置,
+		lifeiCamera& camera = context._camera;
+		real3 centerXYZ = _aabb.getCenter();
+		real3 sizeXYZ = _aabb.getSize();
+
+		real fSize = sizeXYZ.x;
+		real dis = CELL::length(centerXYZ - camera._eye);
+		//如果距离/瓦片大小太大，则不处理
+		if (dis / fSize >= 3.0)
+		{
+			return;
+		}
+		//距离/瓦片大小，随距离进行裂分
+		bool bHasChild = this->hasChild();		
+		real3 halfSize = _aabb.getHalfSize();
+		//如果没有子节点，且当前节点有纹理，则进行裂分子节点
+		if (!bHasChild && hasImage())
+		{
+			_childs[CHILD_LT] = new lifeiQuadTree_2(
+				_terrain,
+				this,
+				real2(centerXYZ.x - halfSize.x, centerXYZ.z),
+				real2(centerXYZ.x, centerXYZ.z + halfSize.z),
+				_tileID._lev + 1,
+				CHILD_LT
+				);
+			_childs[CHILD_RT] = new lifeiQuadTree_2(
+				_terrain,
+				this,
+				real2(centerXYZ.x, centerXYZ.z),
+				real2(centerXYZ.x + halfSize.x, centerXYZ.z + halfSize.z),
+				_tileID._lev + 1,
+				CHILD_RT
+			);
+			_childs[CHILD_LB] = new lifeiQuadTree_2(
+				_terrain,
+				this,
+				real2(centerXYZ.x - halfSize.x, centerXYZ.z - halfSize.z),
+				real2(centerXYZ.x, centerXYZ.z ),
+				_tileID._lev + 1,
+				CHILD_LB
+			);
+
+			_childs[CHILD_RB] = new lifeiQuadTree_2(
+				_terrain,
+				this,
+				real2(centerXYZ.x , centerXYZ.z - halfSize.z),
+				real2(centerXYZ.x + halfSize.x, centerXYZ.z),
+				_tileID._lev + 1,
+				CHILD_RB
+			);
+
+			return;
+		}
+	
+		//如果有子节点，则递归更新子节点，如果没有子节点，则说明是叶子节点，加上绘制标志，考虑到当前节点没有图片，可以使用父节点图片的情况
+		//这里是4个子节点同时生成，所以不考虑细分某个子节点不存在而其他子节点存在的情形
+		for (int i = 0; i < 4; i++)
+		{
+			if (NULL == _childs[i])
+			{
+				_flag &= FLAG_RENDER;
+				break;
+			}		
+			_childs[i]->update(context);
+		}
+	
 	}
 
 	bool lifeiQuadTree_2::hasChild()
