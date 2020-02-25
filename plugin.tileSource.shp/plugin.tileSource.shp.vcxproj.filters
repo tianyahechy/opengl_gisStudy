@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="shpLoader.cpp" />
+    <ClCompile Include="shp\dbfopen.c">
+      <Filter>shp</Filter>
+    </ClCompile>
+    <ClCompile Include="shp\safileio.c">
+      <Filter>shp</Filter>
+    </ClCompile>
+    <ClCompile Include="shp\shpopen.c">
+      <Filter>shp</Filter>
+    </ClCompile>
+    <ClCompile Include="shp\shptree.c">
+      <Filter>shp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shpLoader.h" />
+    <ClInclude Include="shp\shapefil.h">
+      <Filter>shp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="shp">
+      <UniqueIdentifier>{3f6adce9-1b08-4754-8b5b-d6d3b3dae18f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
