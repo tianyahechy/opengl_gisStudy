@@ -1,6 +1,6 @@
 
 #pragma once
-#include "lifeiApp.h"
+#include "lifeiApp_2.h"
 #include <Windows.h>
 #include <tchar.h>
 #include "lifeiGLContext.h"
@@ -14,7 +14,7 @@
 
 namespace CELL
 {
-	class lifeiWinApp : public LifeiApp, public lifeiThread_2
+	class lifeiWinApp : public lifeiApp_2, public lifeiThread_2
 	{
 	public:
 		HWND					_hParentWnd;

@@ -152,4 +152,11 @@ namespace CELL
 
 		return false;
 	}
+	bool lifeiImageLoader::rgbaBuffertToDXT1(const void* data, int w, int h, lifeiImage& image)
+	{
+		image.create(w, h, lifeiImage::FORMAT_DXT1, 0);
+		void * pDst = image.data();
+		DXTC::CompressImageDXT1((BYTE*)data, (BYTE*)pDst, w, h);
+		return true;
+	}
 }

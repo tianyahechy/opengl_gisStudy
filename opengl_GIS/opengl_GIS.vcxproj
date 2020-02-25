@@ -162,7 +162,7 @@
     <ClInclude Include="IGISPlatform.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="IPluginTileManager.h" />
-    <ClInclude Include="lifeiApp.h" />
+    <ClInclude Include="lifeiApp_2.h" />
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
     <ClInclude Include="lifeiEvent.h" />
