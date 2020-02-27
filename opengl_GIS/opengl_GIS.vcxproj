@@ -159,6 +159,10 @@
     <ClInclude Include="gl\glxew.h" />
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="export.h" />
+    <ClInclude Include="IFeatureLine.h" />
+    <ClInclude Include="IFeatureManager.h" />
+    <ClInclude Include="IFeaturePoint.h" />
+    <ClInclude Include="IFeaturePolygon.h" />
     <ClInclude Include="IGISPlatform.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="IPluginTileManager.h" />
@@ -197,8 +201,10 @@
     <ClInclude Include="lifeiTileId.h" />
     <ClInclude Include="lifeiTileTask_2.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
+    <ClInclude Include="IFeature.h" />
     <ClInclude Include="lifeiWinApp.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="group.h" />
     <ClInclude Include="tmat3x3.h" />
     <ClInclude Include="tmat4x4.h" />
     <ClInclude Include="tray.h" />
