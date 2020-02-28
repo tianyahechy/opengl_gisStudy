@@ -206,35 +206,6 @@ namespace CELL
 			return  S_OK;
 
 		}
-
-	protected:
-		static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-		{
-			if (WM_CREATE == message)
-			{
-				CREATESTRUCT *	pSTRUCT = (CREATESTRUCT *)lParam;
-				lifeiWinApp*	pApp = (lifeiWinApp*)pSTRUCT->lpCreateParams;
-				#ifndef GWL_USERDATA
-				#define GWL_USERDATA	(-21)
-				#endif
-
-				SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG_PTR)pApp);
-				return pApp->eventProc(hWnd, WM_CREATE, wParam, lParam);
-			}
-			else
-			{
-				lifeiWinApp* pApp = (lifeiWinApp*)GetWindowLongPtr(hWnd, GWL_USERDATA);
-				if (pApp)
-				{
-					return pApp->eventProc(hWnd, message, wParam, lParam);
-				}
-				else
-				{
-					return DefWindowProc(hWnd, message, wParam, lParam);
-				}
-			}
-		}
-
 	};
 }
 

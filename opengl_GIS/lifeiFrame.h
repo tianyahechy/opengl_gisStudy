@@ -1,11 +1,11 @@
 #pragma once
 
 #include "lifeiContext.h"
-#include "lifeiInput.h"
+#include "lifeiInput_2.h"
 
 namespace CELL
 {
-	class lifeiFrame : public lifeiInput
+	class lifeiFrame : public lifeiInput_2
 	{
 	public:
 		lifeiContext&  _context;

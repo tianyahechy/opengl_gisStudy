@@ -177,7 +177,7 @@
     <ClInclude Include="lifeiGLContext.h" />
     <ClInclude Include="lifeiImage.h" />
     <ClInclude Include="lifeiImageLoader.h" />
-    <ClInclude Include="lifeiInput.h" />
+    <ClInclude Include="lifeiInput_2.h" />
     <ClInclude Include="lifeiMathUtil.h" />
     <ClInclude Include="lifeiMutex_2.h" />
     <ClInclude Include="lifeiObject_2.h" />

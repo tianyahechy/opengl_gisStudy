@@ -1,9 +1,7 @@
-
 #pragma once
-
 namespace CELL
 {
-	class lifeiInput
+	class lifeiInput_2
 	{
 	public:
 		//鼠标左键按下
@@ -26,6 +24,5 @@ namespace CELL
 		virtual void onKeyDown(int key) = 0;
 		//键盘按键抬起事件
 		virtual void onKeyUp(int key) = 0;
-		
 	};
 }
