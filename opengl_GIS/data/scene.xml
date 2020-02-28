@@ -2,13 +2,13 @@
 <root>
   <imageSource 
     url0 ="E:/opengl_gis/trunk/opengl_GIS/data/tile/L%02d/%06d-%06d.jpg" 
-    url1 ="E:/opengl_gis/trunk/opengl_GIS/data/tile" 
-    url =" http://mt2.google.cn/vt?n=404&lyrs=s&hl=zh-CN&gl=cn&v=191&x=%d&y=%d&z=%d"
+    url ="E:/opengl_gis/trunk/opengl_GIS/data/tile" 
+    url1 =" http://mt2.google.cn/vt?n=404&lyrs=s&hl=zh-CN&gl=cn&v=191&x=%d&y=%d&z=%d"
   arg0 = "col(222)"
   arg1 = "row()"
   arg2 = "lev(11)"
-  ext =".png"
-  loader ="plugin.tileSource.shp.dll"
+  ext =".jpg"
+  loader ="plugin.tileSource.googlemap.dll"
   dataSource ="E:/opengl_gis/trunk/opengl_GIS/data/china_province.shp"
   pos =""
   sss=""

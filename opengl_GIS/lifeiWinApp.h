@@ -8,7 +8,7 @@
 #include "lifeiFrameBigMap.h"
 #include "lifeiContext.h"
 #include "lifeiThread_2.h"
-#include "lifeiEvent.h"
+#include "lifeiEvent_2.h"
 #include "lifeiShaderManager.h"
 #include <assert.h>
 
@@ -25,7 +25,7 @@ namespace CELL
 		lifeiFrame	*			_frame;
 		bool					_threadRun;
 		bool					_makeResult;
-		lifeiEvent				_event;
+		lifeiEvent_2			_event;
 
 	public:
 		lifeiWinApp()

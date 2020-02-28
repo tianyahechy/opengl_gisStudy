@@ -4,20 +4,23 @@
 
 namespace CELL
 {
-	class lifeiEvent : public lifeiObject_2
+	class lifeiEvent_2 : public lifeiObject_2
 	{
 	protected:
-		HANDLE _handle;
+		HANDLE	_handle;
+
 	public:
-		lifeiEvent()
+		lifeiEvent_2()
 		{
 			_handle = CreateEvent(0, 0, 0, 0);
 		}
-		virtual ~lifeiEvent()
+
+		virtual ~lifeiEvent_2()
 		{
 			CloseHandle(_handle);
 			_handle = 0;
 		}
+
 		bool set()
 		{
 			return SetEvent(_handle) == TRUE;
@@ -29,12 +32,14 @@ namespace CELL
 			{
 			case WAIT_OBJECT_0:
 				return true;
+
 			case WAIT_TIMEOUT:
 				return false;
 			default:
-				return false;
+				return true;
 			}
 		}
+
 		void reset()
 		{
 			ResetEvent(_handle);
