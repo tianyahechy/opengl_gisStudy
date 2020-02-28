@@ -6,7 +6,7 @@
 namespace CELL
 {
 	class lifeiFrame;
-	class lifeiShaderManager;
+	class lifeiShaderManager_2;
 	class lifeiOpenGL;
 	class lifeiGIS3DPlatform;
 	class lifeiContext
@@ -16,7 +16,7 @@ namespace CELL
 		lifeiGIS3DPlatform * _app;
 		lifeiOpenGL *		_device;
 		//shader指针
-		lifeiShaderManager *_shaderMgr;
+		lifeiShaderManager_2 *_shaderMgr;
 		//窗口的大小
 		int					_width;
 		int					_height;

@@ -5,7 +5,7 @@
 #include "lifeiTimeStamp.hpp"
 #include "rapidxml.hpp"
 #include "IPluginTileManager.h"
-#include "lifeiShaderManager.h"
+#include "lifeiShaderManager_2.h"
 
 namespace CELL
 {
@@ -171,7 +171,7 @@ namespace CELL
 		//对节点进行绘制
 		lifeiTimeStamp tm;
 		//获取shader
-		PROGRAM_P3_U3_TEXARRAY& prg = context._shaderMgr->_program_P3_U3_TEXARRAY;
+		PROGRAM_P3_U3_TEXARRAY& prg = context._shaderMgr->_program_P3_U3_TEXTARRAY;
 		//根据四叉树可绘制的节点得到绘制的顶点数组
 		calcVertexBuffer(nodes, _vertexVector);
 		context._device->bindTextureArray(&_textureMgr._textureId);

@@ -3,7 +3,7 @@
 #include "lifeiFrameBigMap.h"
 #include "lifeiOpengl.h"
 #include "lifeiContext.h"
-#include "lifeiShaderManager.h"
+#include "lifeiShaderManager_2.h"
 #include "lifeiSpatialReference.h"
 
 #define FSIZE	20037508

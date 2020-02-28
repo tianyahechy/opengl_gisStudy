@@ -9,7 +9,7 @@
 #include "lifeiContext.h"
 #include "lifeiThread_2.h"
 #include "lifeiEvent_2.h"
-#include "lifeiShaderManager.h"
+#include "lifeiShaderManager_2.h"
 #include <assert.h>
 
 namespace CELL
@@ -20,7 +20,7 @@ namespace CELL
 		HWND					_hParentWnd;
 		LifeiGLContext			_contextGL;
 		lifeiContext			_context;
-		lifeiShaderManager		_shaderMgr;
+		lifeiShaderManager_2	_shaderMgr;
 		lifeiOpenGL				_device;
 		lifeiFrame	*			_frame;
 		bool					_threadRun;

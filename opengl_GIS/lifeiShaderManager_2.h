@@ -3,29 +3,30 @@
 
 namespace CELL
 {
-	class lifeiShaderManager
+	class lifeiShaderManager_2
 	{
 	public:
 		//处理2d纹理数组
-		PROGRAM_P3_U3_TEXARRAY	_program_P3_U3_TEXARRAY;
+		PROGRAM_P3_U3_TEXARRAY _program_P3_U3_TEXTARRAY;
 
 	public:
-		lifeiShaderManager()
+		lifeiShaderManager_2()
 		{
+			
 		}
-		~lifeiShaderManager()
+		~lifeiShaderManager_2()
 		{
+
 		}
 
 	public:
 		void initialize(lifeiOpenGL* device)
 		{
-			_program_P3_U3_TEXARRAY.initialize(device);
+			_program_P3_U3_TEXTARRAY.initialize(device);
 		}
 		void destroy()
 		{
-			_program_P3_U3_TEXARRAY.destroy();
+			_program_P3_U3_TEXTARRAY.destroy();
 		}
-
 	};
 }
