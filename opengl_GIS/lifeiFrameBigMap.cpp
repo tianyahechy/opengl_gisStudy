@@ -11,7 +11,7 @@
 namespace CELL
 {
 	lifeiFrameBigMap::lifeiFrameBigMap(lifeiContext& context)
-		:lifeiFrame(context),
+		:lifeiFrame_2(context),
 		_bLbuttonDown(false),
 		_terrain(_context)
 	{

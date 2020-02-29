@@ -170,7 +170,6 @@
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext.h" />
     <ClInclude Include="lifeiEvent_2.h" />
-    <ClInclude Include="lifeiFrame.h" />
     <ClInclude Include="lifeiFrameBigMap.h" />
     <ClInclude Include="lifeiFrame_2.h" />
     <ClInclude Include="lifeiFrustum.h" />

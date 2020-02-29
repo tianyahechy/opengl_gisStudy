@@ -1,6 +1,6 @@
 
 #pragma once
-#include "lifeiFrame.h"
+#include "lifeiFrame_2.h"
 #include "lifeiOpengl.h"
 #include "lifeiTimeStamp.hpp"
 #include "lifeiTerrain_2.h"
@@ -8,7 +8,7 @@
 
 namespace CELL
 {
-	class lifeiFrameBigMap : public lifeiFrame
+	class lifeiFrameBigMap : public lifeiFrame_2
 	{
 		lifeiTimeStamp		_timeStamp;
 		real3				_basePoint;

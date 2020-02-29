@@ -1,5 +1,5 @@
 #pragma once
-#include "lifeiFrame.h"
+#include "lifeiFrame_2.h"
 #include <Windows.h>
 
 namespace CELL
@@ -10,7 +10,7 @@ namespace CELL
 		//创建窗口函数
 		virtual bool createWindow(HWND hParantWnd, int width, int height, HINSTANCE hInst) = 0;
 		//创建框架
-		virtual lifeiFrame* createFrame() = 0;
+		virtual lifeiFrame_2* createFrame() = 0;
 		//入口函数
 		virtual void main(int argc, char** argv) = 0;
 	};

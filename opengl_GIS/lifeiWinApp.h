@@ -22,7 +22,7 @@ namespace CELL
 		lifeiContext			_context;
 		lifeiShaderManager_2	_shaderMgr;
 		lifeiOpenGL				_device;
-		lifeiFrame	*			_frame;
+		lifeiFrame_2	*		_frame;
 		bool					_threadRun;
 		bool					_makeResult;
 		lifeiEvent_2			_event;
@@ -70,7 +70,7 @@ namespace CELL
 		}
 	
 		//´´½¨¿ò¼Ü
-		virtual lifeiFrame* createFrame()
+		virtual lifeiFrame_2* createFrame()
 		{
 			return new lifeiFrameBigMap(_context);
 		}
