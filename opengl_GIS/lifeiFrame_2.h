@@ -5,19 +5,19 @@
 
 namespace CELL
 {
-	class lifeiFrame : public lifeiInput_2
+	class lifeiFrame_2 : public lifeiInput_2
 	{
 	public:
-		lifeiContext&  _context;
+		lifeiContext& _context;
+		
 	public:
-		lifeiFrame(lifeiContext& context)
+		lifeiFrame_2(lifeiContext& context)
 			: _context(context)
 		{
-
 		}
-		virtual ~lifeiFrame()
-		{
 
+		virtual ~lifeiFrame_2()
+		{
 		}
 		//º”‘ÿ≥°æ∞
 		virtual bool loadScene(const char* fileName) = 0;
