@@ -202,7 +202,7 @@
     <ClInclude Include="lifeiTileTask_2.h" />
     <ClInclude Include="lifeiTimeStamp.hpp" />
     <ClInclude Include="IFeature.h" />
-    <ClInclude Include="lifeiWinApp.h" />
+    <ClInclude Include="lifeiWinApp_2.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="group.h" />
     <ClInclude Include="tmat3x3.h" />
@@ -232,6 +232,7 @@
     <ClCompile Include="lifeiTexture.cpp" />
     <ClCompile Include="lifeiTextureMgr_2.cpp" />
     <ClCompile Include="lifeiThread_2.cpp" />
+    <ClCompile Include="lifeiWinApp_2.cpp" />
     <ClCompile Include="shp\dbfopen.c" />
     <ClCompile Include="shp\safileio.c" />
     <ClCompile Include="shp\shpopen.c" />

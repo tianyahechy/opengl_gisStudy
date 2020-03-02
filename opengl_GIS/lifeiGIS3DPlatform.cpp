@@ -1,6 +1,5 @@
 #include "lifeiGIS3DPlatform.h"
 #include "IGISPlatform.h"
-#include "lifeiWinApp.h"
 
 namespace CELL
 {
@@ -16,7 +15,7 @@ namespace CELL
 
 	bool lifeiGIS3DPlatform::initialize()
 	{
-		_winApp = new lifeiWinApp();
+		_winApp = new lifeiWinApp_2();
 		_winApp->_context._app = this;
 
 		bool bCreateWinAppSuccess = _winApp->createWindow(_createParam._hWnd, 800, 600, 0);

@@ -104,7 +104,7 @@ namespace CELL
 			int2 offset = curPoint - _lbuttonDown;
 			_lbuttonDown = curPoint;
 			_context._camera.roteteViewXByCenter(offset.x, _basePoint);
-			_context._camera.roteteViewXByCenter(offset.y, _basePoint);
+			_context._camera.roteteViewYByCenter(offset.y, _basePoint);
 
 		}
 		if (_bMbuttonDown)
