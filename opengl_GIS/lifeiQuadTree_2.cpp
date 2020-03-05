@@ -1,5 +1,5 @@
 #include "lifeiQuadTree_2.h"
-#include "lifeiSpatialReference.h"
+#include "lifeiSpatialReference_2.h"
 
 namespace CELL
 {
@@ -13,7 +13,7 @@ namespace CELL
 	{
 		_aabb.setExtents(startXY.x, 0, startXY.y, endXY.x, 0, endXY.y);
 		real3 vXCenter = _aabb.getCenter();
-		lifeiSpatialReference spr;
+		lifeiSpatialReference_2 spr;
 		real2 vWorld = spr.worldToLongLat(real2(vXCenter.x, vXCenter.z));
 		int2 vTileID = spr.getKey(level, vWorld.x, vWorld.y);
 		_tileID._lev = level;

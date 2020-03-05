@@ -4,7 +4,7 @@
 #include "lifeiOpengl.h"
 #include "lifeiContext.h"
 #include "lifeiShaderManager_2.h"
-#include "lifeiSpatialReference.h"
+#include "lifeiSpatialReference_2.h"
 
 #define FSIZE	20037508
 
