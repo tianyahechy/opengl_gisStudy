@@ -1,7 +1,7 @@
 #pragma once
 
 #include "lifeiObject_2.h"
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiTerrainInterface_2.h"
 #include "lifeiTileId.h"
 #include "AxisALignedBox.h"
@@ -63,7 +63,7 @@ namespace CELL
 		//获取可见节点
 		virtual void getAllRenderableNode(arrayNode& nodes);
 		//更新节点,根据距离进行四叉树分割
-		void update(lifeiContext& context);
+		void update(lifeiContext_2& context);
 		//判断是否有子节点（目前只要判断一个即可，因为一同添加，一同销毁)
 		bool hasChild();
 		//判断是否存在图像

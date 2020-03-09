@@ -2,7 +2,7 @@
 
 namespace CELL
 {
-	lifeiTextureMgr_2::lifeiTextureMgr_2(lifeiContext & context)
+	lifeiTextureMgr_2::lifeiTextureMgr_2(lifeiContext_2 & context)
 		: _context(context)
 	{
 		_textureId = _context._device->createTexture2dArray(256, 256, sizeof(_used), GL_COMPRESSED_RGBA_S3TC_DXT1_ANGLE);

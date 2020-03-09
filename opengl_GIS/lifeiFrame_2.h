@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiInput_2.h"
 
 namespace CELL
@@ -8,10 +8,10 @@ namespace CELL
 	class lifeiFrame_2 : public lifeiInput_2
 	{
 	public:
-		lifeiContext& _context;
+		lifeiContext_2& _context;
 		
 	public:
-		lifeiFrame_2(lifeiContext& context)
+		lifeiFrame_2(lifeiContext_2& context)
 			: _context(context)
 		{
 		}
@@ -22,10 +22,10 @@ namespace CELL
 		//加载场景
 		virtual bool loadScene(const char* fileName) = 0;
 		//更新数据
-		virtual void update(lifeiContext& context) = 0;
+		virtual void update(lifeiContext_2& context) = 0;
 		//开始绘制
-		virtual void onFrameStart(lifeiContext& context) = 0;
+		virtual void onFrameStart(lifeiContext_2& context) = 0;
 		//结束绘制
-		virtual void onFrameEnd(lifeiContext& context) = 0;
+		virtual void onFrameEnd(lifeiContext_2& context) = 0;
 	};
 }

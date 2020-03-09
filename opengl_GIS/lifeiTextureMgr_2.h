@@ -1,5 +1,5 @@
 #pragma once
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiOpengl.h"
 #include "lifeiTexture3dID.h"
 
@@ -8,12 +8,12 @@ namespace CELL
 	class lifeiTextureMgr_2
 	{
 	public:
-		lifeiContext&			_context;
+		lifeiContext_2&			_context;
 		bool					_used[1024];
 		lifeiTexture3dID		_textureId;
 
 	public:
-		lifeiTextureMgr_2(lifeiContext& context);
+		lifeiTextureMgr_2(lifeiContext_2& context);
 		//初始化
 		virtual bool initialize();
 		//查询获取,如果是-1，则无效，否则在lifeiquadtree类的析构中释放纹理

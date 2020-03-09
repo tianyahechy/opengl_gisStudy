@@ -5,7 +5,7 @@
 #include "lifeiGLContext.h"
 #include "lifeiOpengl.h"
 #include "lifeiFrameBigMap.h"
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiThread_2.h"
 #include "lifeiEvent_2.h"
 #include "lifeiShaderManager_2.h"
@@ -18,7 +18,7 @@ namespace CELL
 	public:
 		HWND					_hParentWnd;
 		LifeiGLContext			_contextGL;
-		lifeiContext			_context;
+		lifeiContext_2			_context;
 		lifeiShaderManager_2	_shaderMgr;
 		lifeiOpenGL				_device;
 		lifeiFrame_2	*		_frame;

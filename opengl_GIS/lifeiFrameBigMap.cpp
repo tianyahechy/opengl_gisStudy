@@ -2,7 +2,7 @@
 
 #include "lifeiFrameBigMap.h"
 #include "lifeiOpengl.h"
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiShaderManager_2.h"
 #include "lifeiSpatialReference_2.h"
 
@@ -10,7 +10,7 @@
 
 namespace CELL
 {
-	lifeiFrameBigMap::lifeiFrameBigMap(lifeiContext& context)
+	lifeiFrameBigMap::lifeiFrameBigMap(lifeiContext_2& context)
 		:lifeiFrame_2(context),
 		_bLbuttonDown(false),
 		_terrain(_context)
@@ -33,7 +33,7 @@ namespace CELL
 		return _terrain.loadScene(fileName);
 	}
 
-	void lifeiFrameBigMap::update(lifeiContext&)
+	void lifeiFrameBigMap::update(lifeiContext_2&)
 	{
 		_context._device->setViewPort(0, 0, _context._width, _context._height);
 		_context._screenPrj = CELL::ortho<real>(0.0f, (real)_context._width, (real) _context._height, 0, -1000.0f, 1000.0f);
@@ -72,7 +72,7 @@ namespace CELL
 		_terrain.update(_context);
 	}
 
-	void lifeiFrameBigMap::onFrameStart(lifeiContext& context)
+	void lifeiFrameBigMap::onFrameStart(lifeiContext_2& context)
 	{
 		_context._device->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		_context._device->clearColor(0, 0, 0, 1);
@@ -80,7 +80,7 @@ namespace CELL
 		_terrain.render(_context);
 	}
 
-	void lifeiFrameBigMap::onFrameEnd(lifeiContext& context)
+	void lifeiFrameBigMap::onFrameEnd(lifeiContext_2& context)
 	{
 
 	}

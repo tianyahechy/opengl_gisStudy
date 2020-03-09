@@ -115,7 +115,7 @@ namespace CELL
 		}
 	}
 
-	void lifeiQuadTree_2::update(lifeiContext & context)
+	void lifeiQuadTree_2::update(lifeiContext_2 & context)
 	{
 		//判断包围盒是否与摄像机六棱锥相交
 		CELL::real minX = _aabb._minimum.x;

@@ -9,7 +9,7 @@
 
 namespace CELL
 {
-	lifeiTerrain_2::lifeiTerrain_2(lifeiContext & context)
+	lifeiTerrain_2::lifeiTerrain_2(lifeiContext_2 & context)
 		: _context(context),
 		_textureMgr(_context)
 	{
@@ -95,7 +95,7 @@ namespace CELL
 		_root = new lifeiQuadTree_2(this, NULL, real2(-20037508, -20037508), real2(20037508, 20037508), 0, lifeiQuadTree_2::CHILD_LT);
 	}
 
-	void lifeiTerrain_2::update(lifeiContext & context)
+	void lifeiTerrain_2::update(lifeiContext_2 & context)
 	{
 		if ( 0 == _root)
 		{
@@ -139,7 +139,7 @@ namespace CELL
 		}
 	}
 
-	void lifeiTerrain_2::render(lifeiContext & context)
+	void lifeiTerrain_2::render(lifeiContext_2 & context)
 	{
 		renderPackVertex(context);
 	}
@@ -150,7 +150,7 @@ namespace CELL
 		return _counts;
 	}
 
-	void lifeiTerrain_2::renderPackVertex(lifeiContext & context)
+	void lifeiTerrain_2::renderPackVertex(lifeiContext_2 & context)
 	{
 		if ( 0 == _root)
 		{

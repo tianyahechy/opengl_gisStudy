@@ -1,7 +1,7 @@
 
 #pragma once
 #include "lifeiQuadTree_2.h"
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 #include "lifeiTerrainInterface_2.h"
 #include "lifeiTaskSystem_2.h"
 #include "lifeiTextureMgr_2.h"
@@ -25,7 +25,7 @@ namespace CELL
 		
 	public:
 		lifeiQuadTree_2*								_root;
-		lifeiContext&									_context;
+		lifeiContext_2&									_context;
 		lifeiTaskSystem_2								_taskSystem;
 		arrayTask										_tasksLoaded;	//已生成瓦片纹理的任务数组，
 		lifeiMutex_2									_mutex;
@@ -38,7 +38,7 @@ namespace CELL
 		HMODULE											_hTileSourceDll;
 
 	public:
-		lifeiTerrain_2(lifeiContext& context);
+		lifeiTerrain_2(lifeiContext_2& context);
 		~lifeiTerrain_2();
 
 		//加载场景
@@ -46,13 +46,13 @@ namespace CELL
 		//创建节点
 		virtual void initialize();
 		//更新要绘制的瓦片数据
-		virtual void update(lifeiContext& context);
+		virtual void update(lifeiContext_2& context);
 		//绘制
-		virtual void render(lifeiContext& context);
+		virtual void render(lifeiContext_2& context);
 		//获取统计信息
 		virtual lifeiCounts& getCounts();
 		//绘制方式1，顶点数据打包
-		virtual void renderPackVertex(lifeiContext& context);
+		virtual void renderPackVertex(lifeiContext_2& context);
 
 	public:
 		//将四叉树节点node的属性加入生成瓦片任务系统，获取相应的瓦片数据

@@ -168,9 +168,10 @@
     <ClInclude Include="IPluginTileManager.h" />
     <ClInclude Include="lifeiApp_2.h" />
     <ClInclude Include="lifeiCamera.h" />
-    <ClInclude Include="lifeiContext.h" />
+    <ClInclude Include="lifeiContext_2.h" />
     <ClInclude Include="lifeiEvent_2.h" />
     <ClInclude Include="lifeiFrameBigMap.h" />
+    <ClInclude Include="lifeiFrameBigMap_2.h" />
     <ClInclude Include="lifeiFrame_2.h" />
     <ClInclude Include="lifeiFrustum.h" />
     <ClInclude Include="lifeiGIS3DPlatform.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="CELLDXTCompressor.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="lifeiFrameBigMap.cpp" />
+    <ClCompile Include="lifeiFrameBigMap_2.cpp" />
     <ClCompile Include="lifeiGIS3DPlatform.cpp" />
     <ClCompile Include="lifeiImageLoader.cpp" />
     <ClCompile Include="lifeiOpenGL.cpp" />

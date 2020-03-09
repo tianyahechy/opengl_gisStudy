@@ -4,7 +4,7 @@
 #include "lifeiOpengl.h"
 #include "lifeiTimeStamp.hpp"
 #include "lifeiTerrain_2.h"
-#include "lifeiContext.h"
+#include "lifeiContext_2.h"
 
 namespace CELL
 {
@@ -19,17 +19,17 @@ namespace CELL
 		int2				_mButtonDown;
 
 	public:
-		lifeiFrameBigMap(lifeiContext& context);
+		lifeiFrameBigMap(lifeiContext_2& context);
 		virtual ~lifeiFrameBigMap();
 
 		//加载场景
 		virtual bool loadScene(const char* fileName);
 		//更新数据
-		virtual void update(lifeiContext& context);
+		virtual void update(lifeiContext_2& context);
 		//开始绘制
-		virtual void onFrameStart(lifeiContext& context);
+		virtual void onFrameStart(lifeiContext_2& context);
 		//结束绘制
-		virtual void onFrameEnd(lifeiContext& context);
+		virtual void onFrameEnd(lifeiContext_2& context);
 
 		//鼠标左键提起
 		virtual void onLButtonUp(int x, int y);
