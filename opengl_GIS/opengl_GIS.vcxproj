@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AxisALignedBox.h" />
+    <ClInclude Include="AxisALignedBox2d.h" />
     <ClInclude Include="cameraMath.h" />
     <ClInclude Include="CELLDXTCompressor.h" />
     <ClInclude Include="gl\eglew.h" />
@@ -160,7 +161,7 @@
     <ClInclude Include="gl\wglew.h" />
     <ClInclude Include="export.h" />
     <ClInclude Include="IFeatureLine.h" />
-    <ClInclude Include="IFeatureManager.h" />
+    <ClInclude Include="ILayer.h" />
     <ClInclude Include="IFeaturePoint.h" />
     <ClInclude Include="IFeaturePolygon.h" />
     <ClInclude Include="IGISPlatform.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="lifeiQuadTree_2.h" />
     <ClInclude Include="lifeiSemaphore_2.h" />
     <ClInclude Include="lifeiShaderManager_2.h" />
+    <ClInclude Include="lifeiShpLayer.h" />
     <ClInclude Include="lifeiSpatialReference_2.h" />
     <ClInclude Include="lifeiTaskObserver_2.h" />
     <ClInclude Include="lifeiTaskSystem_2.h" />
@@ -228,6 +230,7 @@
     <ClCompile Include="lifeiProgram.cpp" />
     <ClCompile Include="lifeiQuadTree_2.cpp" />
     <ClCompile Include="lifeiSemaphore_2.cpp" />
+    <ClCompile Include="lifeiShpLayer.cpp" />
     <ClCompile Include="lifeiTaskSystem_2.cpp" />
     <ClCompile Include="lifeiTaskThread_2.cpp" />
     <ClCompile Include="lifeiTerrain_2.cpp" />
