@@ -43,7 +43,7 @@ namespace CELL
 
 	lifeiFrame_2 * lifeiWinApp_2::createFrame()
 	{
-		return new lifeiFrameBigMap(_context);
+		return new lifeiFrameBigMap_2(_context);
 	}
 
 	void lifeiWinApp_2::main(int argc, char ** argv)

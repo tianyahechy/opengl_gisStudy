@@ -114,7 +114,7 @@ namespace CELL
 
 	void lifeiFrameBigMap_2::onMouseMove(int x, int y)
 	{
-		/*
+		
 		if (_bLbuttonDown)
 		{
 			int2 curPoint(x, y);
@@ -133,7 +133,7 @@ namespace CELL
 			moveScene(_basePoint, ofScreen);
 			
 		}
-		*/
+		
 	}
 
 	void lifeiFrameBigMap_2::onMouseWheel(int delta)
@@ -183,19 +183,38 @@ namespace CELL
 		camera.update();
 	}
 
-	/*
+	
 	bool lifeiFrameBigMap_2::getPointsFromScreen(int x, int y, real3 & point)
 	{
 		CELL::Ray ray = _context._camera.createRayFromScreen(x, y);
-		real4 t, u, v;
+		real t, u, v;
 		bool res = CELL::intersectTriangle<real>(
 			ray.getOrigin(),
 			ray.getDirection(),
 			real3(-FSIZE, -3.0f, +FSIZE),
+			real3(+FSIZE, -3.0f, +FSIZE),
+			real3(+FSIZE, -3.0f, -FSIZE),
+			&t, &u, &v
+			);
 
-			)
+		if (!res)
+		{
+			res = CELL::intersectTriangle<real>(
+				ray.getOrigin(),
+				ray.getDirection(),
+				real3(-FSIZE, -3.0f, +FSIZE),
+				real3(+FSIZE, -3.0f, -FSIZE),
+				real3(-FSIZE, -3.0f, -FSIZE),
+				&t, &u, &v
+				);
+		}
+		if (res)
+		{
+			point = ray.getPoint(t);
+		}
+		return res;
 	}
-	*/
+	
 
 
 }

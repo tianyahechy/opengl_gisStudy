@@ -49,7 +49,7 @@ namespace CELL
 
 	protected:
 		//返回鼠标点击出射线与场景的交点
-		//bool getPointsFromScreen(int x, int y, real3& point);
+		bool getPointsFromScreen(int x, int y, real3& point);
 		//平移场景
 		void moveScene(const real3& worldPickup, const int2& ofScreen);
 

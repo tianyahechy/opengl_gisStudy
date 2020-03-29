@@ -4,7 +4,7 @@
 #include <tchar.h>
 #include "lifeiGLContext.h"
 #include "lifeiOpengl.h"
-#include "lifeiFrameBigMap.h"
+#include "lifeiFrameBigMap_2.h"
 #include "lifeiContext_2.h"
 #include "lifeiThread_2.h"
 #include "lifeiEvent_2.h"
