@@ -153,6 +153,7 @@ namespace CELL
 			_matProj = CELL::perspective<real>(fovY, aspect, zNear, zFar);
 		}
 
+		/*
 		//世界坐标转化为窗口坐标
 		bool project(const real4& world, real4& screen)
 		{
@@ -176,13 +177,37 @@ namespace CELL
 
 			return true;
 		}
+		*/
+		//世界坐标转为窗口坐标
+		bool project_2(const real4& world, real4& screen)
+		{
+			screen = (_matProj * _matView * _matWorld) * world;
+			if (screen.w == 0.0f)
+			{
+				return false;
+			}
+			screen.x /= screen.w;
+			screen.y /= screen.w;
+			screen.z /= screen.w;
+
+			//将范围到0-1
+			screen.x = screen.x * 0.5f + 0.5f;
+			screen.y = screen.y  * 0.5f + 0.5f;
+			screen.z = screen.z * 0.5f + 0.5f;
+
+			//映射到视口
+			screen.x = screen.x * _viewSize.x;
+			screen.y = _viewSize.y - screen.y * _viewSize.y;
+
+			return true;
+		}
 
 		//世界坐标转化为窗口坐标
 		real2 worldToScreen(const real3& world)
 		{
 			real4 worlds(world.x, world.y, world.z, 1);
 			real4 screens;
-			project(worlds, screens);
+			project_2(worlds, screens);
 			return real2(screens.x, screens.y);
 		}
 		
@@ -191,7 +216,7 @@ namespace CELL
 		{
 			real4 worlds(world.x, world.y, world.z, 1);
 			real4 screens;
-			project(worlds, screens);
+			project_2(worlds, screens);
 			return int2((int)screens.x, (int)screens.y);
 		}
 		

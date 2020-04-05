@@ -1,6 +1,6 @@
 
 #include "TMSLoader.h"
-#include "../opengl_GIS/lifeiTileTask.h"
+#include "../opengl_GIS/lifeiTileTask_2.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 #include "../opengl_GIS/IPluginTileManager.h"
 
@@ -28,7 +28,7 @@ namespace CELL
 
 	lifeiTask_2 * TMSLoader::load(lifeiTask_2 * task)
 	{
-		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
+		lifeiTileTask_2* pTask = dynamic_cast<lifeiTileTask_2*> (task);
 		char    szPathName[1024];
 		sprintf(szPathName, "%s/%d/%d/%d%s", _path, pTask->_tileId._lev, pTask->_tileId._col, pTask->_tileId._row, _ext);
 		bool bLoadSuccess = lifeiImageLoader::loadImageToDXT1(szPathName, pTask->_image);

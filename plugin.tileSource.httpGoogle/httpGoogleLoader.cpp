@@ -1,6 +1,6 @@
 
 #include "httpGoogleLoader.h"
-#include "../opengl_GIS/lifeiTileTask.h"
+#include "../opengl_GIS/lifeiTileTask_2.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 #include "../opengl_GIS/IPluginTileManager.h"
 
@@ -28,7 +28,7 @@ namespace CELL
 
 	lifeiTask_2 * httpGoogleLoader::load(lifeiTask_2 * task)
 	{
-		lifeiTileTask* pTask = dynamic_cast<lifeiTileTask*> (task);
+		lifeiTileTask_2* pTask = dynamic_cast<lifeiTileTask_2*> (task);
 		int row = pTask->_tileId._row;
 		int col = pTask->_tileId._col;
 		int level = pTask->_tileId._lev;
