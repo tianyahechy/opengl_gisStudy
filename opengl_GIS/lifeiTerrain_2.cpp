@@ -6,6 +6,7 @@
 #include "rapidxml.hpp"
 #include "IPluginTileManager.h"
 #include "lifeiShaderManager_2.h"
+#include "lifeiShpLayer.h"
 
 namespace CELL
 {
@@ -24,6 +25,9 @@ namespace CELL
 		_counts._texCounts = sizeof(_textureMgr._used);
 		_counts._texFree = _textureMgr.getFreeCount();
 		_counts._texUsed = _textureMgr.getUsedCount();
+
+		lifeiShpLayer layer;
+		layer.loadShp("E:\\opengl_gis\\trunk\\opengl_GIS\\data\\shp\\world.shp");
 	}
 
 	lifeiTerrain_2::~lifeiTerrain_2()

@@ -6,8 +6,8 @@ namespace CELL
 	class Group
 	{
 	public:
-		Group();
-		~Group();
+		Group() {};
+		~Group() {};
 
 		unsigned int start;
 		unsigned int count;

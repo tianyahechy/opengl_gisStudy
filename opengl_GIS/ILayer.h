@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "AxisALignedBox.h"
+
+#include "AxisALignedBox2d.h"
 //矢量图层
 namespace CELL
 {
@@ -26,7 +28,7 @@ namespace CELL
 		//根据矢量要素名称查询
 		virtual IFeature* query(const char* name) = 0;
 		//根据经纬度范围查找矢量要素
-		virtual size_t query(const CELL::aabb3dr& aabb, arrayFeature& features) = 0;
+		virtual size_t query(const CELL::aabb2dr& aabb, arrayFeature& features) = 0;
 	};
 
 }

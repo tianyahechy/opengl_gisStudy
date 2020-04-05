@@ -1,6 +1,6 @@
 #pragma once
 #include "tvec2.h"
-#include "AxisALignedBox.h"
+#include "AxisALignedBox2d.h"
 namespace CELL
 {
 	class Group;
@@ -22,7 +22,7 @@ namespace CELL
 		//获取组的个数
 		virtual size_t getGroupCount() = 0;
 		//获取组数据
-		virtual Group* getGroup() = 0;
+		virtual Group* getGroup(size_t index) = 0;
 	};
 
 }

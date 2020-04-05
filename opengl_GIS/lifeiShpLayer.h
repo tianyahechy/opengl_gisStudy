@@ -8,6 +8,9 @@ namespace CELL
 	class lifeiShpLayer : public ILayer
 	{
 	public:
+		//包围盒大小
+		aabb2dr _aabb;
+	public:
 		//保存所有的要素数据
 		arrayFeature _features;
 

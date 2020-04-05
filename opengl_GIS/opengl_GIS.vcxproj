@@ -171,6 +171,8 @@
     <ClInclude Include="lifeiCamera.h" />
     <ClInclude Include="lifeiContext_2.h" />
     <ClInclude Include="lifeiEvent_2.h" />
+    <ClInclude Include="lifeiFeatureLine.h" />
+    <ClInclude Include="lifeiFeaturePoint.h" />
     <ClInclude Include="lifeiFrameBigMap_2.h" />
     <ClInclude Include="lifeiFrame_2.h" />
     <ClInclude Include="lifeiFrustum.h" />
@@ -221,6 +223,8 @@
   <ItemGroup>
     <ClCompile Include="CELLDXTCompressor.cpp" />
     <ClCompile Include="glew.c" />
+    <ClCompile Include="lifeiFeatureLine.cpp" />
+    <ClCompile Include="lifeiFeaturePoint.cpp" />
     <ClCompile Include="lifeiFrameBigMap_2.cpp" />
     <ClCompile Include="lifeiGIS3DPlatform.cpp" />
     <ClCompile Include="lifeiImageLoader.cpp" />

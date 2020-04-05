@@ -7,8 +7,8 @@ namespace CELL
 		public IFeature
 	{
 	public:
-		IFeatureLine();
-		~IFeatureLine();
+		IFeatureLine() {};
+		~IFeatureLine() {};
 	};
 
 }

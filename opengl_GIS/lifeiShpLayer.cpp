@@ -1,6 +1,8 @@
 #include "lifeiShpLayer.h"
 #include "AxisALignedBox2d.h"
 #include "IFeature.h"
+#include "lifeiFeatureLine.h"
+#include "lifeiFeaturePoint.h"
 
 namespace CELL
 {
@@ -12,34 +14,66 @@ namespace CELL
 			return false;
 		}
 
-		//矢量类型
-		switch (hShpFile->nShapeType)
-		{
-		case SHPT_POINT:
-		{
+		_aabb.setExtents(
+			hShpFile->adBoundsMin[0],
+			hShpFile->adBoundsMin[1],
+			hShpFile->adBoundsMax[0],
+			hShpFile->adBoundsMax[1]			
+			);
 
-		}
-		break;
-
-		case SHPT_ARC:
-		{
-
-		}
-		break;
-		case SHPT_POLYGON:
-		{
-
-		}
-		break;
-		default:
-			break;
-		}
 		for (int i = 0; i < hShpFile->nRecords; i++)
 		{
 			SHPObject* psShape = SHPReadObject(hShpFile, i);
+
+			char szName[64];
+			sprintf(szName, "%d", psShape->nShapeId);
+			//矢量类型
+			switch (hShpFile->nShapeType)
+			{
+			case SHPT_POINT:
 			{
 
+				lifeiFeaturePoint* pFeature = new lifeiFeaturePoint(szName);
+				pFeature->_points.resize(psShape->nVertices);
+				for (int j = 0; j < psShape->nVertices; j++)
+				{
+					pFeature->_points[j].x = psShape->padfX[j];
+					pFeature->_points[j].y = psShape->padfY[j];
+				}
+				_features.push_back(pFeature);
 			}
+			break;
+
+			case SHPT_ARC:
+			{
+
+				lifeiFeatureLine* pLine = new lifeiFeatureLine(szName);
+				pLine->_points.resize(psShape->nVertices);
+				for (int j = 0; j < psShape->nVertices; j++)
+				{
+					pLine->_points[j].x = psShape->padfX[j];
+					pLine->_points[j].y = psShape->padfY[j];
+				}
+				_features.push_back(pLine);
+			}
+			break;
+			case SHPT_POLYGON:
+			{
+
+				lifeiFeatureLine* pLine = new lifeiFeatureLine(szName);
+				pLine->_points.resize(psShape->nVertices);
+				for (int j = 0; j < psShape->nVertices; j++)
+				{
+					pLine->_points[j].x = psShape->padfX[j];
+					pLine->_points[j].y = psShape->padfY[j];
+				}
+				_features.push_back(pLine);
+			}
+			break;
+			default:
+				break;
+			}
+
 		}
 	}
 
