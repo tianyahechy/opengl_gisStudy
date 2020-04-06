@@ -48,7 +48,7 @@ namespace CELL
 
 		if (_context._keyState[VK_UP])
 		{
-			_context._camera.moveFront(_context._timePerFrame);
+			_context._camera.moveFront_2(_context._timePerFrame);
 		}
 
 		if (_context._keyState[VK_DOWN])

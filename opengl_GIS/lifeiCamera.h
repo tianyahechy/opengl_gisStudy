@@ -483,8 +483,14 @@ namespace CELL
 			_eye += normalize(_right) * _speed * fElapsed;
 			_target += normalize(_right) * _speed * fElapsed;
 		}
-
+		/*
 		virtual void moveFront(real fElapsed)
+		{
+			_eye += _dir * _speed * fElapsed;
+			_target += _dir * _speed * fElapsed;
+		}
+		*/
+		virtual void moveFront_2(real fElapsed)
 		{
 			_eye += _dir * _speed * fElapsed;
 			_target += _dir * _speed * fElapsed;
