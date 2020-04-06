@@ -26,8 +26,6 @@ namespace CELL
 		_counts._texFree = _textureMgr.getFreeCount();
 		_counts._texUsed = _textureMgr.getUsedCount();
 
-		lifeiShpLayer layer;
-		layer.loadShp("E:\\opengl_gis\\trunk\\opengl_GIS\\data\\shp\\world.shp");
 	}
 
 	lifeiTerrain_2::~lifeiTerrain_2()
@@ -344,7 +342,7 @@ namespace CELL
 			return NULL;
 		}
 		_hTileSourceDll = hDll;
-		return func(0);
+		return func(_context._app);
 	}
 
 

@@ -31,6 +31,7 @@ namespace CELL
 			x = s1;
 			y = s2;
 		}
+
 	};
 
 	template <typename T>
@@ -62,5 +63,6 @@ namespace CELL
 	typedef tvec2<double>				double2;
 	typedef tvec2<real>					real2;
 	typedef tvec2<unsigned short>		half2;
+
 
 }

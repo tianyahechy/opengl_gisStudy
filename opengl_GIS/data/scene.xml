@@ -8,8 +8,8 @@
   arg1 = "row()"
   arg2 = "lev(11)"
   ext =".jpg"
-  loader ="plugin.tileSource.googlemap.dll"
-  dataSource ="E:/opengl_gis/trunk/opengl_GIS/data/china_province.shp"
+  loader ="plugin.tileSource.shp.dll"
+  dataSource ="E:/opengl_gis/trunk/opengl_GIS/data/shp/world.shp"
   pos =""
   sss=""
   ></imageSource>

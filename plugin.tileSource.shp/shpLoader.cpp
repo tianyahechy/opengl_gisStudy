@@ -3,15 +3,41 @@
 #include "../opengl_GIS/lifeiTileTask_2.h"
 #include "../opengl_GIS/lifeiImageLoader.h"
 #include "../opengl_GIS/IPluginTileManager.h"
+#include "../opengl_GIS/IGISPlatform.h"
+#include "../opengl_GIS/lifeiShpLayer.h"
+#include "../opengl_GIS/IFeaturePoint.h"
+#include "../opengl_GIS/IFeatureLine.h"
 
 namespace CELL
 {
-	shpLoader::shpLoader()
+	shpLoader::shpLoader(IGISPlatform* app)
 	{
+		_app = app;
+		_layer = 0;
+		HWND hWnd = GetDesktopWindow();
+		HDC hDesk = GetDC(hWnd);
+		_hMemDC = CreateCompatibleDC(hDesk);
+
+		BITMAPINFO bmpInfor;
+		bmpInfor.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+		bmpInfor.bmiHeader.biWidth = 256;
+		bmpInfor.bmiHeader.biHeight = -256;
+		bmpInfor.bmiHeader.biPlanes = 1;
+		bmpInfor.bmiHeader.biBitCount = 32;
+		bmpInfor.bmiHeader.biCompression = BI_RGB;
+		bmpInfor.bmiHeader.biSizeImage = 0;
+		bmpInfor.bmiHeader.biXPelsPerMeter = 0;
+		bmpInfor.bmiHeader.biYPelsPerMeter = 0;
+		bmpInfor.bmiHeader.biClrUsed = 0;
+		bmpInfor.bmiHeader.biClrImportant = 0;
+		_hBitMap = CreateDIBSection(_hMemDC, &bmpInfor, DIB_RGB_COLORS, &_pRGBA, 0, 0);
+		SelectObject(_hMemDC, _hBitMap);
 	}
 
 	shpLoader::~shpLoader()
 	{
+		DeleteObject(_hBitMap);
+		DeleteDC(_hMemDC);
 	}
 
 	void shpLoader::setParam(const char * name, const char * value)
@@ -26,61 +52,99 @@ namespace CELL
 		}
 		else if (_stricmp(name, "arg0") == 0)
 		{
-			strncpy(_arg0, value, sizeof(_arg0));
+			size_t nLen = strlen(value);
+			size_t nCopy = sizeof(_arg0) > nLen ? nLen : sizeof(_arg0);
+			for (size_t i = 0, j = 0; i < nLen; i++)
+			{
+				if (value[i] == ' ')
+				{
+					continue;
+				}
+				_arg0[j] = value[i];
+				++j;
+			}
 		}
 		else if (_stricmp(name, "arg1") == 0)
 		{
-			strncpy(_arg1, value, sizeof(_arg1));
+			size_t nLen = strlen(value);
+			size_t nCopy = sizeof(_arg1) > nLen ? nLen : sizeof(_arg1);
+			for (size_t i = 0, j = 0; i < nLen; i++)
+			{
+				if (value[i] == ' ')
+				{
+					continue;
+				}
+				_arg1[j] = value[i];
+				++j;
+			}
 		}
 		else if (_stricmp(name, "arg2") == 0)
 		{
-			strncpy(_arg2, value, sizeof(_arg2));
+			size_t nLen = strlen(value);
+			size_t nCopy = sizeof(_arg2) > nLen ? nLen : sizeof(_arg2);
+			for (size_t i = 0, j = 0; i < nLen; i++)
+			{
+				if (value[i] == ' ')
+				{
+					continue;
+				}
+				_arg2[j] = value[i];
+				++j;
+			}
 		}
 		else if (_stricmp(name, "dataSource") == 0)
 		{
 			memset(_dataSource, 0, sizeof(_dataSource));
 			strncpy(_dataSource, value, sizeof(_dataSource));
+			_layer = _app->loadLayer(_dataSource);
 		}
 
 	}
 
 	lifeiTask_2 * shpLoader::load(lifeiTask_2 * task)
 	{
+		lifeiMutex_2::ScopeLock lk(_mutex);
 		lifeiTileTask_2* pTask = dynamic_cast<lifeiTileTask_2*> (task);
-		int row = pTask->_tileId._row;
-		int col = pTask->_tileId._col;
-		int level = pTask->_tileId._lev;
-		char    szURL[1024];
 
-		int arg0 = getArg( _arg0, pTask->_tileId);
-		int arg1 = getArg( _arg1, pTask->_tileId);
-		int arg2 = getArg( _arg2, pTask->_tileId);
-		sprintf(szURL, _path, arg0, arg1, arg2);
-		
-		if (isHttp(szURL))
+		//¼ÆËãÍßÆ¬Êý¾Ý
+		RECT rect = { 0, 0, 256, 256 };
+		HBRUSH brush = (HBRUSH)GetStockObject(DKGRAY_BRUSH);
+		FillRect(_hMemDC, &rect, brush);
+		SelectObject(_hMemDC, _hBitMap);
+
+		HPEN hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+		SelectObject(_hMemDC, hPen);
+		renderShapefile();
+
+		lifeiImageLoader::rgbaBuffertToDXT1(_pRGBA, 256, 256, pTask->_image);
+		DeleteObject(hPen);
+
+		return task;
+	}
+
+	void shpLoader::renderShapefile()
+	{
+		if (0 == _layer)
 		{
-			std::vector<char> imageData;
-			bool result = getImageData(szURL, imageData);
-			if (!result)
-			{
-				return 0;
-			}
-			bool bLoadSuccess = lifeiImageLoader::loadImageBufferToDXT1(&imageData.front(), imageData.size(), pTask->_image);
-			if (bLoadSuccess)
-			{
-				return task;
-			}
-		}
-		else
-		{
-			bool bLoadSuccess = lifeiImageLoader::loadImageToDXT1(szURL, pTask->_image);
-			if (bLoadSuccess)
-			{
-				return task;
-			}
+			return;
 		}
 
-		return nullptr;
+		size_t fCount = _layer->getFeatureCount();
+		for (size_t i = 0; i < fCount; i++)
+		{
+			IFeature* pObject = _layer->getFeature(i);
+			IFeaturePoint* pPoint = dynamic_cast<IFeaturePoint*> (pObject);
+			if (pPoint)
+			{
+				renderPoint(pPoint);
+				continue;
+			}
+			IFeatureLine* pLine = dynamic_cast<IFeatureLine*> (pObject);
+			if (pLine)
+			{
+				renderLine(pLine);
+			}
+		}
 	}
 
 	void shpLoader::unload(lifeiTask_2 * task)
@@ -91,6 +155,31 @@ namespace CELL
 	{
 	
 		return true;
+	}
+	
+	void shpLoader::renderLine(IFeatureLine* pFeature)
+	{
+		size_t nPoint = pFeature->getPointCount();
+		if ( 0 == nPoint)
+		{
+			return;
+		}
+		real2 scalar(256.0 / 360, 256.0 / 180);
+		real2 offset(180, 90);
+		real2 pt = pFeature->getPoint(0) + offset;
+		::MoveToEx(_hMemDC, (int)pt.x, (int)pt.y, 0);
+		for (size_t i = 1; i < nPoint; i++)
+		{
+			pt = pFeature->getPoint(i) + offset;
+			pt.x = pt.x* scalar.x;
+			pt.y = pt.y * scalar.y;
+			::LineTo(_hMemDC, (int)pt.x, (int)pt.y);
+		}
+	}
+	
+	void shpLoader::renderPoint(IFeaturePoint* pFeature)
+	{
+
 	}
 	
 	int shpLoader::getArg(const char* args, const lifeiTileId& id)
@@ -170,7 +259,7 @@ namespace CELL
 	
 	extern "C" EXPORTFUNC IPluginTileManager * createTileSourceDLL(IGISPlatform* platform)
 	{
-		return new shpLoader();
+		return new shpLoader(platform);
 	}
 
 }

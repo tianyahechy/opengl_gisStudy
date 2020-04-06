@@ -1,5 +1,6 @@
 #include "lifeiGIS3DPlatform.h"
 #include "IGISPlatform.h"
+#include "lifeiShpLayer.h"
 
 namespace CELL
 {
@@ -52,7 +53,18 @@ namespace CELL
 		}
 		return _winApp->_frame->loadScene(sceneFile);
 	}
-
+	//加载shp文件,并返回对象
+	ILayer * lifeiGIS3DPlatform::loadLayer(const char* shp)
+	{
+		lifeiShpLayer* pLayer = new lifeiShpLayer();
+		bool bLoadSuccess =  pLayer->loadShp(shp);
+		if (bLoadSuccess)
+		{
+			return pLayer;
+		}
+		delete pLayer;
+		return 0;
+	}
 	IGISPlatform * createPlatform(const CREATEPARAM& param)
 	{
 		return new lifeiGIS3DPlatform(param);
