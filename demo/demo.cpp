@@ -45,7 +45,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	pPlatform = CELL::createPlatform(params);
 	pPlatform->initialize();
-	pPlatform->loadScene("E:/opengl_gis/trunk/opengl_GIS/data/scene.xml");
+	pPlatform->loadScene_2("E:/opengl_gis/trunk/opengl_GIS/data/scene.xml");
 	
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DEMO));
 

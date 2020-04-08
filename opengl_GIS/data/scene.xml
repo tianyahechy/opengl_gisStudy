@@ -8,7 +8,7 @@
   arg1 = "row()"
   arg2 = "lev(11)"
   ext =".jpg"
-  loader ="plugin.tileSource.shp.dll"
+  loader ="plugin.tileSource.googlemap.dll"
   dataSource ="E:/opengl_gis/trunk/opengl_GIS/data/shp/world.shp"
   pos =""
   sss=""

@@ -24,7 +24,7 @@ namespace CELL
 		//事件响应
 		virtual LRESULT inputEvent(HWND hWnd, UINT msgId, WPARAM wParam, LPARAM lParam);
 		//加载
-		virtual bool loadScene(const char* sceneFile);		
+		virtual bool loadScene_2(const char* sceneFile);
 		//加载shp文件,并返回对象
 		virtual ILayer * loadLayer(const char* shp);
 	};

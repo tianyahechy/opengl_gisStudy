@@ -45,7 +45,8 @@ namespace CELL
 		return _winApp->eventProc(hWnd, msgId, wParam, lParam);
 	}
 
-	bool lifeiGIS3DPlatform::loadScene(const char* sceneFile)
+
+	bool lifeiGIS3DPlatform::loadScene_2(const char* sceneFile)
 	{
 		if ( 0 == _winApp || 0 == _winApp->_frame)
 		{
