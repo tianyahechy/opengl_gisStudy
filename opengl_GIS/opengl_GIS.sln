@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opengl_GIS", "opengl_GIS.vcxproj", "{517EC519-5D7A-4ACF-B7C6-3F7D5F563E35}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "..\demo\demo.vcxproj", "{C4108143-7DF3-483F-8A61-D3A84288AF1F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.googleMap", "..\plugin.tileSource.googleMap\plugin.tileSource.googleMap.vcxproj", "{C53624D5-C8E9-4765-8E36-161AF81DC497}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin.tileSource.TMS", "..\plugin.tileSource.TMS\plugin.tileSource.TMS.vcxproj", "{C0D37DEB-62DB-4DF7-9F33-55AD2AF27979}"
@@ -43,18 +41,6 @@ Global
 		{517EC519-5D7A-4ACF-B7C6-3F7D5F563E35}.Release|Win32.Build.0 = Release|Win32
 		{517EC519-5D7A-4ACF-B7C6-3F7D5F563E35}.Release|x64.ActiveCfg = Release|x64
 		{517EC519-5D7A-4ACF-B7C6-3F7D5F563E35}.Release|x64.Build.0 = Release|x64
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|Win32.Build.0 = Debug|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|x64.ActiveCfg = Debug|x64
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Debug|x64.Build.0 = Debug|x64
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|Win32.ActiveCfg = Release|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|Win32.Build.0 = Release|Win32
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|x64.ActiveCfg = Release|x64
-		{C4108143-7DF3-483F-8A61-D3A84288AF1F}.Release|x64.Build.0 = Release|x64
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{C53624D5-C8E9-4765-8E36-161AF81DC497}.Debug|Win32.ActiveCfg = Debug|Win32
