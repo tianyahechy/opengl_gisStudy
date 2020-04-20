@@ -43,7 +43,7 @@ namespace CELL
 		static void setUniform1i(int index, int v0);
 
 		static void setUniformMatrix4fv(int index, int count, bool transpose, const double* value);
-		static void drawArrays(GLenum mode, GLint first, GLsizei counst);
+		static void drawArrays_lf(GLenum mode, GLint first, GLsizei countst);
 		static void disableRenderState(unsigned state);
 		
 	};

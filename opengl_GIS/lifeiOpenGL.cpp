@@ -258,7 +258,7 @@ namespace CELL
 		glUniformMatrix4fv(index, count, (GLboolean)transpose, vParam);
 	}
 
-	void lifeiOpenGL::drawArrays(GLenum mode, GLint first, GLsizei count)
+	void lifeiOpenGL::drawArrays_lf(GLenum mode, GLint first, GLsizei count)
 	{
 		glDrawArrays(mode, first, count);
 	}

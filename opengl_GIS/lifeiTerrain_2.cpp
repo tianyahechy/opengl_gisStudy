@@ -185,7 +185,7 @@ namespace CELL
 			context._device->setUniform1i(prg._texture, 0);
 			context._device->attributePointer(prg._position, 3, GL_FLOAT, GL_FALSE, sizeof(P3U3), &_vertexVector[0].x);
 			context._device->attributePointer(prg._uv, 3, GL_FLOAT, GL_FALSE, sizeof(P3U3), &_vertexVector[0].u);
-			context._device->drawArrays(GL_TRIANGLES, 0, _vertexVector.size());
+			context._device->drawArrays_lf(GL_TRIANGLES, 0, _vertexVector.size());
 		}
 		prg.end();
 		
