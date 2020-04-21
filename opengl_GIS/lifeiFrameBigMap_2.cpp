@@ -44,7 +44,7 @@ namespace CELL
 		_context._timePerFrame = _timeStamp.getElapsedSecond();
 		_timeStamp.update();
 		matrix4r matVP = _context._vp.transpose();
-		_context._frustum.loadFrustum(matVP);
+		_context._frustum.loadFrustum_2(matVP);
 
 		if (_context._keyState[VK_UP])
 		{

@@ -19,7 +19,7 @@ namespace CELL
 			FRUSTUM_NEAR	= 5,
 		};
 
-		void loadFrustum(const tmat4x4<T>& mvp)
+		void loadFrustum_2(const tmat4x4<T>& mvp)
 		{
 			const T* dataPtr = mvp.data();
 			_planes[FRUSTUM_LEFT] = Plane<T>(dataPtr[12] - dataPtr[0], dataPtr[13] - dataPtr[1], dataPtr[14] - dataPtr[2], dataPtr[15] - dataPtr[3]);
