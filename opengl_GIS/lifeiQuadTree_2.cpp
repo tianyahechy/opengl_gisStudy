@@ -125,7 +125,7 @@ namespace CELL
 		CELL::real minZ = _aabb._minimum.z;
 		CELL::real maxZ = _aabb._maximum.z;
 
-		bool bIntersect = context._frustum.cubeInFrustum(minX, maxX, minY, maxY, minZ, maxZ);
+		bool bIntersect = context._frustum.cubeInFrustum_2(minX, maxX, minY, maxY, minZ, maxZ);
 		if ( bIntersect)
 		{
 			_flag &= ~FLAG_HAS_CULL;
